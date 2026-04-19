@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-19T16:50:53",
+    "generated_at": "2026-04-19T20:00:58",
     "sprint_id": "S-2026-09",
     "sprint_window": "2026-04-20 a 2026-05-04",
     "version": "v.1",
@@ -60,7 +60,7 @@
       "id": "KR1.3",
       "descricao": "Zero perda de keywords estrategicas top",
       "objetivo": "O1 Migracao",
-      "tasks_ativas": 4,
+      "tasks_ativas": 5,
       "status": "verde"
     },
     {
@@ -81,7 +81,7 @@
       "id": "KR2.3",
       "descricao": "100% entregaveis citando fonte",
       "objetivo": "O2 Conhecimento",
-      "tasks_ativas": 1,
+      "tasks_ativas": 2,
       "status": "verde"
     },
     {
