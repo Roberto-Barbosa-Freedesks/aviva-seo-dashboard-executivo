@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-19T13:56:49",
+    "generated_at": "2026-04-19T16:20:20",
     "sprint_id": "S-2026-09",
     "sprint_window": "2026-04-20 a 2026-05-04",
     "version": "v.1",
@@ -53,14 +53,14 @@
       "id": "KR1.2",
       "descricao": ">= 70% clicks absorvidos aviva vs legados (baseline 7%)",
       "objetivo": "O1 Migracao",
-      "tasks_ativas": 1,
+      "tasks_ativas": 2,
       "status": "verde"
     },
     {
       "id": "KR1.3",
       "descricao": "Zero perda de keywords estrategicas top",
       "objetivo": "O1 Migracao",
-      "tasks_ativas": 3,
+      "tasks_ativas": 4,
       "status": "verde"
     },
     {
@@ -95,8 +95,8 @@
       "id": "KR3.2",
       "descricao": ">= 3 paginas no top 10 SERP em 45d",
       "objetivo": "O3 Conteudo",
-      "tasks_ativas": 0,
-      "status": "amarelo"
+      "tasks_ativas": 1,
+      "status": "verde"
     },
     {
       "id": "KR3.3",
@@ -116,8 +116,8 @@
       "id": "KR4.2",
       "descricao": "Zero entregaveis sem secao Alinhamento de Negocio",
       "objetivo": "O4 Alinhamento",
-      "tasks_ativas": 0,
-      "status": "amarelo"
+      "tasks_ativas": 1,
+      "status": "verde"
     }
   ],
   "sprint_tasks": [
@@ -274,10 +274,5 @@
       }
     ]
   },
-  "alertas": [
-    {
-      "severidade": "amarelo",
-      "texto": "KR3.2 sem tasks ativas no backlog — avaliar criacao de task recorrente."
-    }
-  ]
+  "alertas": []
 }
