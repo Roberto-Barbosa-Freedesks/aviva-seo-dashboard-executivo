@@ -1,0 +1,55 @@
+/* Ivoire Design System — Variaveis CSS */
+/* Gerado por design_system_extractor.py — nao editar manualmente. */
+/* Source: /Users/macbookair/Documents/VibeCoding/Aviva-seo/design-system/TEMPLATE-Deck-Institucional-Ivoire.pptx */
+/* Generated at: 2026-04-19T12:55:47 */
+
+:root {
+  --ivoire-black: #282828;
+  --ivoire-yellow: #FFFF02;
+  --ivoire-white: #FFFFFF;
+  --ivoire-gray-dark: #595959;
+  --ivoire-gray-medium: #999999;
+  --ivoire-gray-light: #B7B7B7;
+  --ivoire-gray-bg: #D9D9D9;
+  --ivoire-gray-alt-row: #F5F5F5;
+  --ivoire-table-header: #3E3E3E;
+  --ivoire-priority-high: #C8102E;
+  --ivoire-priority-mid: #FFB400;
+  --ivoire-priority-low: #00873C;
+
+  /* Typography */
+  --ivoire-font-title: "Montserrat", Arial, sans-serif;
+  --ivoire-font-title-medium: "Montserrat Medium", Arial, sans-serif;
+  --ivoire-font-body: "Arvo", Georgia, serif;
+  --ivoire-font-impact: "Bebas Neue", Impact, sans-serif;
+  --ivoire-font-accent: "Major Mono Display", monospace;
+
+  /* Grid */
+  --ivoire-slide-width: 25.4cm;
+  --ivoire-slide-height: 14.29cm;
+  --ivoire-margin-x: 0.5cm;
+  --ivoire-col-count: 4;
+  --ivoire-col-width: 5.2cm;
+  --ivoire-col-gutter: 1.0cm;
+
+  /* Semantic tokens (for dashboard) */
+  --ivoire-color-text: var(--ivoire-black);
+  --ivoire-color-text-muted: var(--ivoire-gray-dark);
+  --ivoire-color-bg: var(--ivoire-white);
+  --ivoire-color-bg-inverse: var(--ivoire-black);
+  --ivoire-color-accent: var(--ivoire-yellow);
+  --ivoire-color-border: var(--ivoire-gray-light);
+  --ivoire-color-row-alt: var(--ivoire-gray-alt-row);
+  --ivoire-color-status-high: var(--ivoire-priority-high);
+  --ivoire-color-status-mid: var(--ivoire-priority-mid);
+  --ivoire-color-status-low: var(--ivoire-priority-low);
+}
+
+/* Ready-to-use utility classes (dashboard components) */
+.ivoire-heading   { font-family: var(--ivoire-font-title); color: var(--ivoire-color-text); font-weight: 700; }
+.ivoire-subheading{ font-family: var(--ivoire-font-title-medium); color: var(--ivoire-color-text-muted); }
+.ivoire-body      { font-family: var(--ivoire-font-body); color: var(--ivoire-color-text); }
+.ivoire-accent    { background: var(--ivoire-color-accent); color: var(--ivoire-black); padding: 0 .25em; }
+.ivoire-kpi       { font-family: var(--ivoire-font-impact); font-size: 3rem; color: var(--ivoire-black); }
+.ivoire-table thead th { background: var(--ivoire-black); color: var(--ivoire-white); font-family: var(--ivoire-font-title); }
+.ivoire-table tbody tr:nth-child(even) { background: var(--ivoire-color-row-alt); }

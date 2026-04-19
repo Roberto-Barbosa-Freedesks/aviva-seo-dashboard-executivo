@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "generated_at": "2026-04-19T13:56:49",
+    "sprint_id": "S-2026-09",
+    "sprint_window": "2026-04-20 a 2026-05-04",
+    "version": "v.1",
+    "source": "aviva-project-orchestrator::generate_control_artifacts.py"
+  },
+  "north_star": {
+    "label": "% clicks orgânicos absorvidos por aviva.com.br",
+    "current_pct": 7,
+    "baseline_date": "2026-04-17",
+    "target_pct": 70,
+    "target_date": "2026-06-30",
+    "delta_to_target_pts": 63,
+    "trend": "baseline_set"
+  },
+  "kpis_gsc": [
+    {
+      "label": "Cliques orgânicos",
+      "value": "—",
+      "delta": "aguardando rodada weekly",
+      "direction": "flat"
+    },
+    {
+      "label": "Impressões",
+      "value": "—",
+      "delta": "aguardando rodada weekly",
+      "direction": "flat"
+    },
+    {
+      "label": "CTR médio",
+      "value": "—",
+      "delta": "aguardando rodada weekly",
+      "direction": "flat"
+    },
+    {
+      "label": "Posição média",
+      "value": "—",
+      "delta": "aguardando rodada weekly",
+      "direction": "flat"
+    }
+  ],
+  "krs": [
+    {
+      "id": "KR1.1",
+      "descricao": "100% 301 legados sem broken redirects",
+      "objetivo": "O1 Migracao",
+      "tasks_ativas": 1,
+      "status": "verde"
+    },
+    {
+      "id": "KR1.2",
+      "descricao": ">= 70% clicks absorvidos aviva vs legados (baseline 7%)",
+      "objetivo": "O1 Migracao",
+      "tasks_ativas": 1,
+      "status": "verde"
+    },
+    {
+      "id": "KR1.3",
+      "descricao": "Zero perda de keywords estrategicas top",
+      "objetivo": "O1 Migracao",
+      "tasks_ativas": 3,
+      "status": "verde"
+    },
+    {
+      "id": "KR2.1",
+      "descricao": "Guardian com 19 references + preflight ERRO se stale",
+      "objetivo": "O2 Conhecimento",
+      "tasks_ativas": 2,
+      "status": "verde"
+    },
+    {
+      "id": "KR2.2",
+      "descricao": "Fact-check matrix >= 100 afirmacoes (baseline 87)",
+      "objetivo": "O2 Conhecimento",
+      "tasks_ativas": 2,
+      "status": "verde"
+    },
+    {
+      "id": "KR2.3",
+      "descricao": "100% entregaveis citando fonte",
+      "objetivo": "O2 Conhecimento",
+      "tasks_ativas": 1,
+      "status": "verde"
+    },
+    {
+      "id": "KR3.1",
+      "descricao": "10 paginas programaticas publicadas ate 2026-06-30",
+      "objetivo": "O3 Conteudo",
+      "tasks_ativas": 7,
+      "status": "verde"
+    },
+    {
+      "id": "KR3.2",
+      "descricao": ">= 3 paginas no top 10 SERP em 45d",
+      "objetivo": "O3 Conteudo",
+      "tasks_ativas": 0,
+      "status": "amarelo"
+    },
+    {
+      "id": "KR3.3",
+      "descricao": "JSON-LD validado em 100% paginas novas",
+      "objetivo": "O3 Conteudo",
+      "tasks_ativas": 6,
+      "status": "verde"
+    },
+    {
+      "id": "KR4.1",
+      "descricao": "3 reunioes mensais Aviva x Ivoire no trimestre",
+      "objetivo": "O4 Alinhamento",
+      "tasks_ativas": 1,
+      "status": "verde"
+    },
+    {
+      "id": "KR4.2",
+      "descricao": "Zero entregaveis sem secao Alinhamento de Negocio",
+      "objetivo": "O4 Alinhamento",
+      "tasks_ativas": 0,
+      "status": "amarelo"
+    }
+  ],
+  "sprint_tasks": [
+    {
+      "id": "BL-20260418-001",
+      "titulo": "Auditar 301 dos 2 dominios legados e corrigir broken redirects",
+      "kr": "KR1.1",
+      "sev": 5,
+      "responsavel": "dev tecnico Aviva + analista Ivoire",
+      "sla": "2026-05-04",
+      "status": "aguardando cliente"
+    },
+    {
+      "id": "BL-20260418-002",
+      "titulo": "Publicar pagina /rio-quente/hotel-cristal/ com schema Hotel",
+      "kr": "KR3.1, KR3.3",
+      "sev": 4,
+      "responsavel": "redator Ivoire",
+      "sla": "2026-04-28",
+      "status": "em execução"
+    },
+    {
+      "id": "BL-20260418-003",
+      "titulo": "Publicar pagina /rio-quente/hotel-luupi/ com schema Hotel",
+      "kr": "KR3.1, KR3.3",
+      "sev": 4,
+      "responsavel": "redator Ivoire",
+      "sla": "2026-04-30",
+      "status": "em execução"
+    },
+    {
+      "id": "BL-20260418-004",
+      "titulo": "Publicar pagina /rio-quente/hotel-turismo/ com schema Hotel",
+      "kr": "KR3.1, KR3.3",
+      "sev": 4,
+      "responsavel": "redator Ivoire",
+      "sla": "2026-05-02",
+      "status": "em execução"
+    },
+    {
+      "id": "BL-20260418-005",
+      "titulo": "Publicar pagina /rio-quente/hotel-giardino/ com schema Hotel",
+      "kr": "KR3.1, KR3.3",
+      "sev": 4,
+      "responsavel": "redator Ivoire",
+      "sla": "2026-05-02",
+      "status": "em execução"
+    },
+    {
+      "id": "BL-20260418-006",
+      "titulo": "[stretch] /rio-quente/hotel-pousada/ com schema Hotel",
+      "kr": "KR3.1, KR3.3",
+      "sev": 3,
+      "responsavel": "redator Ivoire",
+      "sla": "2026-05-04",
+      "status": "stretch"
+    },
+    {
+      "id": "BL-20260418-007",
+      "titulo": "[stretch] /rio-quente/eco-chales/ com schema Hotel",
+      "kr": "KR3.1, KR3.3",
+      "sev": 3,
+      "responsavel": "redator Ivoire",
+      "sla": "2026-05-04",
+      "status": "stretch"
+    },
+    {
+      "id": "BL-20260418-008",
+      "titulo": "Monitorar absorcao de clicks aviva.com.br via GSC (KR1.2)",
+      "kr": "KR1.2",
+      "sev": 4,
+      "responsavel": "analista dados Ivoire (weekly)",
+      "sla": "2026-04-27",
+      "status": "em execução"
+    },
+    {
+      "id": "BL-20260418-015",
+      "titulo": "Monitorar keywords estrategicas top (rio quente resorts + costa do sauipe)",
+      "kr": "KR1.3",
+      "sev": 4,
+      "responsavel": "analista Ivoire (weekly)",
+      "sla": "2026-05-04",
+      "status": "em execução"
+    },
+    {
+      "id": "BL-20260418-009",
+      "titulo": "Crawl completo de concorrentes (Beach Park, Salinas, Thermas, Club Med, Transamerica)",
+      "kr": "KR1.3",
+      "sev": 3,
+      "responsavel": "analista dados Ivoire",
+      "sla": "2026-05-04",
+      "status": "em execução"
+    },
+    {
+      "id": "BL-20260418-010",
+      "titulo": "Resolver 6 pendencias de nomenclatura Aviva (escalado)",
+      "kr": "KR2.2",
+      "sev": 4,
+      "responsavel": "Aviva + Beto (followup)",
+      "sla": "2026-04-25",
+      "status": "aguardando cliente"
+    },
+    {
+      "id": "BL-20260418-011",
+      "titulo": "Validar rodada semanal do engine em 2026-04-20",
+      "kr": "KR2.1, KR2.3",
+      "sev": 4,
+      "responsavel": "orchestrator (auto) + Beto",
+      "sla": "2026-04-20",
+      "status": "em execução"
+    },
+    {
+      "id": "BL-20260418-017",
+      "titulo": "Briefing Criacao: specs visuais hero para paginas RQ",
+      "kr": "KR3.1",
+      "sev": 3,
+      "responsavel": "orchestrator + Criacao Aviva",
+      "sla": "2026-04-25",
+      "status": "aguardando cliente"
+    },
+    {
+      "id": "BL-20260418-016",
+      "titulo": "Briefing Imprensa: oportunidades Arraio Costa do Sauipe 2026",
+      "kr": "KR1.3",
+      "sev": 2,
+      "responsavel": "orchestrator + Imprensa",
+      "sla": "2026-05-01",
+      "status": "em execução"
+    },
+    {
+      "id": "BL-20260418-014",
+      "titulo": "Preparar reuniao mensal Aviva x Ivoire (deck consolidado)",
+      "kr": "KR4.1",
+      "sev": 3,
+      "responsavel": "Beto + orchestrator",
+      "sla": "2026-04-30",
+      "status": "em execução"
+    }
+  ],
+  "migracao": {
+    "baseline_date": "2026-04-17",
+    "aviva_share_pct": 7,
+    "legacy_share_pct": 93,
+    "redirects_total": 160,
+    "broken_redirects": 2,
+    "keywords_strategic": [
+      {
+        "kw": "rio quente resorts",
+        "volume_anual": 89000
+      },
+      {
+        "kw": "costa do sauipe",
+        "volume_anual": 71000
+      }
+    ]
+  },
+  "alertas": [
+    {
+      "severidade": "amarelo",
+      "texto": "KR3.2 sem tasks ativas no backlog — avaliar criacao de task recorrente."
+    }
+  ]
+}

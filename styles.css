@@ -1,0 +1,384 @@
+/* Dashboard Aviva SEO/GEO — Design System Ivoire aplicado
+   Consome ivoire-theme.css (variaveis) e estende com componentes canonicos.
+   Guia: ~/.claude/skills/ivoire-document-factory/references/dashboard-design-guidelines.md
+*/
+
+@import url("ivoire-theme.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Arvo:wght@400;700&family=Bebas+Neue&display=swap");
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: var(--ivoire-font-body);
+  color: var(--ivoire-color-text);
+  background: var(--ivoire-white);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================================ Layout ================================ */
+.ivoire-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.ivoire-main {
+  flex: 1;
+  padding: 2rem 0 4rem;
+}
+
+.ivoire-section {
+  margin-bottom: 3rem;
+}
+
+.ivoire-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.ivoire-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .ivoire-grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .ivoire-grid-4, .ivoire-grid-2 { grid-template-columns: 1fr; }
+  .ivoire-container { padding: 0 1rem; }
+}
+
+/* ================================ Tipografia ================================ */
+h1, h2, h3, h4 {
+  font-family: var(--ivoire-font-title);
+  color: var(--ivoire-color-text);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+h2 { font-size: 1.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--ivoire-color-border); }
+h3 { font-size: 1.125rem; color: var(--ivoire-color-text-muted); margin-bottom: 0.75rem; }
+h4 { font-size: 1rem; }
+
+.ivoire-kicker {
+  font-family: var(--ivoire-font-title);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ivoire-color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.ivoire-accent {
+  background: var(--ivoire-color-accent);
+  color: var(--ivoire-black);
+  padding: 0 .25em;
+  font-weight: 700;
+}
+
+/* ================================ Header ================================ */
+.ivoire-header {
+  background: var(--ivoire-black);
+  color: var(--ivoire-white);
+  padding: 1rem 0;
+  border-bottom: 3px solid var(--ivoire-yellow);
+}
+
+.ivoire-header .ivoire-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ivoire-header img {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.ivoire-header .logos {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ivoire-header .title {
+  font-family: var(--ivoire-font-title);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ivoire-white);
+  opacity: 0.9;
+}
+
+/* ================================ North Star card ================================ */
+.ivoire-northstar {
+  background: var(--ivoire-black);
+  color: var(--ivoire-white);
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  border-left: 6px solid var(--ivoire-yellow);
+}
+.ivoire-northstar .label {
+  font-family: var(--ivoire-font-title);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ivoire-yellow);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.ivoire-northstar .name {
+  font-family: var(--ivoire-font-title);
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+.ivoire-northstar .progress-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: baseline;
+  margin-top: 1rem;
+}
+.ivoire-northstar .current {
+  font-family: var(--ivoire-font-impact);
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--ivoire-yellow);
+}
+.ivoire-northstar .target {
+  font-family: var(--ivoire-font-body);
+  font-size: 1rem;
+  color: var(--ivoire-gray-light);
+}
+.ivoire-northstar .target strong { color: var(--ivoire-yellow); }
+.ivoire-northstar .bar {
+  height: 6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+.ivoire-northstar .bar > span {
+  display: block;
+  height: 100%;
+  background: var(--ivoire-yellow);
+}
+.ivoire-northstar .baseline {
+  font-size: 0.75rem;
+  color: var(--ivoire-gray-light);
+  margin-top: 0.75rem;
+}
+
+/* ================================ KPI card ================================ */
+.ivoire-kpi-card {
+  background: var(--ivoire-white);
+  border: 1px solid var(--ivoire-color-border);
+  border-left: 4px solid var(--ivoire-yellow);
+  padding: 1.5rem;
+}
+.ivoire-kpi-card .label {
+  font-family: var(--ivoire-font-body);
+  font-size: 0.875rem;
+  color: var(--ivoire-color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+.ivoire-kpi-card .value {
+  font-family: var(--ivoire-font-impact);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--ivoire-color-text);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.ivoire-kpi-card .delta {
+  font-family: var(--ivoire-font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.ivoire-kpi-card .delta.up { color: var(--ivoire-priority-low); }
+.ivoire-kpi-card .delta.down { color: var(--ivoire-priority-high); }
+.ivoire-kpi-card .delta.flat { color: var(--ivoire-color-text-muted); }
+
+/* ================================ Table ================================ */
+.ivoire-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--ivoire-font-body);
+  font-size: 0.9375rem;
+  background: var(--ivoire-white);
+}
+.ivoire-table thead th {
+  background: var(--ivoire-black);
+  color: var(--ivoire-white);
+  font-family: var(--ivoire-font-title);
+  font-weight: 700;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ivoire-table tbody tr:nth-child(even) { background: var(--ivoire-color-row-alt); }
+.ivoire-table tbody tr:hover { background: var(--ivoire-gray-bg); }
+.ivoire-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ivoire-color-border);
+  vertical-align: top;
+}
+.ivoire-table .kr-id {
+  font-family: var(--ivoire-font-title);
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+/* Status badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.125rem 0.6rem;
+  border-radius: 2px;
+  color: var(--ivoire-white);
+  font-family: var(--ivoire-font-title);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.9; }
+.badge.verde { background: var(--ivoire-priority-low); }
+.badge.amarelo { background: var(--ivoire-priority-mid); color: var(--ivoire-black); }
+.badge.vermelho { background: var(--ivoire-priority-high); }
+
+.sev-5 { color: var(--ivoire-priority-high); font-weight: 700; }
+.sev-4 { color: var(--ivoire-priority-mid); font-weight: 700; }
+.sev-3 { color: var(--ivoire-color-text-muted); }
+
+/* ================================ Alertas ================================ */
+.ivoire-alerts {
+  border: 1px solid var(--ivoire-color-border);
+  border-left: 4px solid var(--ivoire-priority-mid);
+  padding: 1rem 1.25rem;
+  background: #FFF9E6;
+}
+.ivoire-alerts h3 {
+  color: var(--ivoire-black);
+  margin-bottom: 0.75rem;
+}
+.ivoire-alerts ul { list-style: none; }
+.ivoire-alerts li {
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-bottom: 1px dashed var(--ivoire-color-border);
+}
+.ivoire-alerts li:last-child { border-bottom: none; }
+.ivoire-alerts li::before {
+  content: "!";
+  font-family: var(--ivoire-font-title);
+  font-weight: 700;
+  color: var(--ivoire-priority-mid);
+  background: var(--ivoire-black);
+  width: 1.25rem; height: 1.25rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* ================================ Divider ================================ */
+.ivoire-divider {
+  border: none;
+  border-top: 1px solid var(--ivoire-black);
+  margin: 2.5rem 0;
+}
+
+/* ================================ Footer ================================ */
+.ivoire-footer {
+  background: var(--ivoire-black);
+  color: var(--ivoire-gray-light);
+  padding: 1.5rem 0;
+  margin-top: auto;
+  border-top: 3px solid var(--ivoire-yellow);
+}
+.ivoire-footer .ivoire-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+.ivoire-footer .brand {
+  font-family: var(--ivoire-font-title);
+  font-weight: 700;
+  color: var(--ivoire-white);
+}
+.ivoire-footer a { color: var(--ivoire-yellow); text-decoration: none; }
+.ivoire-footer a:hover { text-decoration: underline; }
+
+/* ================================ Acessibilidade ================================ */
+*:focus-visible {
+  outline: 3px solid var(--ivoire-yellow);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ================================ Migracao pill ================================ */
+.ivoire-migration {
+  background: var(--ivoire-white);
+  border: 1px solid var(--ivoire-color-border);
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.ivoire-migration .share {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.ivoire-migration .share .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ivoire-color-text-muted);
+  font-family: var(--ivoire-font-title);
+  font-weight: 700;
+}
+.ivoire-migration .share .value {
+  font-family: var(--ivoire-font-impact);
+  font-size: 2.5rem;
+  line-height: 1;
+}
+.ivoire-migration .share.legacy .value { color: var(--ivoire-priority-high); }
+.ivoire-migration .share.aviva .value { color: var(--ivoire-priority-low); }
+.ivoire-migration .note {
+  grid-column: 1 / -1;
+  font-size: 0.875rem;
+  color: var(--ivoire-color-text-muted);
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--ivoire-color-border);
+}
+
+@media (max-width: 640px) {
+  .ivoire-migration { grid-template-columns: 1fr; }
+}

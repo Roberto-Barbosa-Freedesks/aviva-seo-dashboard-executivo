@@ -1,0 +1,464 @@
+{
+  "meta": {
+    "schema_version": "2.0",
+    "generated_at": "2026-04-19T12:55:47",
+    "source_template": "/Users/macbookair/Documents/VibeCoding/Aviva-seo/design-system/TEMPLATE-Deck-Institucional-Ivoire.pptx",
+    "brand": "Ivoire",
+    "project": "Aviva SEO/GEO"
+  },
+  "palette": {
+    "black": {
+      "hex": "#282828",
+      "rgb": [
+        40,
+        40,
+        40
+      ],
+      "uso": "texto principal, backgrounds escuros, linhas"
+    },
+    "yellow": {
+      "hex": "#FFFF02",
+      "rgb": [
+        255,
+        255,
+        2
+      ],
+      "uso": "destaques, acentos, callouts — nunca body"
+    },
+    "white": {
+      "hex": "#FFFFFF",
+      "rgb": [
+        255,
+        255,
+        255
+      ],
+      "uso": "backgrounds, texto sobre escuro"
+    },
+    "grayDark": {
+      "hex": "#595959",
+      "rgb": [
+        89,
+        89,
+        89
+      ],
+      "uso": "texto secundario, subtitulos"
+    },
+    "grayMedium": {
+      "hex": "#999999",
+      "rgb": [
+        153,
+        153,
+        153
+      ],
+      "uso": "legendas, rodape, versao"
+    },
+    "grayLight": {
+      "hex": "#B7B7B7",
+      "rgb": [
+        183,
+        183,
+        183
+      ],
+      "uso": "bordas, separadores"
+    },
+    "grayBg": {
+      "hex": "#D9D9D9",
+      "rgb": [
+        217,
+        217,
+        217
+      ],
+      "uso": "backgrounds de cards, linhas alternadas"
+    },
+    "grayAltRow": {
+      "hex": "#F5F5F5",
+      "rgb": [
+        245,
+        245,
+        245
+      ],
+      "uso": "zebra rows em tabelas"
+    },
+    "tableHeader": {
+      "hex": "#3E3E3E",
+      "rgb": [
+        62,
+        62,
+        62
+      ],
+      "uso": "headers de tabela escuros"
+    },
+    "priorityHigh": {
+      "hex": "#C8102E",
+      "rgb": [
+        200,
+        16,
+        46
+      ],
+      "uso": "prioridade Alta, riscos criticos"
+    },
+    "priorityMid": {
+      "hex": "#FFB400",
+      "rgb": [
+        255,
+        180,
+        0
+      ],
+      "uso": "prioridade Media"
+    },
+    "priorityLow": {
+      "hex": "#00873C",
+      "rgb": [
+        0,
+        135,
+        60
+      ],
+      "uso": "prioridade Baixa, conquistas"
+    }
+  },
+  "typography": {
+    "families": {
+      "title": {
+        "name": "Montserrat",
+        "fallback": "Arial, sans-serif",
+        "uso": "titulos, capas, secoes"
+      },
+      "titleMedium": {
+        "name": "Montserrat Medium",
+        "fallback": "Arial, sans-serif",
+        "uso": "subtitulos, labels"
+      },
+      "body": {
+        "name": "Arvo",
+        "fallback": "Georgia, serif",
+        "uso": "corpo de texto, paragrafos"
+      },
+      "impact": {
+        "name": "Bebas Neue",
+        "fallback": "Impact, sans-serif",
+        "uso": "KPIs, numeros grandes"
+      },
+      "accent": {
+        "name": "Major Mono Display",
+        "fallback": "monospace",
+        "uso": "destaques especiais, caixa alta"
+      }
+    },
+    "scale_pptx": {
+      "coverTitle": {
+        "size_pt": 40,
+        "family": "title",
+        "weight": "bold"
+      },
+      "slideTitle": {
+        "size_pt": 28,
+        "family": "title",
+        "weight": "bold"
+      },
+      "sectionTitle": {
+        "size_pt": 24,
+        "family": "titleMedium",
+        "weight": "medium"
+      },
+      "subtitle": {
+        "size_pt": 20,
+        "family": "body",
+        "weight": "regular"
+      },
+      "body": {
+        "size_pt": 13,
+        "family": "body",
+        "weight": "regular"
+      },
+      "bullet": {
+        "size_pt": 12,
+        "family": "body",
+        "weight": "regular"
+      },
+      "caption": {
+        "size_pt": 10,
+        "family": "body",
+        "weight": "regular"
+      },
+      "kpiNumber": {
+        "size_pt": 48,
+        "family": "impact",
+        "weight": "bold"
+      },
+      "kpiLabel": {
+        "size_pt": 12,
+        "family": "body",
+        "weight": "regular"
+      },
+      "footer": {
+        "size_pt": 9,
+        "family": "body",
+        "weight": "regular"
+      }
+    },
+    "scale_docx": {
+      "docTitle": {
+        "size_pt": 28,
+        "family": "title",
+        "weight": "bold"
+      },
+      "h1": {
+        "size_pt": 20,
+        "family": "title",
+        "weight": "bold"
+      },
+      "h2": {
+        "size_pt": 16,
+        "family": "titleMedium",
+        "weight": "medium"
+      },
+      "h3": {
+        "size_pt": 13,
+        "family": "titleMedium",
+        "weight": "medium"
+      },
+      "body": {
+        "size_pt": 11,
+        "family": "body",
+        "weight": "regular"
+      },
+      "bullet": {
+        "size_pt": 11,
+        "family": "body",
+        "weight": "regular"
+      },
+      "caption": {
+        "size_pt": 9,
+        "family": "body",
+        "weight": "regular"
+      },
+      "headerFooter": {
+        "size_pt": 9,
+        "family": "title",
+        "weight": "regular"
+      },
+      "tableHeader": {
+        "size_pt": 10,
+        "family": "title",
+        "weight": "bold"
+      },
+      "tableBody": {
+        "size_pt": 9,
+        "family": "body",
+        "weight": "regular"
+      }
+    },
+    "scale_xlsx": {
+      "sheetTitle": {
+        "size_pt": 14,
+        "family": "title",
+        "weight": "bold"
+      },
+      "header": {
+        "size_pt": 11,
+        "family": "title",
+        "weight": "bold"
+      },
+      "body": {
+        "size_pt": 10,
+        "family": "body",
+        "weight": "regular"
+      },
+      "caption": {
+        "size_pt": 9,
+        "family": "body",
+        "weight": "regular"
+      }
+    }
+  },
+  "grid": {
+    "slide_16_9": {
+      "width_cm": 25.4,
+      "height_cm": 14.29,
+      "width_emu": 9144000,
+      "height_emu": 5143500
+    },
+    "columns_4": {
+      "n_cols": 4,
+      "col_width_cm": 5.2,
+      "gutter_cm": 1.0
+    },
+    "margins_cm": {
+      "left": 0.5,
+      "right": 0.5,
+      "top_min": 1.4,
+      "top_max": 3.9,
+      "bottom": 0.5
+    },
+    "divider_line": {
+      "top_cm": 6.4,
+      "width_cm": 24.5,
+      "color": "black",
+      "weight_pt": 0.5
+    }
+  },
+  "non_negotiables": {
+    "divider_line_top_cm": 6.4,
+    "version_footer_position": {
+      "left_cm": 17.6,
+      "top_cm": 13.1
+    },
+    "logo_ivoire_position_cover": {
+      "left_cm": 23.5,
+      "top_cm": 13.0,
+      "width_cm": 1.5,
+      "height_cm": 1.1
+    },
+    "version_format": "v.{n} / {Mes} {Ano}",
+    "tagline": "a marketing growth company",
+    "address": "R Bruxelas 188, Sumaré, São Paulo",
+    "website": "www.ivoire.ag",
+    "never_do": [
+      "Amarelo #FFFF02 como cor de texto body (ilegivel sobre branco).",
+      "Inverter Montserrat e Arvo.",
+      "Omitir logo Ivoire em capa ou rodape.",
+      "Textboxes em coordenadas hardcoded quando existe layout no template.",
+      "Mencionar ROI, R$, projecao financeira ou valores monetarios.",
+      "Usar travessao longo em prosa dirigida ao cliente."
+    ]
+  },
+  "assets": {
+    "logo_ivoire": "/Users/macbookair/Documents/VibeCoding/Aviva-seo/design-system/Logotipo-Ivoire.png",
+    "logo_aviva": "/Users/macbookair/Documents/VibeCoding/Aviva-seo/design-system/Logotipo-Aviva.png",
+    "template_pptx": "/Users/macbookair/Documents/VibeCoding/Aviva-seo/design-system/TEMPLATE-Deck-Institucional-Ivoire.pptx"
+  },
+  "template_inspection": {
+    "available": true,
+    "path": "/Users/macbookair/Documents/VibeCoding/Aviva-seo/design-system/TEMPLATE-Deck-Institucional-Ivoire.pptx",
+    "size_emu": {
+      "width": 9144000,
+      "height": 5143500
+    },
+    "size_cm": {
+      "width": 25.4,
+      "height": 14.29
+    },
+    "slide_count": 47,
+    "layout_count": 13,
+    "layouts": [
+      {
+        "index": 0,
+        "name": "TITLE"
+      },
+      {
+        "index": 1,
+        "name": "SECTION_HEADER"
+      },
+      {
+        "index": 2,
+        "name": "TITLE_AND_BODY"
+      },
+      {
+        "index": 3,
+        "name": "TITLE_AND_TWO_COLUMNS"
+      },
+      {
+        "index": 4,
+        "name": "TITLE_ONLY"
+      },
+      {
+        "index": 5,
+        "name": "ONE_COLUMN_TEXT"
+      },
+      {
+        "index": 6,
+        "name": "MAIN_POINT"
+      },
+      {
+        "index": 7,
+        "name": "SECTION_TITLE_AND_DESCRIPTION"
+      },
+      {
+        "index": 8,
+        "name": "CAPTION_ONLY"
+      },
+      {
+        "index": 9,
+        "name": "BIG_NUMBER"
+      },
+      {
+        "index": 10,
+        "name": "BLANK"
+      },
+      {
+        "index": 11,
+        "name": "TITLE_1"
+      },
+      {
+        "index": 12,
+        "name": "TITLE_2"
+      }
+    ],
+    "top_layouts_used": [
+      [
+        "TITLE",
+        43
+      ],
+      [
+        "TITLE_1",
+        3
+      ],
+      [
+        "TITLE_2",
+        1
+      ]
+    ],
+    "top_fonts_observed": [
+      [
+        "Arvo",
+        276
+      ],
+      [
+        "Montserrat Medium",
+        102
+      ],
+      [
+        "Montserrat",
+        49
+      ],
+      [
+        "Bebas Neue",
+        26
+      ],
+      [
+        "Major Mono Display",
+        13
+      ]
+    ],
+    "top_colors_observed": [
+      [
+        "#282828",
+        100
+      ],
+      [
+        "#FFFF02",
+        45
+      ],
+      [
+        "#999999",
+        41
+      ],
+      [
+        "#595959",
+        25
+      ],
+      [
+        "#FFFFFF",
+        11
+      ],
+      [
+        "#B7B7B7",
+        4
+      ],
+      [
+        "#646B6B",
+        3
+      ]
+    ]
+  }
+}

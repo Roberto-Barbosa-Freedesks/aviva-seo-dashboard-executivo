@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aviva SEO/GEO — Dashboard Executivo | Ivoire</title>
+  <meta name="description" content="Dashboard executivo do projeto Aviva SEO/GEO operado pela agência Ivoire. Visão quinzenal da sprint ativa, North Star, KPIs GSC, progresso por KR.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="assets/Logotipo-Ivoire.png">
+</head>
+<body>
+  <header class="ivoire-header" role="banner">
+    <div class="ivoire-container">
+      <div class="logos">
+        <img src="assets/Logotipo-Ivoire.png" alt="Ivoire — a marketing growth company">
+        <span class="title">Aviva SEO/GEO</span>
+      </div>
+      <img src="assets/Logotipo-Aviva.png" alt="Aviva" style="background:var(--ivoire-white); padding:4px 8px; border-radius:2px;">
+    </div>
+  </header>
+
+  <main class="ivoire-main" role="main">
+    <div class="ivoire-container">
+
+      <!-- Sumário meta -->
+      <section class="ivoire-section">
+        <p class="ivoire-kicker">Dashboard executivo · Ivoire x Aviva</p>
+        <h1>Sprint <span id="sprint-id">S-2026-09</span></h1>
+        <p style="color: var(--ivoire-color-text-muted); margin-top: 0.25rem;">
+          Janela <strong id="sprint-window">2026-04-20 a 2026-05-04</strong> ·
+          Atualizado em <strong id="generated-at">2026-04-19T13:20:00</strong> ·
+          <span id="version">v.1</span>
+        </p>
+      </section>
+
+      <!-- North Star -->
+      <section class="ivoire-section" aria-labelledby="h-ns">
+        <h2 id="h-ns">North Star Q2 2026</h2>
+        <div class="ivoire-northstar">
+          <span class="label">Indicador único do trimestre</span>
+          <div class="name" id="ns-label">% clicks orgânicos absorvidos por aviva.com.br vs total</div>
+          <div class="progress-row">
+            <div class="current" id="ns-current">7%</div>
+            <div>
+              <div class="target">Meta <strong id="ns-target">≥ 70%</strong> até <strong id="ns-target-date">2026-06-30</strong></div>
+              <div class="bar"><span id="ns-bar" style="width: 10%"></span></div>
+            </div>
+          </div>
+          <p class="baseline">Baseline <span id="ns-baseline">2026-04-17</span> · Delta para meta: <strong id="ns-delta">63 pts</strong></p>
+        </div>
+      </section>
+
+      <!-- Migração distribution -->
+      <section class="ivoire-section" aria-labelledby="h-mig">
+        <h2 id="h-mig">Migração de domínios</h2>
+        <div class="ivoire-migration">
+          <div class="share aviva">
+            <span class="label">aviva.com.br</span>
+            <span class="value" id="aviva-pct">7%</span>
+            <span style="font-size: 0.875rem; color: var(--ivoire-color-text-muted);">destino da migração</span>
+          </div>
+          <div class="share legacy">
+            <span class="label">Domínios legados</span>
+            <span class="value" id="legacy-pct">93%</span>
+            <span style="font-size: 0.875rem; color: var(--ivoire-color-text-muted);">rioquente.com.br + costadosauipe.com.br</span>
+          </div>
+          <div class="note">
+            <strong id="redirects-total">160</strong> redirects mapeados ·
+            <span class="sev-5"><strong id="broken-redirects">2</strong> broken redirects pendentes</span> ·
+            Keywords estratégicas monitoradas: <strong>rio quente resorts</strong> (89k/ano) + <strong>Costa do Sauipe</strong> (71k/ano)
+          </div>
+        </div>
+      </section>
+
+      <!-- KPIs GSC -->
+      <section class="ivoire-section" aria-labelledby="h-kpi">
+        <h2 id="h-kpi">KPIs de visibilidade (Google Search Console)</h2>
+        <div class="ivoire-grid-4" id="kpi-grid">
+          <!-- populado via JS -->
+        </div>
+      </section>
+
+      <!-- Progresso KRs -->
+      <section class="ivoire-section" aria-labelledby="h-kr">
+        <h2 id="h-kr">Progresso por KR · OKRs Q2 2026</h2>
+        <table class="ivoire-table" aria-describedby="h-kr">
+          <thead>
+            <tr>
+              <th scope="col">KR</th>
+              <th scope="col">Objetivo</th>
+              <th scope="col">Descrição</th>
+              <th scope="col" style="text-align:center;">Tasks ativas</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody id="kr-tbody">
+            <!-- populado via JS -->
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Alertas abertos -->
+      <section class="ivoire-section" aria-labelledby="h-alert">
+        <h2 id="h-alert">Alertas abertos</h2>
+        <div class="ivoire-alerts">
+          <h3>Itens que exigem atenção na sprint atual</h3>
+          <ul id="alerts-list">
+            <!-- populado via JS -->
+          </ul>
+        </div>
+      </section>
+
+      <hr class="ivoire-divider">
+
+      <!-- Tasks comprometidas -->
+      <section class="ivoire-section" aria-labelledby="h-tasks">
+        <h2 id="h-tasks">Tasks comprometidas · Sprint atual</h2>
+        <table class="ivoire-table" aria-describedby="h-tasks">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Título</th>
+              <th scope="col">KR</th>
+              <th scope="col" style="text-align:center;">Sev</th>
+              <th scope="col">Responsável</th>
+              <th scope="col">SLA</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody id="tasks-tbody">
+            <!-- populado via JS -->
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="ivoire-footer" role="contentinfo">
+    <div class="ivoire-container">
+      <div class="brand">Ivoire · a marketing growth company</div>
+      <div>
+        <a href="https://www.ivoire.ag">www.ivoire.ag</a> ·
+        R Bruxelas 188, Sumaré, São Paulo ·
+        Confidencial — Ivoire x Aviva
+      </div>
+    </div>
+  </footer>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
