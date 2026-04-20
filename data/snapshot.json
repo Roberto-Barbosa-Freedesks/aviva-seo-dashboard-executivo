@@ -1,131 +1,468 @@
 {
   "meta": {
-    "generated_at": "2026-04-19T21:50:16",
+    "generated_at": "2026-04-20T20:21:17",
     "sprint_id": "S-2026-09",
     "sprint_window": "2026-04-20 a 2026-05-04",
-    "version": "v.1",
-    "source": "aviva-project-orchestrator::generate_control_artifacts.py"
+    "version": "v.2",
+    "source": "aviva-project-orchestrator::generate_control_artifacts.py",
+    "gsc_window": {
+      "start": "2026-04-11",
+      "end": "2026-04-17"
+    },
+    "gsc_window_prev": {
+      "start": "2026-04-04",
+      "end": "2026-04-10"
+    }
   },
   "north_star": {
     "label": "% clicks orgânicos absorvidos por aviva.com.br",
-    "current_pct": 7,
+    "current_pct": 7.33,
     "baseline_date": "2026-04-17",
+    "baseline_pct": 7,
     "target_pct": 70,
     "target_date": "2026-06-30",
-    "delta_to_target_pts": 63,
-    "trend": "baseline_set"
+    "delta_to_target_pts": 62.67,
+    "trend": "tracking",
+    "timeseries": [
+      {
+        "week_end": "2026-01-30",
+        "aviva_clicks": 0,
+        "rioquente_clicks": 9332,
+        "sauipe_clicks": 6595,
+        "total_clicks": 15927,
+        "aviva_share_pct": 0.0,
+        "legacy_share_pct": 100.0
+      },
+      {
+        "week_end": "2026-02-06",
+        "aviva_clicks": 0,
+        "rioquente_clicks": 6740,
+        "sauipe_clicks": 6419,
+        "total_clicks": 13159,
+        "aviva_share_pct": 0.0,
+        "legacy_share_pct": 100.0
+      },
+      {
+        "week_end": "2026-02-13",
+        "aviva_clicks": 0,
+        "rioquente_clicks": 6263,
+        "sauipe_clicks": 6542,
+        "total_clicks": 12805,
+        "aviva_share_pct": 0.0,
+        "legacy_share_pct": 100.0
+      },
+      {
+        "week_end": "2026-02-20",
+        "aviva_clicks": 0,
+        "rioquente_clicks": 7640,
+        "sauipe_clicks": 7287,
+        "total_clicks": 14927,
+        "aviva_share_pct": 0.0,
+        "legacy_share_pct": 100.0
+      },
+      {
+        "week_end": "2026-02-27",
+        "aviva_clicks": 0,
+        "rioquente_clicks": 7238,
+        "sauipe_clicks": 6558,
+        "total_clicks": 13796,
+        "aviva_share_pct": 0.0,
+        "legacy_share_pct": 100.0
+      },
+      {
+        "week_end": "2026-03-06",
+        "aviva_clicks": 0,
+        "rioquente_clicks": 7973,
+        "sauipe_clicks": 6180,
+        "total_clicks": 14153,
+        "aviva_share_pct": 0.0,
+        "legacy_share_pct": 100.0
+      },
+      {
+        "week_end": "2026-03-13",
+        "aviva_clicks": 0,
+        "rioquente_clicks": 7423,
+        "sauipe_clicks": 6244,
+        "total_clicks": 13667,
+        "aviva_share_pct": 0.0,
+        "legacy_share_pct": 100.0
+      },
+      {
+        "week_end": "2026-03-20",
+        "aviva_clicks": 1166,
+        "rioquente_clicks": 8138,
+        "sauipe_clicks": 5470,
+        "total_clicks": 14774,
+        "aviva_share_pct": 7.89,
+        "legacy_share_pct": 92.11
+      },
+      {
+        "week_end": "2026-03-27",
+        "aviva_clicks": 1175,
+        "rioquente_clicks": 9175,
+        "sauipe_clicks": 6073,
+        "total_clicks": 16423,
+        "aviva_share_pct": 7.15,
+        "legacy_share_pct": 92.85
+      },
+      {
+        "week_end": "2026-04-03",
+        "aviva_clicks": 895,
+        "rioquente_clicks": 8413,
+        "sauipe_clicks": 6125,
+        "total_clicks": 15433,
+        "aviva_share_pct": 5.8,
+        "legacy_share_pct": 94.2
+      },
+      {
+        "week_end": "2026-04-10",
+        "aviva_clicks": 1096,
+        "rioquente_clicks": 8130,
+        "sauipe_clicks": 6029,
+        "total_clicks": 15255,
+        "aviva_share_pct": 7.18,
+        "legacy_share_pct": 92.82
+      },
+      {
+        "week_end": "2026-04-17",
+        "aviva_clicks": 1445,
+        "rioquente_clicks": 11318,
+        "sauipe_clicks": 6939,
+        "total_clicks": 19702,
+        "aviva_share_pct": 7.33,
+        "legacy_share_pct": 92.67
+      }
+    ],
+    "projection": {
+      "avg_weekly_delta_pp": 0.06,
+      "linear_pct_2026_06_30": 7.96,
+      "weeks_to_target_linear": 1044.5
+    },
+    "weeks_to_target": 10.6,
+    "storytelling": {
+      "what_is": "O North Star Q2 2026 mede o percentual de clicks organicos do ecossistema Aviva que ja estao concentrados no dominio canonico aviva.com.br — em oposicao aos dominios legados rioquente.com.br e costadosauipe.com.br. E um indicador unico, derivado do Google Search Console, que resume o sucesso da migracao 301 e da consolidacao editorial no dominio novo.",
+      "why_chosen": [
+        "Captura o efeito-liquido da migracao 301 em uma unica metrica diretamente ligada a KR1.2 dos OKRs Q2 2026.",
+        "Fonte unica e irrefutavel (Google Search Console), evitando discussoes metodologicas com o cliente.",
+        "Sensivel ao trabalho da Ivoire: reflete paginas programaticas publicadas, 301 corrigidos e re-indexacao.",
+        "Simplicidade executiva: um numero que qualquer stakeholder entende em 5 segundos."
+      ],
+      "how_tracked": [
+        "Ingest diario Ahrefs (11h BRT) + rodada semanal do engine (segunda 13h) consolidando 3 properties do GSC.",
+        "Janela 7 dias fechados (lag 3 dias para estabilidade dos dados GSC).",
+        "Guardian fact-check matrix valida a nomenclatura Aviva e a baseline 2026-04-17.",
+        "Dashboard publicado em GH Pages atualizado a cada rodada; series historicas guardadas em snapshots imutaveis /reports/YYYY-MM-DD/.",
+        "Mid-review D8 e close D15 reavaliam o avanco; reuniao mensal Aviva x Ivoire valida a narrativa."
+      ],
+      "recent_advances": [
+        "Baseline capturado em 2026-04-17 via snapshot GSC: aviva.com.br concentrava 7% dos clicks.",
+        "Sprint S-2026-09 aberta em 2026-04-20 com 4 paginas core em /rio-quente/ (Cristal, Luupi, Turismo, Giardino) comprometidas para publicacao ate 2026-05-02.",
+        "Auditoria BL-001 (sev 5) encerra 301 dos dominios legados ate 2026-05-04, removendo broken redirects que sangravam clicks.",
+        "Governanca IVOI operante (sprint kickoff, capacity saudavel, 5 briefings cross-teams emitidos)."
+      ],
+      "next_activities": [
+        "Publicar 4 paginas core /rio-quente/ com schema Hotel (ate 2026-05-02).",
+        "Fechar auditoria 301 dos 2 dominios legados (2026-05-04).",
+        "Task recorrente semanal de monitoramento SERP (KR3.2).",
+        "Reuniao mensal Aviva x Ivoire em 2026-04-30 para validacao executiva (KR4.1).",
+        "Captura de nova baseline mensal em 2026-05-17 para ajuste de trajetoria."
+      ],
+      "risks": [
+        "6 pendencias de nomenclatura Aviva sem resposta bloqueiam fact-check matrix (SLA 2026-04-25).",
+        "Stretch goals BL-006/007 podem nao caber na sprint — decisao no mid-review D8.",
+        "KR3.2 (top 10 SERP) so mede 45 dias apos publicacao, portanto o impacto visivel no North Star so aparece a partir de meados de junho."
+      ]
+    }
   },
   "kpis_gsc": [
     {
       "label": "Cliques orgânicos",
-      "value": "—",
-      "delta": "aguardando rodada weekly",
-      "direction": "flat"
+      "value": "19.702",
+      "delta": "+29.2% WoW",
+      "direction": "up"
     },
     {
       "label": "Impressões",
-      "value": "—",
-      "delta": "aguardando rodada weekly",
-      "direction": "flat"
+      "value": "1.207.524",
+      "delta": "-0.4% WoW",
+      "direction": "down"
     },
     {
       "label": "CTR médio",
-      "value": "—",
-      "delta": "aguardando rodada weekly",
-      "direction": "flat"
+      "value": "1,63%",
+      "delta": "+0.37pp WoW",
+      "direction": "up"
     },
     {
       "label": "Posição média",
-      "value": "—",
-      "delta": "aguardando rodada weekly",
-      "direction": "flat"
+      "value": "6,1",
+      "delta": "+0.2 WoW",
+      "direction": "down"
     }
   ],
+  "gsc_detail": {
+    "consolidated": {
+      "clicks": 19702,
+      "impressions": 1207524,
+      "ctr_pct": 1.63,
+      "avg_position": 6.06,
+      "delta_clicks_pct": 29.2,
+      "delta_impressions_pct": -0.4,
+      "delta_ctr_pp": 0.37,
+      "delta_position": 0.2
+    },
+    "by_property": {
+      "aviva": {
+        "clicks": 1445,
+        "impressions": 27441,
+        "ctr": 0.0527,
+        "avg_position": 5.16,
+        "ctr_pct": 5.27
+      },
+      "rioquente_legacy": {
+        "clicks": 11318,
+        "impressions": 594787,
+        "ctr": 0.019,
+        "avg_position": 6.13,
+        "ctr_pct": 1.9
+      },
+      "sauipe_legacy": {
+        "clicks": 6939,
+        "impressions": 585296,
+        "ctr": 0.0119,
+        "avg_position": 6.04,
+        "ctr_pct": 1.19
+      }
+    },
+    "branded_top5": [
+      {
+        "query": "rio quente resorts",
+        "clicks": 1458,
+        "impressions": 8225,
+        "ctr_pct": 17.73,
+        "position": 1.1
+      },
+      {
+        "query": "costa do sauipe",
+        "clicks": 912,
+        "impressions": 10374,
+        "ctr_pct": 8.79,
+        "position": 1.7
+      },
+      {
+        "query": "hot park",
+        "clicks": 674,
+        "impressions": 10430,
+        "ctr_pct": 6.46,
+        "position": 2.9
+      },
+      {
+        "query": "aviva",
+        "clicks": 596,
+        "impressions": 2139,
+        "ctr_pct": 27.86,
+        "position": 2.0
+      },
+      {
+        "query": "rio quente",
+        "clicks": 460,
+        "impressions": 6571,
+        "ctr_pct": 7.0,
+        "position": 1.5
+      }
+    ],
+    "nonbranded_top5": [
+      {
+        "query": "resort all inclusive bahia",
+        "clicks": 90,
+        "impressions": 1845,
+        "ctr_pct": 4.88,
+        "position": 2.9
+      },
+      {
+        "query": "sauipe terra resort",
+        "clicks": 85,
+        "impressions": 1729,
+        "ctr_pct": 4.92,
+        "position": 2.0
+      },
+      {
+        "query": "sauipe terra resort - all inclusive",
+        "clicks": 84,
+        "impressions": 840,
+        "ctr_pct": 10.0,
+        "position": 1.7
+      },
+      {
+        "query": "sauipe mar premium",
+        "clicks": 78,
+        "impressions": 518,
+        "ctr_pct": 15.06,
+        "position": 1.9
+      },
+      {
+        "query": "sauipe resorts",
+        "clicks": 77,
+        "impressions": 821,
+        "ctr_pct": 9.38,
+        "position": 3.1
+      }
+    ]
+  },
   "krs": [
     {
       "id": "KR1.1",
       "descricao": "100% 301 legados sem broken redirects",
       "objetivo": "O1 Migracao",
       "tasks_ativas": 1,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "Auditoria ativa dos 301 dos 2 dominios legados. BL-001 comprometida (sev 5). Desbloqueia KR1.2."
     },
     {
       "id": "KR1.2",
       "descricao": ">= 70% clicks absorvidos aviva vs legados (baseline 7%)",
       "objetivo": "O1 Migracao",
       "tasks_ativas": 2,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "Baseline 7% aviva vs 93% legados (2026-04-17). Monitoramento semanal via GSC. Meta 70% ate 2026-06-30."
     },
     {
       "id": "KR1.3",
       "descricao": "Zero perda de keywords estrategicas top",
       "objetivo": "O1 Migracao",
       "tasks_ativas": 5,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "Keywords estrategicas top (rio quente resorts 89k/ano, costa do sauipe 71k/ano). Zero perda admitida."
     },
     {
       "id": "KR2.1",
       "descricao": "Guardian com 19 references + preflight ERRO se stale",
       "objetivo": "O2 Conhecimento",
       "tasks_ativas": 2,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "Guardian com 19 references ativas. Preflight aborta se 00 > 7d ou 16 > 14d (ambos frescos)."
     },
     {
       "id": "KR2.2",
       "descricao": "Fact-check matrix >= 100 afirmacoes (baseline 87)",
       "objetivo": "O2 Conhecimento",
       "tasks_ativas": 2,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "87 afirmacoes rastreaveis (baseline 2026-04-18). Meta 100 ate fim do trimestre."
     },
     {
       "id": "KR2.3",
       "descricao": "100% entregaveis citando fonte",
       "objetivo": "O2 Conhecimento",
       "tasks_ativas": 2,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "100% dos entregaveis citam Guardian ou business-context. Auditavel no revisor Ivoire."
     },
     {
       "id": "KR3.1",
       "descricao": "10 paginas programaticas publicadas ate 2026-06-30",
       "objetivo": "O3 Conteudo",
       "tasks_ativas": 7,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "10 paginas ate 2026-06-30. S-2026-09 compromete 4 core + 2 stretch em /rio-quente/."
     },
     {
       "id": "KR3.2",
       "descricao": ">= 3 paginas no top 10 SERP em 45d",
       "objetivo": "O3 Conteudo",
       "tasks_ativas": 1,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "Dependente de KR3.1. Medicao GSC 45d pos publicacao. Task recorrente pendente (roadmap)."
     },
     {
       "id": "KR3.3",
       "descricao": "JSON-LD validado em 100% paginas novas",
       "objetivo": "O3 Conteudo",
       "tasks_ativas": 6,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "JSON-LD Hotel validado por scripts/check_schema_jsonld.py. Automatizado."
     },
     {
       "id": "KR4.1",
       "descricao": "3 reunioes mensais Aviva x Ivoire no trimestre",
       "objetivo": "O4 Alinhamento",
       "tasks_ativas": 1,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "Primeira reuniao mensal Aviva x Ivoire em 2026-04-30. Pauta derivada de 17-memoria-historica."
     },
     {
       "id": "KR4.2",
       "descricao": "Zero entregaveis sem secao Alinhamento de Negocio",
       "objetivo": "O4 Alinhamento",
       "tasks_ativas": 1,
-      "status": "verde"
+      "status": "verde",
+      "narrativa": "Gate do revisor Ivoire — toda entrega com secao interna Alinhamento de Negocio."
     }
   ],
+  "sprint": {
+    "id": "S-2026-09",
+    "start": "2026-04-20",
+    "end": "2026-05-04",
+    "capacity_used_pct": 100,
+    "capacity_rows": [
+      {
+        "papel": "Redator Ivoire (dono: [confirmar com Beto])",
+        "capacity_pct": 100
+      },
+      {
+        "papel": "Dev tecnico cliente Aviva (dono: time Aviva)",
+        "capacity_pct": 100
+      },
+      {
+        "papel": "Analista de dados Ivoire (dono: [confirmar])",
+        "capacity_pct": 100
+      },
+      {
+        "papel": "Revisor Ivoire (Beto)",
+        "capacity_pct": 100
+      }
+    ],
+    "capacity_status": "SAUDAVEL — 100%",
+    "dias_uteis": "9",
+    "briefings_emitidos": 0,
+    "briefings_detail": [],
+    "decisions_count": 40,
+    "decisions_recent": [
+      {
+        "ts": "2026-04-19T20:30:00",
+        "msg": "E2E REAL pos-refactor rev2 concluido com sucesso. Preflight GO 5/5. Phase 1 rc=0 (tecnico+conteudo+offpage DOCX). Phase 2 rc=0 (PPTX 39.4MB + dashboard.html). Bug critico offpage descoberto e corrigido in-flight: _flow_offpage::_load_history agora tem fallback comprehensive loader quando /backlinks/ nao existe (lê /site-explorer/ com 859 backlinks). XLSX executivo regenerado (11 sheets). Control artifacts: 8 sheets com Legenda + Painel Performance novos. GH Pages HTTP 200. 2 briefings cross-teams (criacao hero specs + imprensa Dia das Maes). Audit pos-entrega: 21 tasks, 0 alertas. Warnings nao-bloqueantes: PSI HTTP 400 em 3 URLs aviva.com.br (provavel bot-protection CloudFront), investigar em task futura. Rodada E2E valida pronta para go-live launchd 2026-04-20 13h BRT."
+      },
+      {
+        "ts": "2026-04-19T21:50:19",
+        "msg": "Control artifacts regenerados: control-sprint-S-2026-09.xlsx + control-sprint-S-2026-09.docx + dashboard snapshot + gh pages sync"
+      },
+      {
+        "ts": "2026-04-19T21:50:34",
+        "msg": "Briefing criacao gerado: 2026-04-19-2026-04-19-specs-hero-rq-cs-sprint-s09-v2.md + DOCX via factory"
+      },
+      {
+        "ts": "2026-04-19T21:50:40",
+        "msg": "Briefing imprensa gerado: 2026-04-19-2026-04-19-imprensa-lostlinks-dia-das-maes-v2.md + DOCX via factory"
+      },
+      {
+        "ts": "2026-04-19T21:50:00",
+        "msg": "E2E REAL pos-rev3 executado com sucesso. Preflight GO 5/5. Phase 1 rc=0 (tecnico+conteudo+offpage DOCX, offpage usa comprehensive loader com 859 backlinks). Phase 2 rc=0 (PPTX 39.4MB + dashboard.html + GH push). XLSX Executivo regenerado (11 sheets + Sumario com coluna Status+Progresso%+Responsavel/SLA). 5 CSVs anexos em /reports/2026-04-19/anexos/ (301-audit com regra nginx, outreach-pipeline com emails prontos, meta-desc-duplicates, hreflang, internal-http). Control artifacts regenerados (8 sheets + archive preservado). 2 briefings cross-teams v2 (criacao hero RQ+CS + imprensa Dia das Maes). Audit: 21 tasks / 0 alertas / 11 KRs. PSI: descarte quando todas tentativas falham (nao inclui zero stub). URL GH Pages HTTP 200 confirmado. Rodada E2E valida a rev3 - pronta para go-live launchd segunda 2026-04-20 13h BRT."
+      }
+    ],
+    "next_gate": {
+      "mid_review": "2026-04-27",
+      "close": "2026-05-04"
+    },
+    "ambition": "Mover o North Star Q2 2026 (% clicks aviva.com.br vs legados) da baseline 7% para patamar +10-15pts ate fim da sprint, via auditoria de 301 (KR1.1) + publicacao de 6 paginas programaticas de hoteis RQ (KR3.1, KR3.3) + monitoramento recorrente de KR1.2 e KR1.3."
+  },
   "sprint_tasks": [
     {
       "id": "BL-20260418-001",
       "titulo": "Auditar 301 dos 2 dominios legados e corrigir broken redirects",
       "kr": "KR1.1",
       "sev": 5,
+      "impressoes": "160000",
+      "cluster": "estrategica",
       "responsavel": "dev tecnico Aviva + analista Ivoire",
       "sla": "2026-05-04",
       "status": "aguardando cliente"
@@ -135,6 +472,8 @@
       "titulo": "Publicar pagina /rio-quente/hotel-cristal/ com schema Hotel",
       "kr": "KR3.1, KR3.3",
       "sev": 4,
+      "impressoes": "12000",
+      "cluster": "hub",
       "responsavel": "redator Ivoire",
       "sla": "2026-04-28",
       "status": "em execução"
@@ -144,6 +483,8 @@
       "titulo": "Publicar pagina /rio-quente/hotel-luupi/ com schema Hotel",
       "kr": "KR3.1, KR3.3",
       "sev": 4,
+      "impressoes": "9000",
+      "cluster": "hub",
       "responsavel": "redator Ivoire",
       "sla": "2026-04-30",
       "status": "em execução"
@@ -153,6 +494,8 @@
       "titulo": "Publicar pagina /rio-quente/hotel-turismo/ com schema Hotel",
       "kr": "KR3.1, KR3.3",
       "sev": 4,
+      "impressoes": "7500",
+      "cluster": "hub",
       "responsavel": "redator Ivoire",
       "sla": "2026-05-02",
       "status": "em execução"
@@ -162,6 +505,8 @@
       "titulo": "Publicar pagina /rio-quente/hotel-giardino/ com schema Hotel",
       "kr": "KR3.1, KR3.3",
       "sev": 4,
+      "impressoes": "5200",
+      "cluster": "hub",
       "responsavel": "redator Ivoire",
       "sla": "2026-05-02",
       "status": "em execução"
@@ -171,6 +516,8 @@
       "titulo": "[stretch] /rio-quente/hotel-pousada/ com schema Hotel",
       "kr": "KR3.1, KR3.3",
       "sev": 3,
+      "impressoes": "4100",
+      "cluster": "hub",
       "responsavel": "redator Ivoire",
       "sla": "2026-05-04",
       "status": "stretch"
@@ -180,6 +527,8 @@
       "titulo": "[stretch] /rio-quente/eco-chales/ com schema Hotel",
       "kr": "KR3.1, KR3.3",
       "sev": 3,
+      "impressoes": "2800",
+      "cluster": "hub",
       "responsavel": "redator Ivoire",
       "sla": "2026-05-04",
       "status": "stretch"
@@ -189,6 +538,8 @@
       "titulo": "Monitorar absorcao de clicks aviva.com.br via GSC (KR1.2)",
       "kr": "KR1.2",
       "sev": 4,
+      "impressoes": "0",
+      "cluster": "estrategica",
       "responsavel": "analista dados Ivoire (weekly)",
       "sla": "2026-04-27",
       "status": "em execução"
@@ -198,6 +549,8 @@
       "titulo": "Monitorar keywords estrategicas top (rio quente resorts + costa do sauipe)",
       "kr": "KR1.3",
       "sev": 4,
+      "impressoes": "13300",
+      "cluster": "estrategica",
       "responsavel": "analista Ivoire (weekly)",
       "sla": "2026-05-04",
       "status": "em execução"
@@ -207,6 +560,8 @@
       "titulo": "Crawl completo de concorrentes (Beach Park, Salinas, Thermas, Club Med, Transamerica)",
       "kr": "KR1.3",
       "sev": 3,
+      "impressoes": "0",
+      "cluster": "estrategica",
       "responsavel": "analista dados Ivoire",
       "sla": "2026-05-04",
       "status": "em execução"
@@ -216,6 +571,8 @@
       "titulo": "Resolver 6 pendencias de nomenclatura Aviva (escalado)",
       "kr": "KR2.2",
       "sev": 4,
+      "impressoes": "0",
+      "cluster": "estrategica",
       "responsavel": "Aviva + Beto (followup)",
       "sla": "2026-04-25",
       "status": "aguardando cliente"
@@ -225,6 +582,8 @@
       "titulo": "Validar rodada semanal do engine em 2026-04-20",
       "kr": "KR2.1, KR2.3",
       "sev": 4,
+      "impressoes": "0",
+      "cluster": "outra",
       "responsavel": "orchestrator (auto) + Beto",
       "sla": "2026-04-20",
       "status": "em execução"
@@ -234,6 +593,8 @@
       "titulo": "Briefing Criacao: specs visuais hero para paginas RQ",
       "kr": "KR3.1",
       "sev": 3,
+      "impressoes": "0",
+      "cluster": "hub",
       "responsavel": "orchestrator + Criacao Aviva",
       "sla": "2026-04-25",
       "status": "aguardando cliente"
@@ -243,6 +604,8 @@
       "titulo": "Briefing Imprensa: oportunidades Arraio Costa do Sauipe 2026",
       "kr": "KR1.3",
       "sev": 2,
+      "impressoes": "2100",
+      "cluster": "estrategica",
       "responsavel": "orchestrator + Imprensa",
       "sla": "2026-05-01",
       "status": "em execução"
@@ -252,6 +615,8 @@
       "titulo": "Preparar reuniao mensal Aviva x Ivoire (deck consolidado)",
       "kr": "KR4.1",
       "sev": 3,
+      "impressoes": "0",
+      "cluster": "outra",
       "responsavel": "Beto + orchestrator",
       "sla": "2026-04-30",
       "status": "em execução"
@@ -259,20 +624,242 @@
   ],
   "migracao": {
     "baseline_date": "2026-04-17",
-    "aviva_share_pct": 7,
-    "legacy_share_pct": 93,
+    "aviva_share_pct": 7.33,
+    "legacy_share_pct": 92.67,
     "redirects_total": 160,
     "broken_redirects": 2,
+    "redirects_status": [
+      {
+        "status": "200",
+        "count": 142
+      },
+      {
+        "status": "301",
+        "count": 16
+      },
+      {
+        "status": "404",
+        "count": 2
+      },
+      {
+        "status": "5xx",
+        "count": 0
+      }
+    ],
+    "recent_incidents": [
+      {
+        "date": "2026-04-18",
+        "desc": "2 broken redirects identificados BL-001",
+        "status": "em correcao"
+      },
+      {
+        "date": "2026-04-19",
+        "desc": "Misconfig /sustentabilidade retorna Clube de Ferias",
+        "status": "escalado Aviva"
+      }
+    ],
     "keywords_strategic": [
       {
         "kw": "rio quente resorts",
-        "volume_anual": 89000
+        "volume_anual": 89000,
+        "property": "sc-domain:aviva.com.br",
+        "status_monitor": "ativo"
       },
       {
         "kw": "costa do sauipe",
-        "volume_anual": 71000
+        "volume_anual": 71000,
+        "property": "sc-domain:aviva.com.br",
+        "status_monitor": "ativo"
       }
     ]
   },
-  "alertas": []
+  "conteudo": {
+    "pipeline": [
+      {
+        "stage": "Briefings",
+        "count": 2
+      },
+      {
+        "stage": "Drafts",
+        "count": 4
+      },
+      {
+        "stage": "Publicados",
+        "count": 0
+      },
+      {
+        "stage": "Monitoring",
+        "count": 2
+      }
+    ],
+    "published_last_week": 0,
+    "kw_gaps_top": [
+      {
+        "kw": "resort all inclusive bahia",
+        "impressions_week": 1845,
+        "position": 2.9
+      },
+      {
+        "kw": "sauipe terra resort",
+        "impressions_week": 1729,
+        "position": 2.0
+      },
+      {
+        "kw": "sauipe resorts",
+        "impressions_week": 821,
+        "position": 3.1
+      },
+      {
+        "kw": "resort em rio quente",
+        "impressions_week": null,
+        "position": null
+      },
+      {
+        "kw": "combo rio quente resorts + hot park",
+        "impressions_week": null,
+        "position": null
+      }
+    ],
+    "velocity_goal": {
+      "target_per_sprint": 4,
+      "target_quarter": 10,
+      "published_quarter": 0,
+      "sla_quarter": "2026-06-30"
+    }
+  },
+  "offpage": {
+    "backlinks_total": 0,
+    "refdomains_total": 0,
+    "dr_aviva": null,
+    "dr_rioquente": null,
+    "dr_sauipe": null,
+    "toxic_risk_count": 0,
+    "new_7d": 0,
+    "lost_7d": 0,
+    "top_linking_domains": []
+  },
+  "tecnico": {
+    "lcp_p75": null,
+    "inp_p75": null,
+    "cls_p75": null,
+    "samples": 0,
+    "source_date": "2026-04-18",
+    "score_avg": null
+  },
+  "competidores": [
+    {
+      "name": "Beach Park",
+      "domain": "beachpark.com.br",
+      "share_of_voice_note": "Mercado nordeste premium",
+      "dr_diff_note": "A aprofundar via crawler_comparator",
+      "status": "monitorado"
+    },
+    {
+      "name": "Salinas",
+      "domain": "salinas.com.br",
+      "share_of_voice_note": "Substituto natural Costa do Sauipe em ocean all-inclusive",
+      "dr_diff_note": "Gap branded",
+      "status": "monitorado"
+    },
+    {
+      "name": "Thermas Hotel Resort",
+      "domain": "thermashotelresort.com.br",
+      "share_of_voice_note": "Substituto direto Rio Quente (termal)",
+      "dr_diff_note": "Gap termal",
+      "status": "prioridade alta"
+    },
+    {
+      "name": "Club Med (Brasil)",
+      "domain": "clubmed.com.br",
+      "share_of_voice_note": "Premium all-inclusive nacional",
+      "dr_diff_note": "DR >75",
+      "status": "monitorado"
+    },
+    {
+      "name": "Transamerica Resort Comandatuba",
+      "domain": "transamerica.com.br",
+      "share_of_voice_note": "Premium BA isolado",
+      "dr_diff_note": "—",
+      "status": "monitorado"
+    }
+  ],
+  "calendario": [
+    {
+      "date": "2026-04-20",
+      "event": "Abertura sprint S-2026-09",
+      "type": "sprint",
+      "priority": "alta"
+    },
+    {
+      "date": "2026-04-25",
+      "event": "Pendencias Aviva (6 nomenclaturas + 5 regras fisicas Hot Park)",
+      "type": "dependencia",
+      "priority": "alta"
+    },
+    {
+      "date": "2026-04-27",
+      "event": "Mid-review D8 S-2026-09",
+      "type": "gate",
+      "priority": "alta"
+    },
+    {
+      "date": "2026-04-28",
+      "event": "Publicacao /rio-quente/hotel-cristal/",
+      "type": "entrega",
+      "priority": "alta"
+    },
+    {
+      "date": "2026-04-30",
+      "event": "Reuniao mensal Aviva x Ivoire (KR4.1)",
+      "type": "reuniao",
+      "priority": "alta"
+    },
+    {
+      "date": "2026-04-30",
+      "event": "Publicacao /rio-quente/hotel-luupi/",
+      "type": "entrega",
+      "priority": "media"
+    },
+    {
+      "date": "2026-05-02",
+      "event": "Publicacao /rio-quente/hotel-turismo/ + /hotel-giardino/",
+      "type": "entrega",
+      "priority": "alta"
+    },
+    {
+      "date": "2026-05-04",
+      "event": "Close sprint S-2026-09",
+      "type": "sprint",
+      "priority": "alta"
+    },
+    {
+      "date": "2026-05-04",
+      "event": "Close sprint + fim auditoria 301",
+      "type": "gate",
+      "priority": "alta"
+    },
+    {
+      "date": "2026-06-30",
+      "event": "Target date KR1.2 — North Star >= 70%",
+      "type": "marco",
+      "priority": "critica"
+    }
+  ],
+  "alertas": [],
+  "annotations_index": {},
+  "fontes": {
+    "gsc_properties": [
+      "sc-domain:aviva.com.br",
+      "sc-domain:rioquente.com.br",
+      "sc-domain:costadosauipe.com.br"
+    ],
+    "ga4_property_id": "G-2TRQR6M1C9",
+    "ahrefs_backlinks_csv": "/ahrefs-reports/backlinks/aviva.com.br-backlinks-subdomains.csv",
+    "hierarchy": [
+      "GSC",
+      "GA4",
+      "Ahrefs",
+      "Crawler proprio"
+    ]
+  }
 }

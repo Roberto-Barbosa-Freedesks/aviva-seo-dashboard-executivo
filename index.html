@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aviva SEO/GEO — Dashboard Executivo | Ivoire</title>
-  <meta name="description" content="Dashboard executivo do projeto Aviva SEO/GEO operado pela agência Ivoire. Visão quinzenal da sprint ativa, North Star, KPIs GSC, progresso por KR.">
+  <meta name="description" content="Mesa operacional, de performance e executiva do projeto Aviva SEO/GEO operado pela agência Ivoire. GSC ao vivo, North Star, sprint e OKRs Q2 2026.">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/png" href="assets/Logotipo-Ivoire.png">
 </head>
@@ -13,125 +13,431 @@
     <div class="ivoire-container">
       <div class="logos">
         <img src="assets/Logotipo-Ivoire.png" alt="Ivoire — a marketing growth company">
-        <span class="title">Aviva SEO/GEO</span>
+        <span class="title">Aviva SEO/GEO · Dashboard Executivo</span>
       </div>
-      <img src="assets/Logotipo-Aviva.png" alt="Aviva" style="background:var(--ivoire-white); padding:4px 8px; border-radius:2px;">
+      <div class="header-meta">
+        <span id="hdr-sprint">S-2026-09</span>
+        <span class="sep">·</span>
+        <span id="hdr-updated">carregando…</span>
+      </div>
     </div>
   </header>
+
+  <nav class="ivoire-tabs" role="tablist" aria-label="Navegação do dashboard">
+    <div class="ivoire-container ivoire-tabs-bar">
+      <button class="tab active" role="tab" data-tab="visao">Visão Semanal</button>
+      <button class="tab" role="tab" data-tab="northstar">North Star Q2</button>
+      <button class="tab" role="tab" data-tab="migracao">Migração 301</button>
+      <button class="tab" role="tab" data-tab="conteudo">Conteúdo</button>
+      <button class="tab" role="tab" data-tab="offpage">Off-page</button>
+      <button class="tab" role="tab" data-tab="tecnico">Técnico</button>
+      <button class="tab" role="tab" data-tab="sprint">Sprint</button>
+      <button class="tab" role="tab" data-tab="okrs">OKRs Q2</button>
+      <button class="tab" role="tab" data-tab="competidores">Competidores</button>
+      <button class="tab" role="tab" data-tab="calendario">Calendário</button>
+      <button class="tab" role="tab" data-tab="alertas">Alertas <span class="tab-badge" id="tab-alert-badge">0</span></button>
+    </div>
+  </nav>
 
   <main class="ivoire-main" role="main">
     <div class="ivoire-container">
 
-      <!-- Sumário meta -->
-      <section class="ivoire-section">
-        <p class="ivoire-kicker">Dashboard executivo · Ivoire x Aviva</p>
-        <h1>Sprint <span id="sprint-id">S-2026-09</span></h1>
-        <p style="color: var(--ivoire-color-text-muted); margin-top: 0.25rem;">
-          Janela <strong id="sprint-window">2026-04-20 a 2026-05-04</strong> ·
-          Atualizado em <strong id="generated-at">2026-04-19T13:20:00</strong> ·
-          <span id="version">v.1</span>
-        </p>
-      </section>
+      <!-- ==================== ABA: VISÃO SEMANAL ==================== -->
+      <section class="tab-panel active" id="panel-visao" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">Mesa operacional · semana</p>
+          <h1>Visão Semanal</h1>
+          <p class="panel-sub">
+            Janela GSC <strong id="gsc-window">—</strong> · Sprint <strong id="sprint-id">—</strong>
+            (<span id="sprint-window">—</span>) · Atualizado em <strong id="generated-at">—</strong> ·
+            <span id="version">—</span>
+          </p>
+        </div>
 
-      <!-- North Star -->
-      <section class="ivoire-section" aria-labelledby="h-ns">
-        <h2 id="h-ns">North Star Q2 2026</h2>
-        <div class="ivoire-northstar">
-          <span class="label">Indicador único do trimestre</span>
-          <div class="name" id="ns-label">% clicks orgânicos absorvidos por aviva.com.br vs total</div>
-          <div class="progress-row">
-            <div class="current" id="ns-current">7%</div>
-            <div>
-              <div class="target">Meta <strong id="ns-target">≥ 70%</strong> até <strong id="ns-target-date">2026-06-30</strong></div>
-              <div class="bar"><span id="ns-bar" style="width: 10%"></span></div>
+        <!-- KPI grid -->
+        <section class="ivoire-section" aria-labelledby="h-kpi">
+          <h2 id="h-kpi">KPIs de visibilidade (Google Search Console · últimos 7 dias fechados)</h2>
+          <div class="ivoire-grid-4" id="kpi-grid"></div>
+          <p class="data-source">Fonte: GSC consolidado das 3 properties (aviva + 2 legados). Janela: hoje−9 a hoje−3 (lag 3 dias).</p>
+        </section>
+
+        <!-- Branded / Non-Branded side-by-side -->
+        <section class="ivoire-section" aria-labelledby="h-brand">
+          <h2 id="h-brand">Top 5 keywords — Branded vs Non-Branded (7 dias)</h2>
+          <div class="kw-tables-grid">
+            <div class="kw-card">
+              <h3>Branded</h3>
+              <table class="ivoire-table">
+                <thead><tr>
+                  <th>Keyword</th><th class="num">Cliques</th><th class="num">Impr.</th>
+                  <th class="num">CTR</th><th class="num">Pos.</th>
+                </tr></thead>
+                <tbody id="branded-tbody"></tbody>
+              </table>
+            </div>
+            <div class="kw-card">
+              <h3>Non-Branded</h3>
+              <table class="ivoire-table">
+                <thead><tr>
+                  <th>Keyword</th><th class="num">Cliques</th><th class="num">Impr.</th>
+                  <th class="num">CTR</th><th class="num">Pos.</th>
+                </tr></thead>
+                <tbody id="nonbranded-tbody"></tbody>
+              </table>
             </div>
           </div>
-          <p class="baseline">Baseline <span id="ns-baseline">2026-04-17</span> · Delta para meta: <strong id="ns-delta">63 pts</strong></p>
-        </div>
+          <p class="data-source">Classificação branded: match contra tokens Aviva/Rio Quente/Hot Park/Costa do Sauípe/InCasa/InCanto/Clube de Férias/marcas de hotel.</p>
+        </section>
+
+        <!-- Top 3 ganhos e perdas -->
+        <section class="ivoire-section" aria-labelledby="h-winners">
+          <h2 id="h-winners">Top queries WoW — ganhos e perdas</h2>
+          <div class="ivoire-grid-2">
+            <div class="kw-card">
+              <h3>Top 3 ganhos</h3>
+              <ul class="bullet-list" id="winners-list"></ul>
+            </div>
+            <div class="kw-card">
+              <h3>Top 3 perdas</h3>
+              <ul class="bullet-list" id="losers-list"></ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- North Star mini card + migração -->
+        <section class="ivoire-section" aria-labelledby="h-ns-mini">
+          <h2 id="h-ns-mini">North Star Q2 2026 + migração</h2>
+          <div class="ivoire-northstar">
+            <span class="label">Indicador único do trimestre</span>
+            <div class="name" id="ns-label">—</div>
+            <div class="progress-row">
+              <div class="current" id="ns-current">—</div>
+              <div>
+                <div class="target">Meta <strong id="ns-target">—</strong> até <strong id="ns-target-date">—</strong></div>
+                <div class="bar"><span id="ns-bar" style="width: 0%"></span></div>
+              </div>
+            </div>
+            <p class="baseline">Baseline <span id="ns-baseline">—</span> · Delta para meta: <strong id="ns-delta">—</strong> · <a href="#" class="link-yellow" data-tab-link="northstar">Ver aba completa →</a></p>
+          </div>
+
+          <div class="ivoire-migration" style="margin-top: 1.5rem;">
+            <div class="share aviva">
+              <span class="label">aviva.com.br</span>
+              <span class="value" id="aviva-pct">—</span>
+              <span style="font-size: 0.875rem; color: var(--ivoire-color-text-muted);">destino da migração</span>
+            </div>
+            <div class="share legacy">
+              <span class="label">Domínios legados</span>
+              <span class="value" id="legacy-pct">—</span>
+              <span style="font-size: 0.875rem; color: var(--ivoire-color-text-muted);">rioquente.com.br + costadosauipe.com.br</span>
+            </div>
+            <div class="note">
+              <strong id="redirects-total">—</strong> redirects mapeados ·
+              <span class="sev-5"><strong id="broken-redirects">—</strong> broken redirects pendentes</span>
+            </div>
+          </div>
+        </section>
       </section>
 
-      <!-- Migração distribution -->
-      <section class="ivoire-section" aria-labelledby="h-mig">
-        <h2 id="h-mig">Migração de domínios</h2>
-        <div class="ivoire-migration">
-          <div class="share aviva">
-            <span class="label">aviva.com.br</span>
-            <span class="value" id="aviva-pct">7%</span>
-            <span style="font-size: 0.875rem; color: var(--ivoire-color-text-muted);">destino da migração</span>
-          </div>
-          <div class="share legacy">
-            <span class="label">Domínios legados</span>
-            <span class="value" id="legacy-pct">93%</span>
-            <span style="font-size: 0.875rem; color: var(--ivoire-color-text-muted);">rioquente.com.br + costadosauipe.com.br</span>
-          </div>
-          <div class="note">
-            <strong id="redirects-total">160</strong> redirects mapeados ·
-            <span class="sev-5"><strong id="broken-redirects">2</strong> broken redirects pendentes</span> ·
-            Keywords estratégicas monitoradas: <strong>rio quente resorts</strong> (89k/ano) + <strong>Costa do Sauipe</strong> (71k/ano)
-          </div>
+      <!-- ==================== ABA: NORTH STAR ==================== -->
+      <section class="tab-panel" id="panel-northstar" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">Indicador único · trimestre Q2 2026</p>
+          <h1>North Star Q2 2026</h1>
+          <p class="panel-sub">Visão executiva completa — o que é, por que foi escolhido, como é acompanhado e onde chegaremos.</p>
         </div>
+
+        <!-- Hero gauge -->
+        <section class="ivoire-section ns-hero">
+          <div class="ns-hero-grid">
+            <div class="ns-gauge-wrap">
+              <div id="ns-gauge"></div>
+              <div class="ns-gauge-label">
+                <div class="lbl">Atual</div>
+                <div class="val" id="ns-gauge-val">—</div>
+                <div class="sub" id="ns-gauge-window">—</div>
+              </div>
+            </div>
+            <div class="ns-hero-stats">
+              <div class="stat-row"><span class="k">Baseline 2026-04-17</span><span class="v" id="ns-h-baseline">—</span></div>
+              <div class="stat-row"><span class="k">Meta 2026-06-30</span><span class="v" id="ns-h-target">—</span></div>
+              <div class="stat-row"><span class="k">Gap para meta</span><span class="v" id="ns-h-gap">—</span></div>
+              <div class="stat-row"><span class="k">Ritmo médio semanal (4w)</span><span class="v" id="ns-h-pace">—</span></div>
+              <div class="stat-row"><span class="k">Semanas até a meta (linear)</span><span class="v" id="ns-h-eta">—</span></div>
+              <div class="stat-row"><span class="k">Projeção 2026-06-30</span><span class="v" id="ns-h-proj">—</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Série temporal -->
+        <section class="ivoire-section" aria-labelledby="h-ts">
+          <h2 id="h-ts">Série semanal (12 semanas) + projeção linear</h2>
+          <div id="ns-timeseries" class="chart-wrap"></div>
+          <div class="legend-row">
+            <span class="legend-dot" style="background:var(--ivoire-yellow);"></span> aviva.com.br
+            <span class="legend-dot" style="background:#bbb;"></span> Legados
+            <span class="legend-dot" style="background:#4CAF50;"></span> Meta 70%
+            <span class="legend-dot legend-dash"></span> Projeção linear
+          </div>
+        </section>
+
+        <!-- Storytelling -->
+        <section class="ivoire-section story">
+          <h2>O que é o North Star</h2>
+          <p id="ns-story-what"></p>
+
+          <h2 class="story-h">Por que foi escolhido</h2>
+          <ul class="bullet-list" id="ns-story-why"></ul>
+
+          <h2 class="story-h">Como é acompanhado</h2>
+          <ul class="bullet-list" id="ns-story-how"></ul>
+
+          <h2 class="story-h">Avanços recentes</h2>
+          <ul class="bullet-list" id="ns-story-advances"></ul>
+
+          <h2 class="story-h">Próximas atividades</h2>
+          <ul class="bullet-list" id="ns-story-next"></ul>
+
+          <h2 class="story-h">Riscos que podem deslocar a trajetória</h2>
+          <ul class="bullet-list" id="ns-story-risks"></ul>
+        </section>
+
+        <!-- Cenários -->
+        <section class="ivoire-section">
+          <h2>Cenários de alcance</h2>
+          <div class="ivoire-grid-3">
+            <div class="scenario-card pessimista">
+              <div class="s-lbl">Pessimista</div>
+              <div class="s-val" id="sc-pess">—</div>
+              <div class="s-txt">Ritmo ≤ 2pp/semana, stretch goals derrapam, 6 pendências Aviva não destravam até 2026-05-04.</div>
+            </div>
+            <div class="scenario-card realista">
+              <div class="s-lbl">Realista</div>
+              <div class="s-val" id="sc-real">—</div>
+              <div class="s-txt">Ritmo 3–5pp/semana, 4 páginas core publicadas, 301 zerados, S-2026-10 confirma velocity.</div>
+            </div>
+            <div class="scenario-card otimista">
+              <div class="s-lbl">Otimista</div>
+              <div class="s-val" id="sc-otim">—</div>
+              <div class="s-txt">Stretch + pSEO S-2026-10 publicados, SERP top 10 em 45d, aceleração do CTR consolidado.</div>
+            </div>
+          </div>
+        </section>
       </section>
 
-      <!-- KPIs GSC -->
-      <section class="ivoire-section" aria-labelledby="h-kpi">
-        <h2 id="h-kpi">KPIs de visibilidade (Google Search Console)</h2>
-        <div class="ivoire-grid-4" id="kpi-grid">
-          <!-- populado via JS -->
+      <!-- ==================== ABA: MIGRAÇÃO 301 ==================== -->
+      <section class="tab-panel" id="panel-migracao" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">O1 Migração · KR1.1, KR1.2, KR1.3</p>
+          <h1>Migração 301 — Status operacional</h1>
         </div>
+
+        <div class="ivoire-grid-4">
+          <div class="ivoire-kpi-card"><span class="label">Redirects mapeados</span><span class="value" id="m-rtotal">—</span><span class="delta flat">base 2026-04-17</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Broken pendentes</span><span class="value" id="m-broken">—</span><span class="delta down">sev 5 — BL-001</span></div>
+          <div class="ivoire-kpi-card"><span class="label">aviva.com.br share</span><span class="value" id="m-aviva">—</span><span class="delta up" id="m-aviva-delta">—</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Legados share</span><span class="value" id="m-legacy">—</span><span class="delta flat">em queda planejada</span></div>
+        </div>
+
+        <section class="ivoire-section">
+          <h2>Distribuição por status HTTP</h2>
+          <div id="redirects-bars"></div>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Incidentes recentes</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Data</th><th>Ocorrência</th><th>Status</th></tr></thead>
+            <tbody id="mig-incidents"></tbody>
+          </table>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Keywords estratégicas monitoradas</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Keyword</th><th class="num">Volume anual</th><th>Property alvo</th><th>Monitor</th></tr></thead>
+            <tbody id="mig-kws"></tbody>
+          </table>
+        </section>
       </section>
 
-      <!-- Progresso KRs -->
-      <section class="ivoire-section" aria-labelledby="h-kr">
-        <h2 id="h-kr">Progresso por KR · OKRs Q2 2026</h2>
-        <table class="ivoire-table" aria-describedby="h-kr">
-          <thead>
-            <tr>
-              <th scope="col">KR</th>
-              <th scope="col">Objetivo</th>
-              <th scope="col">Descrição</th>
-              <th scope="col" style="text-align:center;">Tasks ativas</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody id="kr-tbody">
-            <!-- populado via JS -->
-          </tbody>
+      <!-- ==================== ABA: CONTEÚDO ==================== -->
+      <section class="tab-panel" id="panel-conteudo" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">O3 Conteúdo · KR3.1, KR3.2, KR3.3</p>
+          <h1>Conteúdo programático — Pipeline e velocity</h1>
+        </div>
+
+        <section class="ivoire-section">
+          <h2>Pipeline atual</h2>
+          <div class="pipeline-grid" id="pipeline-grid"></div>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Velocity vs meta trimestral</h2>
+          <div class="velocity-card" id="velocity-card"></div>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>KW gaps prioritários (7 dias)</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Keyword</th><th class="num">Impressões</th><th class="num">Posição</th><th>Ação</th></tr></thead>
+            <tbody id="kwgaps-tbody"></tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ==================== ABA: OFF-PAGE ==================== -->
+      <section class="tab-panel" id="panel-offpage" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">Autoridade & backlinks</p>
+          <h1>Off-page — Framework 3-partes (BL-021)</h1>
+        </div>
+
+        <div class="ivoire-grid-4">
+          <div class="ivoire-kpi-card"><span class="label">Backlinks totais</span><span class="value" id="op-bl">—</span><span class="delta flat">Ahrefs CSV</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Ref. domains</span><span class="value" id="op-rd">—</span><span class="delta flat">distinct</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Novos 7d</span><span class="value" id="op-new">—</span><span class="delta up">WoW</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Risco tóxico</span><span class="value" id="op-toxic">—</span><span class="delta flat">a triagem</span></div>
+        </div>
+
+        <section class="ivoire-section">
+          <h2>Framework 3 partes</h2>
+          <div class="ivoire-grid-3">
+            <div class="scenario-card"><div class="s-lbl">Quality</div><div class="s-txt">DR, trust flow, topical match, editorial intent.</div></div>
+            <div class="scenario-card"><div class="s-lbl">Risk</div><div class="s-txt">Links tóxicos, spam score, anchor over-optimization.</div></div>
+            <div class="scenario-card"><div class="s-lbl">Competitive</div><div class="s-txt">Gap vs competidores, oportunidades de outreach.</div></div>
+          </div>
+          <p class="data-source">Detalhamento e triagem no offpage.docx semanal. Pipeline: ingest CSV Ahrefs → _backlink_ingestor → offpage.docx + snapshot.</p>
+        </section>
+      </section>
+
+      <!-- ==================== ABA: TÉCNICO ==================== -->
+      <section class="tab-panel" id="panel-tecnico" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">Core Web Vitals · Site Audit</p>
+          <h1>Técnico — Performance e saúde</h1>
+        </div>
+
+        <div class="ivoire-grid-4">
+          <div class="ivoire-kpi-card"><span class="label">LCP p75</span><span class="value" id="tc-lcp">—</span><span class="delta flat">ms · mobile</span></div>
+          <div class="ivoire-kpi-card"><span class="label">INP p75</span><span class="value" id="tc-inp">—</span><span class="delta flat">ms · mobile</span></div>
+          <div class="ivoire-kpi-card"><span class="label">CLS p75</span><span class="value" id="tc-cls">—</span><span class="delta flat">unitless</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Perf score avg</span><span class="value" id="tc-score">—</span><span class="delta flat" id="tc-date">—</span></div>
+        </div>
+
+        <section class="ivoire-section">
+          <h2>Base de auditoria</h2>
+          <p class="panel-sub">Fonte: cache PSI da última rodada em <code id="tc-srcdir">/reports/—</code>. Amostras: <strong id="tc-samples">0</strong> URLs da top-GSC aviva.com.br. URLs em blocklist (ex: checkin.aviva.com.br) excluídas.</p>
+        </section>
+      </section>
+
+      <!-- ==================== ABA: SPRINT ==================== -->
+      <section class="tab-panel" id="panel-sprint" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">IVOI Governance</p>
+          <h1>Sprint <span id="sp-id">—</span></h1>
+          <p class="panel-sub">Janela <strong id="sp-window">—</strong> · Próximo gate: <strong id="sp-next-gate">—</strong></p>
+        </div>
+
+        <div class="ivoire-grid-4">
+          <div class="ivoire-kpi-card"><span class="label">Capacity usada</span><span class="value" id="sp-cap">—</span><span class="delta flat" id="sp-cap-status">—</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Dias úteis</span><span class="value" id="sp-days">—</span><span class="delta flat">na janela</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Briefings emitidos</span><span class="value" id="sp-briefs">—</span><span class="delta flat">cross-teams</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Decisões registradas</span><span class="value" id="sp-dec">—</span><span class="delta flat">decisions.log</span></div>
+        </div>
+
+        <section class="ivoire-section">
+          <h2>Capacity por papel</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Papel</th><th class="num">Capacity %</th><th>Status</th></tr></thead>
+            <tbody id="sp-cap-tbody"></tbody>
+          </table>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Tasks comprometidas</h2>
+          <table class="ivoire-table">
+            <thead><tr>
+              <th>ID</th><th>Título</th><th>KR</th><th class="num">Sev</th>
+              <th>Responsável</th><th>SLA</th><th>Status</th>
+            </tr></thead>
+            <tbody id="tasks-tbody"></tbody>
+          </table>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Briefings cross-teams emitidos</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Data</th><th>Time</th><th>Slug</th></tr></thead>
+            <tbody id="sp-briefs-tbody"></tbody>
+          </table>
+        </section>
+      </section>
+
+      <!-- ==================== ABA: OKRs Q2 ==================== -->
+      <section class="tab-panel" id="panel-okrs" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">OKRs Q2 2026 · 4 objetivos · 11 KRs</p>
+          <h1>Progresso por KR</h1>
+        </div>
+        <table class="ivoire-table">
+          <thead><tr>
+            <th>KR</th><th>Objetivo</th><th>Descrição</th>
+            <th class="num">Tasks ativas</th><th>Status</th><th>Narrativa</th>
+          </tr></thead>
+          <tbody id="kr-tbody"></tbody>
         </table>
       </section>
 
-      <!-- Alertas abertos -->
-      <section class="ivoire-section" aria-labelledby="h-alert">
-        <h2 id="h-alert">Alertas abertos</h2>
+      <!-- ==================== ABA: COMPETIDORES ==================== -->
+      <section class="tab-panel" id="panel-competidores" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">Competitive intelligence</p>
+          <h1>Competidores monitorados</h1>
+        </div>
+        <table class="ivoire-table">
+          <thead><tr>
+            <th>Competidor</th><th>Domínio</th><th>Share of voice — nota</th>
+            <th>Gap / DR</th><th>Status</th>
+          </tr></thead>
+          <tbody id="comp-tbody"></tbody>
+        </table>
+        <p class="data-source">Dados operacionais detalhados no crawler e Site Explorer Ahrefs. Atualização semanal via engine.</p>
+      </section>
+
+      <!-- ==================== ABA: CALENDÁRIO ==================== -->
+      <section class="tab-panel" id="panel-calendario" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">13 semanas · marcos e entregas</p>
+          <h1>Calendário executivo</h1>
+        </div>
+        <table class="ivoire-table">
+          <thead><tr><th>Data</th><th>Evento</th><th>Tipo</th><th>Prioridade</th></tr></thead>
+          <tbody id="cal-tbody"></tbody>
+        </table>
+      </section>
+
+      <!-- ==================== ABA: ALERTAS ==================== -->
+      <section class="tab-panel" id="panel-alertas" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">Stream operacional</p>
+          <h1>Alertas abertos</h1>
+        </div>
         <div class="ivoire-alerts">
           <h3>Itens que exigem atenção na sprint atual</h3>
-          <ul id="alerts-list">
-            <!-- populado via JS -->
-          </ul>
+          <ul id="alerts-list"></ul>
         </div>
       </section>
 
-      <hr class="ivoire-divider">
-
-      <!-- Tasks comprometidas -->
-      <section class="ivoire-section" aria-labelledby="h-tasks">
-        <h2 id="h-tasks">Tasks comprometidas · Sprint atual</h2>
-        <table class="ivoire-table" aria-describedby="h-tasks">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Título</th>
-              <th scope="col">KR</th>
-              <th scope="col" style="text-align:center;">Sev</th>
-              <th scope="col">Responsável</th>
-              <th scope="col">SLA</th>
-              <th scope="col">Status</th>
-            </tr>
-          </thead>
-          <tbody id="tasks-tbody">
-            <!-- populado via JS -->
-          </tbody>
-        </table>
-      </section>
+      <!-- ==================== DRILL-DOWN PANEL ==================== -->
+      <aside class="drill-panel" id="drill-panel" aria-hidden="true">
+        <div class="drill-head">
+          <h3 id="drill-title">Detalhe</h3>
+          <button class="drill-close" id="drill-close" aria-label="Fechar detalhe">×</button>
+        </div>
+        <div class="drill-body" id="drill-body"></div>
+      </aside>
 
     </div>
   </main>
@@ -141,8 +447,8 @@
       <div class="brand">Ivoire · a marketing growth company</div>
       <div>
         <a href="https://www.ivoire.ag">www.ivoire.ag</a> ·
-        R Bruxelas 188, Sumaré, São Paulo ·
-        Confidencial — Ivoire x Aviva
+        Confidencial — Ivoire x Aviva ·
+        Fonte: GSC > GA4 > Ahrefs > Crawler próprio
       </div>
     </div>
   </footer>
