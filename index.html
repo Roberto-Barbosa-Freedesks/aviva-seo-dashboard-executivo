@@ -268,23 +268,49 @@
       <section class="tab-panel" id="panel-conteudo" role="tabpanel">
         <div class="panel-header">
           <p class="ivoire-kicker">O3 Conteúdo · KR3.1, KR3.2, KR3.3</p>
-          <h1>Conteúdo programático — Pipeline e velocity</h1>
+          <h1>Conteúdo programático — Pipeline, velocity e backlog</h1>
         </div>
 
         <section class="ivoire-section">
-          <h2>Pipeline atual</h2>
+          <h2>Pipeline atual (sprint ativa)</h2>
           <div class="pipeline-grid" id="pipeline-grid"></div>
         </section>
 
         <section class="ivoire-section">
-          <h2>Velocity vs meta trimestral</h2>
+          <h2>Velocity vs meta trimestral (KR3.1: 10 páginas até 2026-06-30)</h2>
           <div class="velocity-card" id="velocity-card"></div>
         </section>
 
+        <div class="ivoire-grid-2">
+          <section class="ivoire-section">
+            <h2>Backlog por cluster</h2>
+            <table class="ivoire-table">
+              <thead><tr><th>Cluster</th><th class="num">Itens</th></tr></thead>
+              <tbody id="bl-cluster-tbody"></tbody>
+            </table>
+          </section>
+          <section class="ivoire-section">
+            <h2>Backlog por KR</h2>
+            <table class="ivoire-table">
+              <thead><tr><th>KR</th><th class="num">Itens</th></tr></thead>
+              <tbody id="bl-kr-tbody"></tbody>
+            </table>
+          </section>
+        </div>
+
         <section class="ivoire-section">
-          <h2>KW gaps prioritários (7 dias)</h2>
+          <h2>Top 5 tasks priorizadas (score)</h2>
           <table class="ivoire-table">
-            <thead><tr><th>Keyword</th><th class="num">Impressões</th><th class="num">Posição</th><th>Ação</th></tr></thead>
+            <thead><tr><th>ID</th><th>Título</th><th>KR</th><th class="num">Sev</th><th class="num">Score</th><th>SLA</th></tr></thead>
+            <tbody id="bl-top-tbody"></tbody>
+          </table>
+          <p class="data-source">Backlog total: <strong id="bl-total">—</strong> items. Score total: <strong id="bl-score">—</strong>. Fórmula: severidade × log10(impressões+10) × cluster_weight.</p>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>KW gaps prioritários (GSC 7 dias)</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Keyword</th><th class="num">Impressões</th><th class="num">Posição</th><th>Cluster</th><th>Ação recomendada</th></tr></thead>
             <tbody id="kwgaps-tbody"></tbody>
           </table>
         </section>
@@ -293,45 +319,122 @@
       <!-- ==================== ABA: OFF-PAGE ==================== -->
       <section class="tab-panel" id="panel-offpage" role="tabpanel">
         <div class="panel-header">
-          <p class="ivoire-kicker">Autoridade & backlinks</p>
-          <h1>Off-page — Framework 3-partes (BL-021)</h1>
+          <p class="ivoire-kicker">Autoridade & backlinks · Ahrefs</p>
+          <h1>Off-page — Perfil de backlinks</h1>
+          <p class="panel-sub">Base: <code id="op-srcdate">—</code> · Framework BL-021 (quality / risk / competitive)</p>
         </div>
 
         <div class="ivoire-grid-4">
-          <div class="ivoire-kpi-card"><span class="label">Backlinks totais</span><span class="value" id="op-bl">—</span><span class="delta flat">Ahrefs CSV</span></div>
-          <div class="ivoire-kpi-card"><span class="label">Ref. domains</span><span class="value" id="op-rd">—</span><span class="delta flat">distinct</span></div>
-          <div class="ivoire-kpi-card"><span class="label">Novos 7d</span><span class="value" id="op-new">—</span><span class="delta up">WoW</span></div>
-          <div class="ivoire-kpi-card"><span class="label">Risco tóxico</span><span class="value" id="op-toxic">—</span><span class="delta flat">a triagem</span></div>
+          <div class="ivoire-kpi-card clickable" data-drill="offpage-detail">
+            <span class="label">Backlinks totais</span><span class="value" id="op-bl">—</span>
+            <span class="delta flat" id="op-bl-follow">—</span>
+          </div>
+          <div class="ivoire-kpi-card">
+            <span class="label">Ref. domains</span><span class="value" id="op-rd">—</span>
+            <span class="delta flat" id="op-avgdr">DR avg —</span>
+          </div>
+          <div class="ivoire-kpi-card">
+            <span class="label">Novos 7d</span><span class="value" id="op-new">—</span>
+            <span class="delta up">link building ativo</span>
+          </div>
+          <div class="ivoire-kpi-card">
+            <span class="label">Tier-1 (DR≥50)</span><span class="value" id="op-tier1">—</span>
+            <span class="delta flat" id="op-tier1-pct">—</span>
+          </div>
         </div>
 
         <section class="ivoire-section">
-          <h2>Framework 3 partes</h2>
+          <h2>Distribuição por Domain Rating</h2>
+          <div id="op-dr-bars"></div>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Composição do perfil</h2>
           <div class="ivoire-grid-3">
-            <div class="scenario-card"><div class="s-lbl">Quality</div><div class="s-txt">DR, trust flow, topical match, editorial intent.</div></div>
-            <div class="scenario-card"><div class="s-lbl">Risk</div><div class="s-txt">Links tóxicos, spam score, anchor over-optimization.</div></div>
-            <div class="scenario-card"><div class="s-lbl">Competitive</div><div class="s-txt">Gap vs competidores, oportunidades de outreach.</div></div>
+            <div class="kw-card"><h3>Dofollow vs Nofollow</h3>
+              <div class="bar-row"><span class="bar-label">Dofollow</span><span class="bar-track"><span class="bar-fill" id="op-dof-fill" style="background:#4CAF50"></span></span><span class="bar-count" id="op-dof-c">—</span></div>
+              <div class="bar-row"><span class="bar-label">Nofollow</span><span class="bar-track"><span class="bar-fill" id="op-nof-fill" style="background:#9C27B0"></span></span><span class="bar-count" id="op-nof-c">—</span></div>
+            </div>
+            <div class="kw-card"><h3>Tipo de link</h3>
+              <div class="bar-row"><span class="bar-label">Texto</span><span class="bar-track"><span class="bar-fill" id="op-txt-fill" style="background:#FFFF02"></span></span><span class="bar-count" id="op-txt-c">—</span></div>
+              <div class="bar-row"><span class="bar-label">Imagem</span><span class="bar-track"><span class="bar-fill" id="op-img-fill" style="background:#2196F3"></span></span><span class="bar-count" id="op-img-c">—</span></div>
+            </div>
+            <div class="kw-card"><h3>Tiers por DR</h3>
+              <div class="bar-row"><span class="bar-label">Tier-1</span><span class="bar-track"><span class="bar-fill" id="op-t1-fill" style="background:#4CAF50"></span></span><span class="bar-count" id="op-t1-c">—</span></div>
+              <div class="bar-row"><span class="bar-label">Tier-2</span><span class="bar-track"><span class="bar-fill" id="op-t2-fill" style="background:#FFC107"></span></span><span class="bar-count" id="op-t2-c">—</span></div>
+              <div class="bar-row"><span class="bar-label">Tier-3</span><span class="bar-track"><span class="bar-fill" id="op-t3-fill" style="background:#E53935"></span></span><span class="bar-count" id="op-t3-c">—</span></div>
+            </div>
           </div>
-          <p class="data-source">Detalhamento e triagem no offpage.docx semanal. Pipeline: ingest CSV Ahrefs → _backlink_ingestor → offpage.docx + snapshot.</p>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Top 10 domínios linkando</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Domínio</th><th class="num">Backlinks</th><th class="num">DR</th><th>Tier</th></tr></thead>
+            <tbody id="op-top-tbody"></tbody>
+          </table>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Top 10 âncoras</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Âncora</th><th class="num">Ocorrências</th></tr></thead>
+            <tbody id="op-anchors-tbody"></tbody>
+          </table>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Ganhos recentes (7 dias)</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Domínio</th><th class="num">DR</th><th>Data</th><th>Âncora</th></tr></thead>
+            <tbody id="op-gains-tbody"></tbody>
+          </table>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Framework BL-021 (3 partes)</h2>
+          <div class="ivoire-grid-3">
+            <div class="scenario-card"><div class="s-lbl">Quality</div><div class="s-txt">DR médio, tier-1 count, editorial match, topical relevância. Tier-1 <strong id="bl-t1-quality">—</strong> links de alta autoridade.</div></div>
+            <div class="scenario-card pessimista"><div class="s-lbl">Risk</div><div class="s-txt">Links tóxicos, over-anchor, spam signals. Dofollow ratio: <strong id="bl-dof-ratio">—</strong></div></div>
+            <div class="scenario-card otimista"><div class="s-lbl">Competitive</div><div class="s-txt">Gap vs concorrentes + oportunidades de outreach detalhadas no offpage.docx semanal.</div></div>
+          </div>
         </section>
       </section>
 
       <!-- ==================== ABA: TÉCNICO ==================== -->
       <section class="tab-panel" id="panel-tecnico" role="tabpanel">
         <div class="panel-header">
-          <p class="ivoire-kicker">Core Web Vitals · Site Audit</p>
+          <p class="ivoire-kicker">Core Web Vitals · Site Audit · Crawler</p>
           <h1>Técnico — Performance e saúde</h1>
+          <p class="panel-sub">PSI: <code id="tc-srcdir">—</code> · Crawler: <code id="tc-crawlerdate">—</code> · Ahrefs: <code id="tc-ahrefsdate">—</code></p>
         </div>
 
         <div class="ivoire-grid-4">
           <div class="ivoire-kpi-card"><span class="label">LCP p75</span><span class="value" id="tc-lcp">—</span><span class="delta flat">ms · mobile</span></div>
           <div class="ivoire-kpi-card"><span class="label">INP p75</span><span class="value" id="tc-inp">—</span><span class="delta flat">ms · mobile</span></div>
           <div class="ivoire-kpi-card"><span class="label">CLS p75</span><span class="value" id="tc-cls">—</span><span class="delta flat">unitless</span></div>
-          <div class="ivoire-kpi-card"><span class="label">Perf score avg</span><span class="value" id="tc-score">—</span><span class="delta flat" id="tc-date">—</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Perf score avg</span><span class="value" id="tc-score">—</span><span class="delta flat" id="tc-samples-delta">—</span></div>
+        </div>
+
+        <div class="ivoire-grid-4">
+          <div class="ivoire-kpi-card"><span class="label">Páginas auditadas</span><span class="value" id="tc-pages">—</span><span class="delta flat">crawler próprio</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Response p75</span><span class="value" id="tc-rt">—</span><span class="delta flat" id="tc-rt-status">ms origin</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Site Audit issues</span><span class="value" id="tc-issues-total">—</span><span class="delta down">Ahrefs</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Issues alta prio</span><span class="value" id="tc-issues-alta">—</span><span class="delta flat">404/4xx/5xx/broken</span></div>
         </div>
 
         <section class="ivoire-section">
-          <h2>Base de auditoria</h2>
-          <p class="panel-sub">Fonte: cache PSI da última rodada em <code id="tc-srcdir">/reports/—</code>. Amostras: <strong id="tc-samples">0</strong> URLs da top-GSC aviva.com.br. URLs em blocklist (ex: checkin.aviva.com.br) excluídas.</p>
+          <h2>Status HTTP das páginas (crawler)</h2>
+          <div id="tc-status-bars"></div>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Top 15 issues — Ahrefs Site Audit</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Issue</th><th class="num">Ocorrências</th><th>Prioridade</th><th>Arquivo fonte</th></tr></thead>
+            <tbody id="tc-issues-tbody"></tbody>
+          </table>
+          <p class="data-source">Arquivos em <code>/ahrefs-reports/aviva_all-issues/Error-*.csv</code>. URLs na blocklist (ex.: checkin.aviva.com.br) excluídas do PSI. Próxima rodada PSI real ao vivo na segunda-feira 13h BRT.</p>
         </section>
       </section>
 
@@ -396,17 +499,18 @@
       <!-- ==================== ABA: COMPETIDORES ==================== -->
       <section class="tab-panel" id="panel-competidores" role="tabpanel">
         <div class="panel-header">
-          <p class="ivoire-kicker">Competitive intelligence</p>
+          <p class="ivoire-kicker">Competitive intelligence · 5 concorrentes + 2 legados</p>
           <h1>Competidores monitorados</h1>
         </div>
         <table class="ivoire-table">
           <thead><tr>
-            <th>Competidor</th><th>Domínio</th><th>Share of voice — nota</th>
-            <th>Gap / DR</th><th>Status</th>
+            <th>Competidor</th><th>Domínio</th><th>DR est</th>
+            <th>Traffic / cluster</th><th>Gap</th><th>Oportunidade</th>
+            <th>Status</th><th>Prio</th>
           </tr></thead>
           <tbody id="comp-tbody"></tbody>
         </table>
-        <p class="data-source">Dados operacionais detalhados no crawler e Site Explorer Ahrefs. Atualização semanal via engine.</p>
+        <p class="data-source">DR estimado via Ahrefs Site Explorer (ingestão em roadmap). Crawler de concorrentes: BL-009 (sev 3, SLA 2026-05-04). Fonte de análise profunda: <code>crawler/comparator.py</code> + Ahrefs common-keywords.</p>
       </section>
 
       <!-- ==================== ABA: CALENDÁRIO ==================== -->
@@ -424,13 +528,11 @@
       <!-- ==================== ABA: ALERTAS ==================== -->
       <section class="tab-panel" id="panel-alertas" role="tabpanel">
         <div class="panel-header">
-          <p class="ivoire-kicker">Stream operacional</p>
+          <p class="ivoire-kicker">Stream operacional · gerado a cada rodada</p>
           <h1>Alertas abertos</h1>
+          <p class="panel-sub">Alertas automatizados cruzando: migração 301, site audit Ahrefs, performance, backlinks, sprint, capacity, OKRs, dependências cliente.</p>
         </div>
-        <div class="ivoire-alerts">
-          <h3>Itens que exigem atenção na sprint atual</h3>
-          <ul id="alerts-list"></ul>
-        </div>
+        <div class="alert-stream" id="alerts-list"></div>
       </section>
 
       <!-- ==================== ANOTAÇÕES ==================== -->

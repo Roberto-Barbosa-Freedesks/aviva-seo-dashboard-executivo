@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-20T20:52:22",
+    "generated_at": "2026-04-20T20:58:14",
     "sprint_id": "S-2026-09",
     "sprint_window": "2026-04-20 a 2026-05-04",
     "version": "v.2",
@@ -426,12 +426,8 @@
     "dias_uteis": "9",
     "briefings_emitidos": 0,
     "briefings_detail": [],
-    "decisions_count": 42,
+    "decisions_count": 43,
     "decisions_recent": [
-      {
-        "ts": "2026-04-19T21:50:34",
-        "msg": "Briefing criacao gerado: 2026-04-19-2026-04-19-specs-hero-rq-cs-sprint-s09-v2.md + DOCX via factory"
-      },
       {
         "ts": "2026-04-19T21:50:40",
         "msg": "Briefing imprensa gerado: 2026-04-19-2026-04-19-imprensa-lostlinks-dia-das-maes-v2.md + DOCX via factory"
@@ -447,6 +443,10 @@
       {
         "ts": "2026-04-20T20:30",
         "msg": "Ondas 1-4 executadas: (1) checkin.aviva.com.br excluido via config/audit-blocklist.yml (scope psi/crawler/offpage); (2) GSC ao vivo no dashboard — 19.702 cliques / 1,2M impressoes / CTR 1,63% / pos 6,1 (7d fechados 2026-04-11 a 2026-04-17) + 2 tabelas Branded/Non-Branded; (3) aba North Star Q2 com gauge, serie 12sem, projecao linear e 7 blocos de storytelling; (4) Mesa executiva — 11 abas (Visao/NorthStar/Migracao/Conteudo/Offpage/Tecnico/Sprint/OKRs/Competidores/Calendario/Alertas), drill-down universal em KPIs, export print-PDF, anotacoes por data. Dashboard v.2 publicado em GH Pages. generate_weekly_deliverables.py --dry-run: exit 0 (zero regressao)."
+      },
+      {
+        "ts": "2026-04-20T20:53:12",
+        "msg": "Control artifacts regenerados: control-sprint-S-2026-09.xlsx + control-sprint-S-2026-09.docx + dashboard snapshot + gh pages sync"
       }
     ],
     "next_gate": {

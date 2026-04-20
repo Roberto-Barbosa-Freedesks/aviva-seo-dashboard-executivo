@@ -387,46 +387,176 @@ function renderMigracao(data) {
 function renderConteudo(data) {
   const c = data.conteudo || {};
   const pg = byId("pipeline-grid");
-  pg.innerHTML = "";
-  (c.pipeline || []).forEach(p => {
-    pg.insertAdjacentHTML("beforeend", `
-      <div class="pipe-stage">
-        <div class="ps-label">${esc(p.stage)}</div>
-        <div class="ps-value">${fmtNum(p.count)}</div>
-      </div>
-    `);
-  });
+  if (pg) {
+    pg.innerHTML = "";
+    (c.pipeline || []).forEach(p => {
+      pg.insertAdjacentHTML("beforeend", `
+        <div class="pipe-stage">
+          <div class="ps-label">${esc(p.stage)}</div>
+          <div class="ps-value">${fmtNum(p.count)}</div>
+        </div>
+      `);
+    });
+  }
 
   const v = c.velocity_goal || {};
   const pctQ = v.target_quarter ? Math.round(v.published_quarter / v.target_quarter * 100) : 0;
-  byId("velocity-card").innerHTML = `
+  const vel = byId("velocity-card");
+  if (vel) vel.innerHTML = `
     <div class="vel-row"><span>Meta trimestral (KR3.1)</span><strong>${fmtNum(v.target_quarter)} páginas até ${esc(v.sla_quarter)}</strong></div>
     <div class="vel-row"><span>Meta por sprint</span><strong>${fmtNum(v.target_per_sprint)} páginas / 15 dias</strong></div>
     <div class="vel-row"><span>Publicadas no trimestre</span><strong>${fmtNum(v.published_quarter)}</strong></div>
     <div class="vel-track"><span class="vel-fill" style="width:${pctQ}%"></span><span class="vel-pct">${pctQ}%</span></div>
   `;
 
+  // Backlog by cluster
+  const clTb = byId("bl-cluster-tbody");
+  if (clTb) {
+    clTb.innerHTML = "";
+    (c.backlog_by_cluster || []).forEach(r => {
+      clTb.insertAdjacentHTML("beforeend",
+        `<tr><td><strong>${esc(r.cluster)}</strong></td><td class="num">${fmtNum(r.count)}</td></tr>`);
+    });
+  }
+
+  // Backlog by KR
+  const krTb = byId("bl-kr-tbody");
+  if (krTb) {
+    krTb.innerHTML = "";
+    (c.backlog_by_kr || []).forEach(r => {
+      krTb.insertAdjacentHTML("beforeend",
+        `<tr><td class="kr-id">${esc(r.kr)}</td><td class="num">${fmtNum(r.count)}</td></tr>`);
+    });
+  }
+
+  // Top 5 priority tasks
+  const tpTb = byId("bl-top-tbody");
+  if (tpTb) {
+    tpTb.innerHTML = "";
+    (c.top_score_tasks || []).forEach(t => {
+      const sev = parseInt(t.sev || "0");
+      const sevClass = sev >= 5 ? "sev-5" : sev === 4 ? "sev-4" : "sev-3";
+      tpTb.insertAdjacentHTML("beforeend",
+        `<tr><td class="kr-id">${esc(t.id)}</td><td>${esc(t.titulo)}</td>
+         <td>${esc(t.kr)}</td><td class="num ${sevClass}">${esc(t.sev)}</td>
+         <td class="num">${esc(t.score)}</td><td>${esc(t.sla)}</td></tr>`);
+    });
+  }
+  setText("bl-total", fmtNum(c.backlog_total_items));
+  setText("bl-score", c.backlog_score_total);
+
+  // KW gaps
   const tb = byId("kwgaps-tbody");
-  tb.innerHTML = "";
-  (c.kw_gaps_top || []).forEach(k => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td><strong>${esc(k.kw)}</strong></td>
-      <td class="num">${k.impressions_week == null ? "—" : fmtNum(k.impressions_week)}</td>
-      <td class="num">${k.position == null ? "—" : Number(k.position).toFixed(1).replace(".",",")}</td>
-      <td>Candidata a página programática</td>
-    `;
-    tb.appendChild(tr);
-  });
+  if (tb) {
+    tb.innerHTML = "";
+    (c.kw_gaps_top || []).forEach(k => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><strong>${esc(k.kw)}</strong></td>
+        <td class="num">${k.impressions_week == null ? "—" : fmtNum(k.impressions_week)}</td>
+        <td class="num">${k.position == null ? "—" : Number(k.position).toFixed(1).replace(".",",")}</td>
+        <td><em>${esc(k.cluster || "-")}</em></td>
+        <td>${esc(k.acao || "—")}</td>
+      `;
+      tb.appendChild(tr);
+    });
+  }
 }
 
 // ========================== Off-page ==========================
 function renderOffpage(data) {
   const o = data.offpage || {};
+  setText("op-srcdate", o.source_date || "—");
   setText("op-bl", fmtNum(o.backlinks_total));
+  const ratio = o.backlinks_total ? Math.round((o.dofollow_backlinks || 0) / o.backlinks_total * 100) : 0;
+  setText("op-bl-follow", `${ratio}% dofollow`);
   setText("op-rd", fmtNum(o.refdomains_total));
+  setText("op-avgdr", `DR avg ${o.avg_dr ?? "—"}`);
   setText("op-new", fmtNum(o.new_7d));
-  setText("op-toxic", fmtNum(o.toxic_risk_count));
+  setText("op-tier1", fmtNum(o.tier1_count));
+  const tier1pct = o.backlinks_total ? Math.round((o.tier1_count || 0) / o.backlinks_total * 100) : 0;
+  setText("op-tier1-pct", `${tier1pct}% do perfil`);
+
+  // DR distribution
+  const bars = byId("op-dr-bars");
+  if (bars) {
+    bars.innerHTML = "";
+    const dr = o.dr_distribution || {};
+    const total = Object.values(dr).reduce((s, v) => s + v, 0) || 1;
+    const colors = {"0-20": "#E53935", "21-40": "#FF9800", "41-60": "#FFC107", "61-80": "#4CAF50", "81-100": "#2E7D32"};
+    Object.entries(dr).forEach(([range, count]) => {
+      const w = (count / total) * 100;
+      bars.insertAdjacentHTML("beforeend", `
+        <div class="bar-row">
+          <span class="bar-label">DR ${esc(range)}</span>
+          <span class="bar-track"><span class="bar-fill" style="width:${w}%;background:${colors[range] || "#888"}"></span></span>
+          <span class="bar-count">${fmtNum(count)}</span>
+        </div>
+      `);
+    });
+  }
+
+  // Composição (dofollow/nofollow, text/image, tiers)
+  const totalBL = o.backlinks_total || 1;
+  const setFill = (id, val, tot) => {
+    const el = byId(id);
+    if (el) el.style.width = Math.max(2, (val / tot * 100)) + "%";
+  };
+  setFill("op-dof-fill", o.dofollow_backlinks || 0, totalBL);
+  setFill("op-nof-fill", o.nofollow_backlinks || 0, totalBL);
+  setText("op-dof-c", fmtNum(o.dofollow_backlinks));
+  setText("op-nof-c", fmtNum(o.nofollow_backlinks));
+  setFill("op-txt-fill", o.text_links || 0, totalBL);
+  setFill("op-img-fill", o.image_links || 0, totalBL);
+  setText("op-txt-c", fmtNum(o.text_links));
+  setText("op-img-c", fmtNum(o.image_links));
+  setFill("op-t1-fill", o.tier1_count || 0, totalBL);
+  setFill("op-t2-fill", o.tier2_count || 0, totalBL);
+  setFill("op-t3-fill", o.tier3_count || 0, totalBL);
+  setText("op-t1-c", fmtNum(o.tier1_count));
+  setText("op-t2-c", fmtNum(o.tier2_count));
+  setText("op-t3-c", fmtNum(o.tier3_count));
+
+  // Top linking domains
+  const topTb = byId("op-top-tbody");
+  if (topTb) {
+    topTb.innerHTML = "";
+    (o.top_linking_domains || []).forEach(d => {
+      const tier = d.dr >= 50 ? "verde" : d.dr >= 25 ? "amarelo" : "vermelho";
+      const tierL = d.dr >= 50 ? "Tier-1" : d.dr >= 25 ? "Tier-2" : "Tier-3";
+      topTb.insertAdjacentHTML("beforeend",
+        `<tr><td><code>${esc(d.domain)}</code></td><td class="num">${fmtNum(d.backlinks)}</td>
+         <td class="num">${d.dr}</td><td><span class="badge ${tier}">${tierL}</span></td></tr>`);
+    });
+  }
+
+  // Top anchors
+  const anTb = byId("op-anchors-tbody");
+  if (anTb) {
+    anTb.innerHTML = "";
+    (o.anchor_top10 || []).forEach(a => {
+      anTb.insertAdjacentHTML("beforeend",
+        `<tr><td>"${esc(a.anchor)}"</td><td class="num">${fmtNum(a.count)}</td></tr>`);
+    });
+  }
+
+  // Recent gains
+  const gnTb = byId("op-gains-tbody");
+  if (gnTb) {
+    gnTb.innerHTML = "";
+    (o.recent_gains || []).forEach(g => {
+      gnTb.insertAdjacentHTML("beforeend",
+        `<tr><td><code>${esc(g.domain)}</code></td><td class="num">${g.dr}</td>
+         <td>${esc(g.date)}</td><td>${esc(g.anchor)}</td></tr>`);
+    });
+    if (!(o.recent_gains || []).length) {
+      gnTb.innerHTML = `<tr><td colspan="4" class="empty">Sem ganhos nos últimos 7 dias.</td></tr>`;
+    }
+  }
+
+  // Framework summary
+  setText("bl-t1-quality", fmtNum(o.tier1_count));
+  setText("bl-dof-ratio", ratio + "% dofollow");
 }
 
 // ========================== Técnico ==========================
@@ -436,9 +566,63 @@ function renderTecnico(data) {
   setText("tc-inp", t.inp_p75 == null ? "—" : fmtNum(t.inp_p75));
   setText("tc-cls", t.cls_p75 == null ? "—" : String(t.cls_p75).replace(".",","));
   setText("tc-score", t.score_avg == null ? "—" : fmtNum(t.score_avg));
-  setText("tc-date", t.source_date || "—");
+  setText("tc-samples-delta", t.samples ? `${t.samples} URLs testadas` : "aguardando rodada semanal");
   setText("tc-srcdir", "/reports/" + (t.source_date || "—") + "/");
-  setText("tc-samples", fmtNum(t.samples || 0));
+  setText("tc-crawlerdate", t.crawler_source_date || "—");
+  setText("tc-ahrefsdate", t.ahrefs_source_date || "—");
+  setText("tc-pages", fmtNum(t.pages_audited));
+  setText("tc-rt", t.response_ms_p75 ? fmtNum(t.response_ms_p75) : "—");
+  const rtOK = t.response_ms_p75 && t.response_ms_p75 <= 3000;
+  const rtEl = byId("tc-rt-status");
+  if (rtEl) {
+    rtEl.textContent = t.response_ms_p75 ? (rtOK ? "ms · dentro do threshold" : "ms · acima de 3000ms (atenção)") : "—";
+    rtEl.className = "delta " + (rtOK ? "up" : "down");
+  }
+  setText("tc-issues-total", fmtNum(t.top_issues_count));
+  const alta = (t.site_audit_issues || []).filter(i => i.priority === "alta")
+                                           .reduce((s, i) => s + (i.count || 0), 0);
+  setText("tc-issues-alta", fmtNum(alta));
+
+  // Status HTTP bars
+  const bars = byId("tc-status-bars");
+  if (bars) {
+    bars.innerHTML = "";
+    const dist = t.status_distribution || {};
+    const total = Object.values(dist).reduce((s, v) => s + v, 0) || 1;
+    const color = (s) => {
+      if (s === "200") return "#4CAF50";
+      if (s.startsWith("3")) return "#FFC107";
+      if (s.startsWith("4")) return "#E53935";
+      if (s.startsWith("5")) return "#9C27B0";
+      return "#888";
+    };
+    Object.entries(dist).sort().forEach(([st, c]) => {
+      const w = (c / total) * 100;
+      bars.insertAdjacentHTML("beforeend", `
+        <div class="bar-row">
+          <span class="bar-label">HTTP ${esc(st)}</span>
+          <span class="bar-track"><span class="bar-fill" style="width:${w}%;background:${color(st)}"></span></span>
+          <span class="bar-count">${fmtNum(c)}</span>
+        </div>
+      `);
+    });
+  }
+
+  // Issues table
+  const tb = byId("tc-issues-tbody");
+  if (tb) {
+    tb.innerHTML = "";
+    (t.site_audit_issues || []).forEach(iss => {
+      const cls = iss.priority === "alta" ? "vermelho" : iss.priority === "media" ? "amarelo" : "verde";
+      tb.insertAdjacentHTML("beforeend",
+        `<tr><td>${esc(iss.issue)}</td><td class="num">${fmtNum(iss.count)}</td>
+         <td><span class="badge ${cls}">${esc(iss.priority)}</span></td>
+         <td><code>${esc(iss.file)}</code></td></tr>`);
+    });
+    if (!(t.site_audit_issues || []).length) {
+      tb.innerHTML = `<tr><td colspan="4" class="empty">Nenhum issue crítico detectado.</td></tr>`;
+    }
+  }
 }
 
 // ========================== Sprint ==========================
@@ -512,15 +696,25 @@ function renderOkrs(data) {
 // ========================== Competidores ==========================
 function renderCompetidores(data) {
   const tb = byId("comp-tbody");
+  if (!tb) return;
   tb.innerHTML = "";
   (data.competidores || []).forEach(c => {
+    const pClass = c.prioridade === "critica" ? "vermelho" :
+                   c.prioridade === "alta" ? "amarelo" :
+                   c.prioridade === "media" ? "amarelo" : "verde";
+    const sClass = c.status === "alerta" ? "vermelho" :
+                   c.status === "atencao" ? "amarelo" :
+                   c.status === "migracao ativa" ? "amarelo" : "verde";
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td><strong>${esc(c.name)}</strong></td>
       <td><code>${esc(c.domain)}</code></td>
-      <td>${esc(c.share_of_voice_note)}</td>
-      <td>${esc(c.dr_diff_note)}</td>
-      <td><span class="badge amarelo">${esc(c.status)}</span></td>
+      <td class="num">${esc(c.dr_est)}</td>
+      <td>${esc(c.traffic_cluster)}</td>
+      <td>${esc(c.gap)}</td>
+      <td>${esc(c.oportunidade)}</td>
+      <td><span class="badge ${sClass}">${esc(c.status)}</span></td>
+      <td><span class="badge ${pClass}">${esc(c.prioridade)}</span></td>
     `;
     tb.appendChild(tr);
   });
@@ -546,18 +740,30 @@ function renderCalendario(data) {
 
 // ========================== Alertas ==========================
 function renderAlertas(data) {
-  const ul = byId("alerts-list");
-  ul.innerHTML = "";
+  const el = byId("alerts-list");
+  if (!el) return;
+  el.innerHTML = "";
   const alerts = data.alertas || [];
   alerts.forEach(a => {
-    const li = document.createElement("li");
-    li.innerHTML = `<span>${esc(a.texto)}</span>`;
-    ul.appendChild(li);
+    const sev = a.severidade || "amarelo";
+    const cat = a.categoria || "";
+    const div = document.createElement("div");
+    div.className = "alert-card sev-" + sev;
+    div.innerHTML = `
+      <span class="alert-sev badge ${sev}">${sev}</span>
+      <span class="alert-cat">${esc(cat)}</span>
+      <span class="alert-txt">${esc(a.texto)}</span>
+    `;
+    el.appendChild(div);
   });
   if (!alerts.length) {
-    ul.innerHTML = '<li class="empty">Nenhum alerta aberto nesta sprint.</li>';
+    el.innerHTML = '<p class="empty">Nenhum alerta aberto nesta sprint.</p>';
   }
-  setText("tab-alert-badge", alerts.length || "0");
+  // Badge do tab: apenas vermelhos contam
+  const urgent = alerts.filter(a => a.severidade === "vermelho").length;
+  setText("tab-alert-badge", urgent || "0");
+  const tabBadge = byId("tab-alert-badge");
+  if (tabBadge) tabBadge.style.display = urgent ? "inline-block" : "none";
 }
 
 // ========================== Drill-down ==========================

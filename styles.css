@@ -831,6 +831,52 @@ h4 { font-size: 1rem; }
 .ann-meta em { color: var(--ivoire-black); }
 .ann-body { font-size: 0.9375rem; line-height: 1.5; }
 
+/* ================================ Alert cards ================================ */
+.alert-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.alert-card {
+  display: grid;
+  grid-template-columns: 100px 180px 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.85rem 1.1rem;
+  background: var(--ivoire-white);
+  border: 1px solid var(--ivoire-color-border);
+  border-left: 5px solid var(--ivoire-color-border);
+}
+.alert-card.sev-vermelho { border-left-color: var(--ivoire-priority-high); background: #fff5f5; }
+.alert-card.sev-amarelo { border-left-color: var(--ivoire-priority-mid); background: #fffbe6; }
+.alert-card.sev-verde { border-left-color: var(--ivoire-priority-low); background: #f5fff5; }
+.alert-cat {
+  font-family: var(--ivoire-font-title);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ivoire-color-text-muted);
+  font-weight: 700;
+}
+.alert-txt {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+@media (max-width: 900px) {
+  .alert-card { grid-template-columns: 1fr; gap: 0.25rem; }
+}
+
+/* ================================ Compo bars (offpage) ================================ */
+.kw-card .bar-row {
+  grid-template-columns: 70px 1fr 60px;
+  padding: 0.3rem 0;
+}
+.kw-card .bar-label {
+  font-family: var(--ivoire-font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
 /* ================================ Print ================================ */
 @media print {
   .ivoire-header,
