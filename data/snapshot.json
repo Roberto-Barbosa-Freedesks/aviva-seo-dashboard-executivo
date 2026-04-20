@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-20T20:58:14",
+    "generated_at": "2026-04-20T20:59:06",
     "sprint_id": "S-2026-09",
     "sprint_window": "2026-04-20 a 2026-05-04",
     "version": "v.2",
@@ -426,12 +426,8 @@
     "dias_uteis": "9",
     "briefings_emitidos": 0,
     "briefings_detail": [],
-    "decisions_count": 43,
+    "decisions_count": 44,
     "decisions_recent": [
-      {
-        "ts": "2026-04-19T21:50:40",
-        "msg": "Briefing imprensa gerado: 2026-04-19-2026-04-19-imprensa-lostlinks-dia-das-maes-v2.md + DOCX via factory"
-      },
       {
         "ts": "2026-04-19T21:50:00",
         "msg": "E2E REAL pos-rev3 executado com sucesso. Preflight GO 5/5. Phase 1 rc=0 (tecnico+conteudo+offpage DOCX, offpage usa comprehensive loader com 859 backlinks). Phase 2 rc=0 (PPTX 39.4MB + dashboard.html + GH push). XLSX Executivo regenerado (11 sheets + Sumario com coluna Status+Progresso%+Responsavel/SLA). 5 CSVs anexos em /reports/2026-04-19/anexos/ (301-audit com regra nginx, outreach-pipeline com emails prontos, meta-desc-duplicates, hreflang, internal-http). Control artifacts regenerados (8 sheets + archive preservado). 2 briefings cross-teams v2 (criacao hero RQ+CS + imprensa Dia das Maes). Audit: 21 tasks / 0 alertas / 11 KRs. PSI: descarte quando todas tentativas falham (nao inclui zero stub). URL GH Pages HTTP 200 confirmado. Rodada E2E valida a rev3 - pronta para go-live launchd segunda 2026-04-20 13h BRT."
@@ -446,6 +442,10 @@
       },
       {
         "ts": "2026-04-20T20:53:12",
+        "msg": "Control artifacts regenerados: control-sprint-S-2026-09.xlsx + control-sprint-S-2026-09.docx + dashboard snapshot + gh pages sync"
+      },
+      {
+        "ts": "2026-04-20T20:59:03",
         "msg": "Control artifacts regenerados: control-sprint-S-2026-09.xlsx + control-sprint-S-2026-09.docx + dashboard snapshot + gh pages sync"
       }
     ],
