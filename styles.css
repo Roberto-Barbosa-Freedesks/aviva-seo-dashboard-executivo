@@ -788,3 +788,66 @@ h4 { font-size: 1rem; }
   border-radius: 2px;
   font-size: 0.8125rem;
 }
+
+/* ================================ Print actions ================================ */
+.tabs-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+.tab-action {
+  background: var(--ivoire-yellow);
+  color: var(--ivoire-black);
+  border: 0;
+  padding: 0.4rem 0.75rem;
+  font-family: var(--ivoire-font-title);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.tab-action:hover { opacity: 0.85; }
+
+/* ================================ Annotations ================================ */
+.annotations-block {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 2px dashed var(--ivoire-color-border);
+}
+.annotation {
+  padding: 0.75rem 1rem;
+  background: var(--ivoire-gray-bg, #f5f5f5);
+  border-left: 3px solid var(--ivoire-yellow);
+  margin-bottom: 0.75rem;
+}
+.ann-meta {
+  font-size: 0.8125rem;
+  color: var(--ivoire-color-text-muted);
+  margin-bottom: 0.3rem;
+}
+.ann-meta em { color: var(--ivoire-black); }
+.ann-body { font-size: 0.9375rem; line-height: 1.5; }
+
+/* ================================ Print ================================ */
+@media print {
+  .ivoire-header,
+  .ivoire-tabs,
+  .ivoire-footer,
+  .drill-panel,
+  .annotations-block,
+  .tab-action,
+  [data-tab-link] { display: none !important; }
+  .tab-panel { display: block !important; page-break-after: always; }
+  .ivoire-main { padding: 0; }
+  body { font-size: 10pt; }
+  .ivoire-kpi-card, .kw-card, .ivoire-table { page-break-inside: avoid; }
+  .ns-hero { background: #fff !important; color: #000 !important; border-left: 4px solid #000 !important; }
+  .ns-hero-stats .stat-row { background: #f5f5f5 !important; color: #000 !important; border-left-color: #000 !important; }
+  .ns-hero-stats .v, .ns-gauge-label .val { color: #000 !important; }
+  .ivoire-northstar { background: #fff !important; color: #000 !important; border-left: 4px solid #000 !important; }
+  .ivoire-northstar .current { color: #000 !important; }
+  .ivoire-northstar .label, .ivoire-northstar .target strong { color: #333 !important; }
+}

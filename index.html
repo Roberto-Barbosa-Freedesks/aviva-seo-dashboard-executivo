@@ -36,6 +36,9 @@
       <button class="tab" role="tab" data-tab="competidores">Competidores</button>
       <button class="tab" role="tab" data-tab="calendario">Calendário</button>
       <button class="tab" role="tab" data-tab="alertas">Alertas <span class="tab-badge" id="tab-alert-badge">0</span></button>
+      <div class="tabs-actions">
+        <button class="tab-action" id="btn-print" title="Imprimir aba atual / exportar PDF">🖨 Imprimir</button>
+      </div>
     </div>
   </nav>
 
@@ -428,6 +431,13 @@
           <h3>Itens que exigem atenção na sprint atual</h3>
           <ul id="alerts-list"></ul>
         </div>
+      </section>
+
+      <!-- ==================== ANOTAÇÕES ==================== -->
+      <section class="ivoire-section annotations-block" id="annotations-block">
+        <h2>Anotações do dia</h2>
+        <div id="annotations-list"></div>
+        <p class="data-source">Anotações registradas em <code>dashboard/data/annotations/YYYY-MM-DD.json</code>. Para adicionar, commitar novo JSON no repo.</p>
       </section>
 
       <!-- ==================== DRILL-DOWN PANEL ==================== -->

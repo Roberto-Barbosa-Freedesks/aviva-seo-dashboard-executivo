@@ -1,0 +1,14 @@
+[
+  {
+    "ts": "2026-04-20T19:11:35",
+    "author": "Beto (Ivoire)",
+    "tab": "visao",
+    "text": "Rodada semanal --weekly executada manualmente antes das 13h BRT. GO no orchestrator. Exit 0. checkin.aviva.com.br passou para a blocklist oficial."
+  },
+  {
+    "ts": "2026-04-20T20:21:17",
+    "author": "Beto (Ivoire)",
+    "tab": "northstar",
+    "text": "Primeira rodada com GSC ao vivo no dashboard. KPIs saíram de zerados para 19.702 cliques, CTR 1,63%, posição 6,1. North Star atual 7,33% — baseline 7% + 0,33pp na primeira janela pós-migração."
+  }
+]

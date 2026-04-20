@@ -26,7 +26,38 @@
   renderAlertas(data);
   setupDrillDown(data);
   setupTabLinks();
+  setupPrint();
+  await loadAnnotations();
 })();
+
+function setupPrint() {
+  const btn = document.getElementById("btn-print");
+  if (btn) btn.addEventListener("click", () => window.print());
+}
+
+async function loadAnnotations() {
+  const today = new Date().toISOString().slice(0, 10);
+  const container = document.getElementById("annotations-list");
+  if (!container) return;
+  try {
+    const res = await fetch("data/annotations/" + today + ".json", {cache: "no-store"});
+    if (!res.ok) throw new Error("sem anotações para " + today);
+    const list = await res.json();
+    container.innerHTML = "";
+    list.forEach(a => {
+      const el = document.createElement("div");
+      el.className = "annotation";
+      el.innerHTML = `
+        <div class="ann-meta"><strong>${esc(a.author)}</strong> · <time>${esc(a.ts)}</time> · aba <em>${esc(a.tab)}</em></div>
+        <div class="ann-body">${esc(a.text)}</div>
+      `;
+      container.appendChild(el);
+    });
+    if (!list.length) container.innerHTML = '<p class="empty">Sem anotações hoje.</p>';
+  } catch {
+    container.innerHTML = '<p class="empty">Sem anotações hoje.</p>';
+  }
+}
 
 // ========================== utils ==========================
 function esc(s) {
