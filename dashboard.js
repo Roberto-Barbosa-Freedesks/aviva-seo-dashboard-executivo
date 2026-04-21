@@ -23,6 +23,7 @@
   renderOkrs(data);
   renderCompetidores(data);
   renderCalendario(data);
+  renderReunioes(data);
   renderAlertas(data);
   setupDrillDown(data);
   setupTabLinks();
@@ -736,6 +737,80 @@ function renderCalendario(data) {
     `;
     tb.appendChild(tr);
   });
+}
+
+// ========================== Reuniões ==========================
+function renderReunioes(data) {
+  const m = data.meetings || {};
+  setText("meet-total", fmtNum(m.total_meetings));
+  const st = m.stats || {};
+  setText("meet-items-total", fmtNum(st.total));
+  setText("meet-items-open", fmtNum(st.abertos));
+  setText("meet-items-open-days", (st.abertos || 0) + " aguardando validação");
+  setText("meet-compl", fmtPct(st.cumprimento_pct, 1));
+  const tabMeetBadge = byId("tab-meet-badge");
+  if (tabMeetBadge) {
+    tabMeetBadge.textContent = st.abertos || "0";
+    tabMeetBadge.style.display = (st.abertos > 0) ? "inline-block" : "none";
+    tabMeetBadge.style.background = "var(--ivoire-priority-mid)";
+    tabMeetBadge.style.color = "var(--ivoire-black)";
+  }
+
+  // Latest meeting card
+  const latest = m.latest_meeting;
+  const latestEl = byId("latest-meet-card");
+  if (latestEl && latest) {
+    latestEl.innerHTML = `
+      <h3>${esc(latest.title)} · <time>${esc(latest.date)}</time></h3>
+      <p><strong>Duração:</strong> ${esc(latest.duration_marker || "—")} ·
+         <strong>Ivoire:</strong> ${(latest.participants_ivoire || []).map(esc).join(", ") || "—"} ·
+         <strong>Aviva:</strong> ${(latest.participants_aviva || []).map(esc).join(", ") || "—"}</p>
+      <p class="story" style="margin-top:.5rem;"><em>${esc(latest.summary || "")}</em></p>
+      <h4 style="margin-top:1rem;font-size:.875rem;">Decisões-chave</h4>
+      <ul class="bullet-list">${(latest.decisions || []).slice(0,5).map(d=>"<li>"+esc(d)+"</li>").join("")||"<li class=\"empty\">—</li>"}</ul>
+    `;
+  } else if (latestEl) {
+    latestEl.innerHTML = '<p class="empty">Nenhuma reunião processada.</p>';
+  }
+
+  // Action items table
+  const itTb = byId("meet-items-tbody");
+  if (itTb) {
+    itTb.innerHTML = "";
+    (m.action_items || []).forEach(it => {
+      const days = it.days_since_meeting == null ? "—" : it.days_since_meeting + "d";
+      const statusClass = it.status === "concluido" ? "verde" :
+                          it.status === "em_execucao" ? "amarelo" :
+                          (it.days_since_meeting || 0) > 14 ? "vermelho" : "amarelo";
+      const tipoShort = it.tipo === "task_ivoire" ? "Ivoire" :
+                        it.tipo === "task_cliente" ? "Cliente" : "Misto";
+      itTb.insertAdjacentHTML("beforeend",
+        `<tr><td><strong>${esc(it.responsavel_normalizado)}</strong></td>
+         <td>${esc(it.titulo_curto)}<div style="font-size:.75rem;color:#888;">${esc((it.descricao||"").slice(0,120))}</div></td>
+         <td class="kr-id">${esc(it.kr_linkado_inferido)}</td>
+         <td><em>${esc(tipoShort)}</em></td>
+         <td><span class="badge ${statusClass}">${esc(it.status)}</span></td>
+         <td class="num">${days}</td>
+         <td><code>${esc((it.meeting_date || ""))}</code></td></tr>`);
+    });
+    if (!(m.action_items || []).length) {
+      itTb.innerHTML = `<tr><td colspan="7" class="empty">Nenhum action item extraído.</td></tr>`;
+    }
+  }
+
+  // Timeline
+  const tl = byId("meet-timeline-tbody");
+  if (tl) {
+    tl.innerHTML = "";
+    (m.meetings || []).forEach(mt => {
+      const parts = (mt.participants_ivoire || []).length + " Ivoire · " +
+                    (mt.participants_aviva || []).length + " Aviva";
+      tl.insertAdjacentHTML("beforeend",
+        `<tr><td><code>${esc(mt.date)}</code></td><td><strong>${esc(mt.title)}</strong></td>
+         <td>${esc(mt.duration_marker || "—")}</td><td>${esc(parts)}</td>
+         <td class="num">${fmtNum(mt.action_items_count)}</td></tr>`);
+    });
+  }
 }
 
 // ========================== Alertas ==========================

@@ -35,6 +35,7 @@
       <button class="tab" role="tab" data-tab="okrs">OKRs Q2</button>
       <button class="tab" role="tab" data-tab="competidores">Competidores</button>
       <button class="tab" role="tab" data-tab="calendario">Calendário</button>
+      <button class="tab" role="tab" data-tab="reunioes">Reuniões <span class="tab-badge" id="tab-meet-badge">0</span></button>
       <button class="tab" role="tab" data-tab="alertas">Alertas <span class="tab-badge" id="tab-alert-badge">0</span></button>
       <div class="tabs-actions">
         <button class="tab-action" id="btn-print" title="Imprimir aba atual / exportar PDF">🖨 Imprimir</button>
@@ -523,6 +524,46 @@
           <thead><tr><th>Data</th><th>Evento</th><th>Tipo</th><th>Prioridade</th></tr></thead>
           <tbody id="cal-tbody"></tbody>
         </table>
+      </section>
+
+      <!-- ==================== ABA: REUNIÕES ==================== -->
+      <section class="tab-panel" id="panel-reunioes" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">Camada contextual #0 · atas cliente</p>
+          <h1>Reuniões com o cliente</h1>
+          <p class="panel-sub">Ingestion: <code>/business-context/reunioes/</code> · Parse: <code>.parsed/</code> · Sync backlog automático.</p>
+        </div>
+
+        <div class="ivoire-grid-4">
+          <div class="ivoire-kpi-card"><span class="label">Reuniões processadas</span><span class="value" id="meet-total">—</span><span class="delta flat">desde kickoff</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Action items totais</span><span class="value" id="meet-items-total">—</span><span class="delta flat">extraídos</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Abertos</span><span class="value" id="meet-items-open">—</span><span class="delta flat" id="meet-items-open-days">—</span></div>
+          <div class="ivoire-kpi-card"><span class="label">% cumprimento</span><span class="value" id="meet-compl">—</span><span class="delta flat">concluído / total</span></div>
+        </div>
+
+        <section class="ivoire-section">
+          <h2>Última reunião</h2>
+          <div class="kw-card" id="latest-meet-card"></div>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Action items — rastreabilidade</h2>
+          <table class="ivoire-table">
+            <thead><tr>
+              <th>Responsável</th><th>Ação</th><th>KR</th><th>Tipo</th>
+              <th>Status</th><th>Dias desde ata</th><th>Ata</th>
+            </tr></thead>
+            <tbody id="meet-items-tbody"></tbody>
+          </table>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Histórico de reuniões</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Data</th><th>Título</th><th>Duração</th><th>Participantes</th><th class="num">AIs</th></tr></thead>
+            <tbody id="meet-timeline-tbody"></tbody>
+          </table>
+        </section>
       </section>
 
       <!-- ==================== ABA: ALERTAS ==================== -->

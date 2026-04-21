@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-20T21:09:48",
+    "generated_at": "2026-04-20T21:44:48",
     "sprint_id": "S-2026-09",
     "sprint_window": "2026-04-20 a 2026-05-04",
     "version": "v.2",
@@ -330,7 +330,7 @@
       "id": "KR1.3",
       "descricao": "Zero perda de keywords estrategicas top",
       "objetivo": "O1 Migracao",
-      "tasks_ativas": 5,
+      "tasks_ativas": 6,
       "status": "verde",
       "narrativa": "Keywords estrategicas top (rio quente resorts 89k/ano, costa do sauipe 71k/ano). Zero perda admitida."
     },
@@ -354,7 +354,7 @@
       "id": "KR2.3",
       "descricao": "100% entregaveis citando fonte",
       "objetivo": "O2 Conhecimento",
-      "tasks_ativas": 2,
+      "tasks_ativas": 6,
       "status": "verde",
       "narrativa": "100% dos entregaveis citam Guardian ou business-context. Auditavel no revisor Ivoire."
     },
@@ -378,7 +378,7 @@
       "id": "KR3.3",
       "descricao": "JSON-LD validado em 100% paginas novas",
       "objetivo": "O3 Conteudo",
-      "tasks_ativas": 6,
+      "tasks_ativas": 7,
       "status": "verde",
       "narrativa": "JSON-LD Hotel validado por scripts/check_schema_jsonld.py. Automatizado."
     },
@@ -426,16 +426,8 @@
     "dias_uteis": "9",
     "briefings_emitidos": 0,
     "briefings_detail": [],
-    "decisions_count": 45,
+    "decisions_count": 47,
     "decisions_recent": [
-      {
-        "ts": "2026-04-20T20:22:14",
-        "msg": "Control artifacts regenerados: control-sprint-S-2026-09.xlsx + control-sprint-S-2026-09.docx + dashboard snapshot + gh pages sync"
-      },
-      {
-        "ts": "2026-04-20T20:30",
-        "msg": "Ondas 1-4 executadas: (1) checkin.aviva.com.br excluido via config/audit-blocklist.yml (scope psi/crawler/offpage); (2) GSC ao vivo no dashboard — 19.702 cliques / 1,2M impressoes / CTR 1,63% / pos 6,1 (7d fechados 2026-04-11 a 2026-04-17) + 2 tabelas Branded/Non-Branded; (3) aba North Star Q2 com gauge, serie 12sem, projecao linear e 7 blocos de storytelling; (4) Mesa executiva — 11 abas (Visao/NorthStar/Migracao/Conteudo/Offpage/Tecnico/Sprint/OKRs/Competidores/Calendario/Alertas), drill-down universal em KPIs, export print-PDF, anotacoes por data. Dashboard v.2 publicado em GH Pages. generate_weekly_deliverables.py --dry-run: exit 0 (zero regressao)."
-      },
       {
         "ts": "2026-04-20T20:53:12",
         "msg": "Control artifacts regenerados: control-sprint-S-2026-09.xlsx + control-sprint-S-2026-09.docx + dashboard snapshot + gh pages sync"
@@ -447,6 +439,14 @@
       {
         "ts": "2026-04-20T20:59:57",
         "msg": "Control artifacts regenerados: control-sprint-S-2026-09.xlsx + control-sprint-S-2026-09.docx + dashboard snapshot + gh pages sync"
+      },
+      {
+        "ts": "2026-04-20T21:10:44",
+        "msg": "Control artifacts regenerados: control-sprint-S-2026-09.xlsx + control-sprint-S-2026-09.docx + dashboard snapshot + gh pages sync"
+      },
+      {
+        "ts": "2026-04-20T21:10",
+        "msg": "Engine semanal LIVE rodada completa com todas melhorias. Exit 0. PSI real persistido em /reports/2026-04-20/psi-results.json (1 URL: services.aviva.com.br — LCP 839ms, INP 42ms, CLS 0.2, Score 88). CWV real aparecendo no dashboard. Blocklist funcional (checkin.aviva.com.br nao consultado). 4 DOCX + PPTX + dashboard.html em /reports/2026-04-20/ + snapshot v.2 mestre com off-page rico (859 backlinks, 393 refdomains, DR avg 26.8, Tier-1 235), Tecnico rico (15 issues Ahrefs, 7325 ocorrencias), 8 alertas automatizados, 35 eventos calendario, 21 items backlog por cluster/KR, 7 competidores com DR estimado. Push GH Pages OK."
       }
     ],
     "next_gate": {
@@ -791,6 +791,26 @@
       {
         "cluster": "outra",
         "count": 4
+      },
+      {
+        "cluster": "atas-social",
+        "count": 2
+      },
+      {
+        "cluster": "atas-offpage",
+        "count": 1
+      },
+      {
+        "cluster": "atas-tecnico",
+        "count": 1
+      },
+      {
+        "cluster": "atas-estrategia",
+        "count": 1
+      },
+      {
+        "cluster": "atas-bloqueio",
+        "count": 1
       }
     ],
     "backlog_by_kr": [
@@ -804,7 +824,7 @@
       },
       {
         "kr": "KR1.3",
-        "count": 5
+        "count": 6
       },
       {
         "kr": "KR2.1",
@@ -816,7 +836,7 @@
       },
       {
         "kr": "KR2.3",
-        "count": 2
+        "count": 6
       },
       {
         "kr": "KR3.1",
@@ -828,7 +848,7 @@
       },
       {
         "kr": "KR3.3",
-        "count": 6
+        "count": 7
       },
       {
         "kr": "KR4.1",
@@ -839,8 +859,8 @@
         "count": 1
       }
     ],
-    "backlog_total_items": 21,
-    "backlog_score_total": 226.9,
+    "backlog_total_items": 27,
+    "backlog_score_total": 283.0,
     "top_score_tasks": [
       {
         "id": "BL-20260418-001",
@@ -1302,6 +1322,36 @@
       "priority": "media"
     },
     {
+      "date": "2026-04-30",
+      "event": "BL-20260417-100: Listar Off-page",
+      "type": "backlog task",
+      "priority": "media"
+    },
+    {
+      "date": "2026-04-30",
+      "event": "BL-20260417-101: Fazer Scraping",
+      "type": "backlog task",
+      "priority": "media"
+    },
+    {
+      "date": "2026-04-30",
+      "event": "BL-20260417-102: Estabelecer estratégia de Keywords",
+      "type": "backlog task",
+      "priority": "alta"
+    },
+    {
+      "date": "2026-04-30",
+      "event": "BL-20260417-103: Criar Manual Pinterest",
+      "type": "backlog task",
+      "priority": "alta"
+    },
+    {
+      "date": "2026-04-30",
+      "event": "BL-20260417-104: Criar Guide YouTube",
+      "type": "backlog task",
+      "priority": "alta"
+    },
+    {
       "date": "2026-05-01",
       "event": "BL-20260418-016: Briefing cross-teams — Imprensa: oportunidades de citacao Arraio Costa",
       "type": "backlog task",
@@ -1360,6 +1410,12 @@
       "event": "BL-20260418-015: Monitorar keywords estrategicas top (rio quente resorts 89k/ano, costa",
       "type": "backlog task",
       "priority": "alta"
+    },
+    {
+      "date": "2026-05-04",
+      "event": "BL-20260417-105: Enviar solicitação de acesso ao CMS",
+      "type": "backlog task",
+      "priority": "critica"
     },
     {
       "date": "2026-05-05",
@@ -1470,6 +1526,236 @@
       "texto": "Engine semanal rodou em 2026-04-20. Entregas em /reports/2026-04-20/."
     }
   ],
+  "meetings": {
+    "meetings": [
+      {
+        "meeting_id": "2026-04-17-kickoff-aviva-ivoire-seo",
+        "date": "2026-04-17",
+        "title": "Kickoff Aviva __ Ivoire SEO ",
+        "duration_marker": "00:55:33",
+        "participants": [
+          "AVIVA Digital",
+          "Alinne Ramos",
+          "Contexto e Timing dos Relatórios",
+          "Danillo Santos",
+          "Dashboard e Encontros Quinzenais",
+          "Definição da Agenda de Reuniões",
+          "Documentação de Kickoff e Baseline",
+          "Estratégia para Pinterest e YouTube",
+          "Estrutura de Relatórios e Frequência",
+          "Fluxos Automatizados e Supervisão Humana",
+          "Gabriela Raucci",
+          "Protocolo de Alerta Crítico",
+          "Próximos Passos e Perguntas Assíncronas",
+          "Ricardo Moretti Junior AVIVA",
+          "Roberto Barbosa"
+        ],
+        "participants_ivoire": [
+          "Alinne Ramos",
+          "Gabriela Raucci",
+          "Roberto Barbosa"
+        ],
+        "participants_aviva": [
+          "AVIVA Digital",
+          "Danillo Santos",
+          "Ricardo Moretti Junior AVIVA"
+        ],
+        "summary": "Reunião de alinhamento estratégico estabeleceu processos operacionais e prioridades para a migração técnica de marcas Aviva.\n\nSetup operacional e técnico\nEquipes configuraram ferramentas de monitoramento integrando dados para estabelecer a linha de base do projeto. Decidiu-se centralizar a comunicação de fluxos críticos de redirecionamento via WhatsApp para garantir agilidade.\n\nEstratégia de migração SEO\nO foco principal é preservar o tráfego orgânico e a autoridade durante a unificação dos domínios sob a marca Aviva. A implementação técnica priorizará auditorias para mitigar impactos negativos na performance durante a virada.\n\nIntegração multicanal e relatórios\nA estratégia unificará SEO com mídia paga, assessoria de imprensa, VoC e redes sociais para fortalecer a presença digital e otimizar resultados de GEO. Relatórios semanais de performance técnica, conteúdo e monitoramento externo alimentarão encontros quinzenais de acompanhamento.",
+        "topics": [
+          "Kickoff Aviva <> Ivoire SEO",
+          "Resumo",
+          "Próximas etapas",
+          "Detalhes"
+        ],
+        "action_items_count": 6,
+        "decisions": [
+          "Integração de Equipes e Fluxos de Comunicação: Alinne Ramos confirmou que a operação é unificada, integrando Roberto Barbosa à equipe. A comunicação será centralizada em Gabriela Raucci como ponto de contato (00:27:42). Foi decidido manter a comunicação prioritária via WhatsApp para agilizar e criar um cartão *ongoing* no Deskfy e Run Run para tarefas e documentação (00:28:46)."
+        ]
+      }
+    ],
+    "total_meetings": 1,
+    "latest_meeting": {
+      "meeting_id": "2026-04-17-kickoff-aviva-ivoire-seo",
+      "date": "2026-04-17",
+      "title": "Kickoff Aviva __ Ivoire SEO ",
+      "duration_marker": "00:55:33",
+      "participants": [
+        "AVIVA Digital",
+        "Alinne Ramos",
+        "Contexto e Timing dos Relatórios",
+        "Danillo Santos",
+        "Dashboard e Encontros Quinzenais",
+        "Definição da Agenda de Reuniões",
+        "Documentação de Kickoff e Baseline",
+        "Estratégia para Pinterest e YouTube",
+        "Estrutura de Relatórios e Frequência",
+        "Fluxos Automatizados e Supervisão Humana",
+        "Gabriela Raucci",
+        "Protocolo de Alerta Crítico",
+        "Próximos Passos e Perguntas Assíncronas",
+        "Ricardo Moretti Junior AVIVA",
+        "Roberto Barbosa"
+      ],
+      "participants_ivoire": [
+        "Alinne Ramos",
+        "Gabriela Raucci",
+        "Roberto Barbosa"
+      ],
+      "participants_aviva": [
+        "AVIVA Digital",
+        "Danillo Santos",
+        "Ricardo Moretti Junior AVIVA"
+      ],
+      "summary": "Reunião de alinhamento estratégico estabeleceu processos operacionais e prioridades para a migração técnica de marcas Aviva.\n\nSetup operacional e técnico\nEquipes configuraram ferramentas de monitoramento integrando dados para estabelecer a linha de base do projeto. Decidiu-se centralizar a comunicação de fluxos críticos de redirecionamento via WhatsApp para garantir agilidade.\n\nEstratégia de migração SEO\nO foco principal é preservar o tráfego orgânico e a autoridade durante a unificação dos domínios sob a marca Aviva. A implementação técnica priorizará auditorias para mitigar impactos negativos na performance durante a virada.\n\nIntegração multicanal e relatórios\nA estratégia unificará SEO com mídia paga, assessoria de imprensa, VoC e redes sociais para fortalecer a presença digital e otimizar resultados de GEO. Relatórios semanais de performance técnica, conteúdo e monitoramento externo alimentarão encontros quinzenais de acompanhamento.",
+      "topics": [
+        "Kickoff Aviva <> Ivoire SEO",
+        "Resumo",
+        "Próximas etapas",
+        "Detalhes"
+      ],
+      "action_items_count": 6,
+      "decisions": [
+        "Integração de Equipes e Fluxos de Comunicação: Alinne Ramos confirmou que a operação é unificada, integrando Roberto Barbosa à equipe. A comunicação será centralizada em Gabriela Raucci como ponto de contato (00:27:42). Foi decidido manter a comunicação prioritária via WhatsApp para agilizar e criar um cartão *ongoing* no Deskfy e Run Run para tarefas e documentação (00:28:46)."
+      ]
+    },
+    "action_items": [
+      {
+        "responsavel_raw": "Roberto Barbosa",
+        "responsavel_normalizado": "Roberto Barbosa",
+        "tipo": "task_ivoire",
+        "titulo_curto": "Listar Off-page",
+        "descricao": "Listar os itens de SEO off-page para a equipe de comunicação interna utilizar no fluxo.",
+        "meeting_id": "2026-04-17-kickoff-aviva-ivoire-seo",
+        "meeting_date": "2026-04-17",
+        "source_quote": "[Roberto Barbosa] Listar Off-page: Listar os itens de SEO off-page para a equipe de comunicação interna utilizar no fluxo.",
+        "item_id": "91368e4ba6cc",
+        "status": "candidato",
+        "kr_linkado_inferido": "KR2.3",
+        "skills_sugeridas": [
+          "ahrefs-python",
+          "ivoire-document-factory",
+          "planning-marketing-initiatives",
+          "seo-off-page-backlinks"
+        ],
+        "days_since_meeting": 3
+      },
+      {
+        "responsavel_raw": "Roberto Barbosa",
+        "responsavel_normalizado": "Roberto Barbosa",
+        "tipo": "task_ivoire",
+        "titulo_curto": "Fazer Scraping",
+        "descricao": "Fazer diagnóstico completo do site atual para revisar SEO OnPage (Meta Tags Title e Description, taxonomia, schemas, content, etc).",
+        "meeting_id": "2026-04-17-kickoff-aviva-ivoire-seo",
+        "meeting_date": "2026-04-17",
+        "source_quote": "[Roberto Barbosa] Fazer Scraping: Fazer diagnóstico completo do site atual para revisar SEO OnPage (Meta Tags Title e Description, taxonomia, schemas, content, etc).",
+        "item_id": "3d433bfb384d",
+        "status": "candidato",
+        "kr_linkado_inferido": "KR3.3",
+        "skills_sugeridas": [
+          "ai-seo",
+          "code-reviewer",
+          "ivoire-document-factory",
+          "schema-markup",
+          "seo-aeo-schema-generator",
+          "seo-audit"
+        ],
+        "days_since_meeting": 3
+      },
+      {
+        "responsavel_raw": "Roberto Barbosa",
+        "responsavel_normalizado": "Roberto Barbosa",
+        "tipo": "task_ivoire",
+        "titulo_curto": "Estabelecer estratégia de Keywords",
+        "descricao": "desenvolver um planejamento técnico e estratégico avançado, profundo, detalhado, detalhista apurado e eficiente para desenvolver uma estratégia eficiente de palavras-chave que vãodirecionar agentes de IA, time de redatores, parceiros de assessoria de imprensa, time de conteúdo de Social Media, time de Midia Patrocinada, além de obviamente as estratégias de SEO e GEO do site institucional, conteúdos do Blog, SEO Off Page, SEO no Youtube, SEO no LinkedIn, SEO no Pinterest, Reddit e demais estratégias de SEO e GEO..",
+        "meeting_id": "2026-04-17-kickoff-aviva-ivoire-seo",
+        "meeting_date": "2026-04-17",
+        "source_quote": "[Roberto Barbosa] Estabelecer estratégia de Keywords: desenvolver um planejamento técnico e estratégico avançado, profundo, detalhado, detalhista apurado e eficiente para desenvolver uma estratégia eficiente de palavras-chave que vãodirecionar agentes de IA, time de redatores, parceiros de assessoria de imprensa, time de conteúdo de Social Media, time de Midia Patrocinada, além de obviamente as estratégias de SEO e GEO do site institucional, conteúdos do Blog, SEO Off Page, SEO no Youtube, SEO no LinkedIn, SEO no Pinterest, Reddit e demais estratégias de SEO e GEO..",
+        "item_id": "69fe6f5a9642",
+        "status": "candidato",
+        "kr_linkado_inferido": "KR1.3",
+        "skills_sugeridas": [
+          "ahrefs-python",
+          "content-creator",
+          "google-search-console",
+          "ivoire-document-factory",
+          "linkedin-profile-optimizer",
+          "marketing-psychology",
+          "planning-marketing-initiatives",
+          "programmatic-seo",
+          "seo-aeo-keyword-research",
+          "seo-content-writer",
+          "seo-keyword-strategist",
+          "seo-off-page-backlinks",
+          "social-content",
+          "youtube-automation"
+        ],
+        "days_since_meeting": 3
+      },
+      {
+        "responsavel_raw": "Roberto Barbosa",
+        "responsavel_normalizado": "Roberto Barbosa",
+        "tipo": "task_ivoire",
+        "titulo_curto": "Criar Manual Pinterest",
+        "descricao": "Criar um manual de boas práticas e recomendações de SEO para o Pinterest.",
+        "meeting_id": "2026-04-17-kickoff-aviva-ivoire-seo",
+        "meeting_date": "2026-04-17",
+        "source_quote": "[Roberto Barbosa] Criar Manual Pinterest: Criar um manual de boas práticas e recomendações de SEO para o Pinterest.",
+        "item_id": "61dc3315cc30",
+        "status": "candidato",
+        "kr_linkado_inferido": "KR2.3",
+        "skills_sugeridas": [
+          "content-creator",
+          "ivoire-document-factory",
+          "marketing-psychology",
+          "seo-content-writer",
+          "social-content"
+        ],
+        "days_since_meeting": 3
+      },
+      {
+        "responsavel_raw": "Roberto Barbosa",
+        "responsavel_normalizado": "Roberto Barbosa",
+        "tipo": "task_ivoire",
+        "titulo_curto": "Criar Guide YouTube",
+        "descricao": "Montar um guide, manual de boas práticas e taxonomia de vídeo e hashtags para o YouTube.",
+        "meeting_id": "2026-04-17-kickoff-aviva-ivoire-seo",
+        "meeting_date": "2026-04-17",
+        "source_quote": "[Roberto Barbosa] Criar Guide YouTube: Montar um guide, manual de boas práticas e taxonomia de vídeo e hashtags para o YouTube.",
+        "item_id": "c7447498907f",
+        "status": "candidato",
+        "kr_linkado_inferido": "KR2.3",
+        "skills_sugeridas": [
+          "content-creator",
+          "ivoire-document-factory",
+          "seo-content-writer",
+          "youtube-automation"
+        ],
+        "days_since_meeting": 3
+      },
+      {
+        "responsavel_raw": "Roberto Barbosa",
+        "responsavel_normalizado": "Roberto Barbosa",
+        "tipo": "task_ivoire",
+        "titulo_curto": "Enviar solicitação de acesso ao CMS",
+        "descricao": "Enviar solicitação de acesso ao CMS",
+        "meeting_id": "2026-04-17-kickoff-aviva-ivoire-seo",
+        "meeting_date": "2026-04-17",
+        "source_quote": "[Roberto Barbosa] Enviar solicitação de acesso ao CMS.",
+        "item_id": "bc18bf0184d6",
+        "status": "candidato",
+        "kr_linkado_inferido": "KR2.3",
+        "skills_sugeridas": [],
+        "days_since_meeting": 3
+      }
+    ],
+    "stats": {
+      "total": 6,
+      "abertos": 6,
+      "em_execucao": 0,
+      "concluidos": 0,
+      "cumprimento_pct": 0.0
+    }
+  },
   "annotations_index": {
     "2026-04-20": 2
   },
