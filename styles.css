@@ -897,3 +897,545 @@ h4 { font-size: 1rem; }
   .ivoire-northstar .current { color: #000 !important; }
   .ivoire-northstar .label, .ivoire-northstar .target strong { color: #333 !important; }
 }
+
+/* ============ Drill-down link badges + clickable rows ============ */
+.drill-link-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 3px 10px;
+  background: #FFFF02;
+  color: var(--ivoire-black, #282828);
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 1px solid var(--ivoire-black, #282828);
+  vertical-align: middle;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.drill-link-badge:hover {
+  background: var(--ivoire-black, #282828);
+  color: #FFFF02;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+tbody.rows-clickable tr {
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+tbody.rows-clickable tr:hover td {
+  background: #FFFBD1;
+}
+tbody.rows-clickable tr:hover td:first-child::after {
+  content: " ↗";
+  color: var(--ivoire-black, #282828);
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+/* ============ KPI help (ⓘ) + popover didático ============ */
+.kpi-help {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  padding: 0;
+  border: 1px solid var(--ivoire-black, #282828);
+  background: transparent;
+  color: var(--ivoire-black, #282828);
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: help;
+  vertical-align: middle;
+  transition: background 0.12s ease, color 0.12s ease;
+  font-family: inherit;
+}
+.kpi-help:hover, .kpi-help:focus {
+  background: #FFFF02;
+  outline: none;
+}
+
+.kpi-popover {
+  position: absolute;
+  max-width: 340px;
+  background: #fff;
+  color: var(--ivoire-black, #282828);
+  border: 1px solid var(--ivoire-black, #282828);
+  border-top: 4px solid #FFFF02;
+  border-radius: 6px;
+  padding: 12px 14px;
+  z-index: 1000;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+.kpi-pop-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+}
+.kpi-pop-head strong { font-size: 0.95rem; }
+.kpi-pop-close {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+  font-family: inherit;
+  padding: 0;
+}
+.kpi-pop-close:hover { color: var(--ivoire-black, #282828); }
+.kpi-popover dl { margin: 4px 0 0; }
+.kpi-popover dt {
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: #555;
+  margin-top: 8px;
+  letter-spacing: 0.04em;
+}
+.kpi-popover dt:first-child { margin-top: 0; }
+.kpi-popover dd {
+  margin: 2px 0 0;
+  color: #222;
+}
+
+/* ============ Intro didática nas tabelas ============ */
+.table-intro {
+  margin: 6px 0 12px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #444;
+  padding: 10px 12px;
+  background: #fafafa;
+  border-left: 3px solid #FFFF02;
+  border-radius: 2px;
+}
+
+/* ============ Header widgets (North Star + Health Score) ============ */
+.header-widgets {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex: 1 1 auto;
+  justify-content: center;
+  max-width: 540px;
+}
+.hdr-widget {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 2, 0.32);
+  border-radius: 6px;
+  color: var(--ivoire-white);
+  padding: 6px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.78rem;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.hdr-widget:hover {
+  background: rgba(255, 255, 2, 0.14);
+  border-color: #FFFF02;
+}
+.hdr-widget .w-label {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #FFFF02;
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+.hdr-widget .w-value {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hdr-widget .w-value strong { font-size: 0.95rem; }
+.hdr-northstar .w-bar {
+  position: relative;
+  width: 120px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.w-bar-fill {
+  display: block;
+  height: 100%;
+  background: #FFFF02;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+.w-bar-target {
+  position: absolute;
+  top: -2px; bottom: -2px;
+  width: 2px;
+  background: #fff;
+  opacity: 0.6;
+}
+.w-health-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #999;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+}
+.w-health-dot.verde { background: #4CAF50; box-shadow: 0 0 10px rgba(76, 175, 80, 0.6); }
+.w-health-dot.amarelo { background: #FFC107; box-shadow: 0 0 10px rgba(255, 193, 7, 0.6); }
+.w-health-dot.vermelho { background: #E53935; box-shadow: 0 0 10px rgba(229, 57, 53, 0.6); }
+
+@media (max-width: 900px) {
+  .header-widgets { display: none; }
+}
+
+/* ============ Modo apresentação ============ */
+body.present-mode .ivoire-tabs,
+body.present-mode .ivoire-footer,
+body.present-mode .header-meta,
+body.present-mode .tabs-actions {
+  display: none !important;
+}
+body.present-mode .ivoire-header {
+  position: sticky; top: 0; z-index: 100;
+}
+body.present-mode .tab-panel {
+  padding-top: 20px;
+}
+body.present-mode .ivoire-section {
+  break-inside: avoid;
+}
+
+.present-badge {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(40, 40, 40, 0.92);
+  color: #FFFF02;
+  padding: 10px 16px;
+  border-radius: 24px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  z-index: 9999;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.present-badge kbd {
+  background: #FFFF02;
+  color: #282828;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* ============ ⌘K — modal de busca global ============ */
+.cmdk-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(40, 40, 40, 0.55);
+  z-index: 10000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 10vh;
+  backdrop-filter: blur(2px);
+  animation: cmdk-fadein 0.14s ease-out;
+}
+@keyframes cmdk-fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.cmdk-panel {
+  width: min(640px, 92vw);
+  max-height: 70vh;
+  background: #fff;
+  border-radius: 10px;
+  border-top: 4px solid #FFFF02;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.cmdk-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid #eee;
+  gap: 10px;
+}
+.cmdk-header input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1.05rem;
+  font-family: inherit;
+  background: transparent;
+  color: var(--ivoire-black);
+}
+.cmdk-esc {
+  background: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-family: inherit;
+  color: #666;
+}
+.cmdk-results {
+  list-style: none;
+  margin: 0; padding: 4px 0;
+  overflow-y: auto;
+  flex: 1;
+}
+.cmdk-item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "kind title"
+    ".    sub";
+  gap: 2px 12px;
+  padding: 8px 14px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+.cmdk-item.active {
+  background: #FFFBD1;
+  border-left-color: #FFFF02;
+}
+.cmdk-item:hover { background: #f7f7f7; }
+.cmdk-item.active:hover { background: #FFFBD1; }
+.cmdk-kind {
+  grid-area: kind;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #666;
+  align-self: center;
+}
+.cmdk-title {
+  grid-area: title;
+  font-weight: 600;
+  color: var(--ivoire-black);
+}
+.cmdk-sub {
+  grid-area: sub;
+  font-size: 0.82rem;
+  color: #666;
+}
+.cmdk-empty, .cmdk-hint {
+  padding: 14px;
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
+  list-style: none;
+}
+.cmdk-footer {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  padding: 8px 14px;
+  background: #fafafa;
+  border-top: 1px solid #eee;
+  color: #666;
+  font-size: 0.78rem;
+}
+.cmdk-footer kbd {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-family: inherit;
+  font-size: 0.72rem;
+}
+
+@media (max-width: 600px) {
+  .cmdk-panel { max-height: 84vh; }
+  .cmdk-item {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "kind"
+      "title"
+      "sub";
+  }
+}
+
+/* ============ Owners grid (Camada F) ============ */
+.owners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+.owner-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-left: 4px solid #FFFF02;
+  border-radius: 4px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.owner-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+}
+.owner-icon { font-size: 1.1rem; }
+.owner-label { font-size: 0.95rem; color: #282828; flex: 1 1 auto; }
+.owner-count {
+  background: #282828;
+  color: #FFFF02;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  min-width: 22px;
+  text-align: center;
+}
+.owner-late {
+  background: #E53935;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.owner-late-mark {
+  color: #E53935;
+  font-size: 0.9em;
+  margin-left: 4px;
+}
+.owner-tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.owner-tasks li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "sev title"
+    ".   meta";
+  column-gap: 8px;
+  row-gap: 2px;
+  font-size: 0.85rem;
+}
+.owner-task-sev {
+  grid-area: sev;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 4px;
+  background: #f5f5f5;
+  color: #666;
+  font-weight: 700;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+.owner-task-sev.sev-5 { background: #E53935; color: #fff; }
+.owner-task-sev.sev-4 { background: #FFC107; color: #282828; }
+.owner-task-sev.sev-3 { background: #E0E0E0; color: #282828; }
+.owner-task-title {
+  grid-area: title;
+  color: #282828;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.owner-task-meta {
+  grid-area: meta;
+  font-size: 0.76rem;
+  color: #666;
+}
+.owner-more {
+  padding-top: 4px;
+  border-top: 1px dashed #ddd;
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  font-size: 0.78rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: "title";
+}
+
+/* ============ Mobile 375px (iPhone SE) ============ */
+@media (max-width: 480px) {
+  .ivoire-container { padding: 0 12px; }
+  .ivoire-header .ivoire-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .ivoire-header .title { font-size: 0.88rem; }
+  .header-meta {
+    font-size: 0.72rem;
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+  }
+  .ivoire-tabs-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .ivoire-tabs-bar .tab {
+    white-space: nowrap;
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+  .tabs-actions .tab-action {
+    font-size: 0.72rem;
+    padding: 6px 8px;
+  }
+  .ivoire-grid-4,
+  .ivoire-grid-3,
+  .ivoire-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+  .ivoire-kpi-card .value { font-size: 1.35rem; }
+  .ivoire-kpi-card .label { font-size: 0.78rem; }
+  .kw-tables-grid { grid-template-columns: 1fr; }
+  .ivoire-table { font-size: 0.8rem; }
+  .ivoire-table th, .ivoire-table td { padding: 6px 8px; }
+  .panel-header h1 { font-size: 1.2rem; }
+  .owners-grid { grid-template-columns: 1fr; }
+  .drill-link-badge {
+    display: block;
+    margin-left: 0;
+    margin-top: 6px;
+    width: fit-content;
+  }
+  .cmdk-panel { width: 94vw; }
+  .present-badge {
+    right: 10px; left: 10px;
+    bottom: 10px;
+    font-size: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

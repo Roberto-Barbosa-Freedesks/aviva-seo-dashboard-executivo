@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aviva SEO/GEO — Dashboard Executivo | Ivoire</title>
   <meta name="description" content="Mesa operacional, de performance e executiva do projeto Aviva SEO/GEO operado pela agência Ivoire. GSC ao vivo, North Star, sprint e OKRs Q2 2026.">
+  <meta name="theme-color" content="#282828">
+  <link rel="preload" href="data/snapshot.json" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="dashboard.js" as="script">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/png" href="assets/Logotipo-Ivoire.png">
 </head>
@@ -14,6 +17,23 @@
       <div class="logos">
         <img src="assets/Logotipo-Ivoire.png" alt="Ivoire — a marketing growth company">
         <span class="title">Aviva SEO/GEO · Dashboard Executivo</span>
+      </div>
+      <div class="header-widgets">
+        <button type="button" class="hdr-widget hdr-northstar" id="hdr-northstar"
+                title="North Star Q2 — clique para abrir a aba North Star">
+          <span class="w-label">North Star Q2</span>
+          <span class="w-bar">
+            <span class="w-bar-fill" id="hdr-ns-fill" style="width:0%"></span>
+            <span class="w-bar-target" style="left:70%"></span>
+          </span>
+          <span class="w-value"><strong id="hdr-ns-cur">—</strong> / <span id="hdr-ns-meta">≥70%</span></span>
+        </button>
+        <button type="button" class="hdr-widget hdr-health" id="hdr-health"
+                title="Health Score do projeto — clique para abrir a aba OKRs">
+          <span class="w-label">Health Score</span>
+          <span class="w-health-dot" id="hdr-health-dot"></span>
+          <span class="w-value"><strong id="hdr-health-val">—</strong>/100</span>
+        </button>
       </div>
       <div class="header-meta">
         <span id="hdr-sprint">S-2026-09</span>
@@ -38,6 +58,8 @@
       <button class="tab" role="tab" data-tab="reunioes">Reuniões <span class="tab-badge" id="tab-meet-badge">0</span></button>
       <button class="tab" role="tab" data-tab="alertas">Alertas <span class="tab-badge" id="tab-alert-badge">0</span></button>
       <div class="tabs-actions">
+        <button class="tab-action" id="btn-search" title="Busca global (⌘K / Ctrl+K)" aria-label="Abrir busca">⌘K Buscar</button>
+        <button class="tab-action" id="btn-present" title="Modo apresentação (tecla P)" aria-label="Modo apresentação">▶ Apresentar</button>
         <button class="tab-action" id="btn-print" title="Imprimir aba atual / exportar PDF">🖨 Imprimir</button>
       </div>
     </div>
@@ -463,6 +485,12 @@
         </section>
 
         <section class="ivoire-section">
+          <h2>Tarefas por responsável (grupos canônicos)</h2>
+          <div class="owners-grid" id="owners-grid"></div>
+          <p class="data-source">Agrupamento automático com base em <code>sprint_tasks[].responsavel</code> do snapshot. Fechamento individual continua por task no mid-review D8 e close D15.</p>
+        </section>
+
+        <section class="ivoire-section">
           <h2>Tasks comprometidas</h2>
           <table class="ivoire-table">
             <thead><tr>
@@ -595,6 +623,29 @@
     </div>
   </main>
 
+  <!-- ==================== Modal ⌘K — busca global ==================== -->
+  <div class="cmdk-overlay" id="cmdk-overlay" hidden role="dialog" aria-modal="true" aria-label="Busca global">
+    <div class="cmdk-panel" id="cmdk-panel">
+      <div class="cmdk-header">
+        <input type="search" id="cmdk-input" placeholder="Buscar abas, KPIs, queries, URLs, issues, compromissos…" autocomplete="off" aria-label="Termo de busca">
+        <kbd class="cmdk-esc">esc</kbd>
+      </div>
+      <ul class="cmdk-results" id="cmdk-results" role="listbox"></ul>
+      <div class="cmdk-footer">
+        <span><kbd>↑</kbd> <kbd>↓</kbd> navegar</span>
+        <span><kbd>↵</kbd> abrir</span>
+        <span><kbd>esc</kbd> fechar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== Modo apresentação — overlay ==================== -->
+  <div class="present-badge" id="present-badge" hidden>
+    <span>Modo apresentação</span>
+    <kbd>P</kbd> ou <kbd>esc</kbd> para sair ·
+    <kbd>←</kbd> <kbd>→</kbd> trocar aba
+  </div>
+
   <footer class="ivoire-footer" role="contentinfo">
     <div class="ivoire-container">
       <div class="brand">Ivoire · a marketing growth company</div>
@@ -607,5 +658,8 @@
   </footer>
 
   <script src="dashboard.js"></script>
+  <!-- Vercel Analytics (opt-out aware) + Speed Insights (CWV) -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>

@@ -28,8 +28,511 @@
   setupDrillDown(data);
   setupTabLinks();
   setupPrint();
+  attachDrillLinks();
+  attachDidacticHelp();
+  attachTableIntros();
+  attachPresentationMode();
+  attachGlobalSearch(data);
   await loadAnnotations();
 })();
+
+// ========================== Modo apresentação ==========================
+function attachPresentationMode() {
+  const btn = document.getElementById("btn-present");
+  const badge = document.getElementById("present-badge");
+  if (!btn) return;
+  let active = false;
+  let autoscrollTimer = null;
+  const tabs = ["visao", "northstar", "migracao", "conteudo", "offpage", "tecnico", "sprint", "okrs", "competidores", "calendario", "reunioes", "alertas"];
+
+  function toggle() {
+    active = !active;
+    document.body.classList.toggle("present-mode", active);
+    badge.hidden = !active;
+    if (active) startAutoscroll();
+    else stopAutoscroll();
+  }
+  function startAutoscroll() {
+    stopAutoscroll();
+    autoscrollTimer = setInterval(() => {
+      const panel = document.querySelector(".tab-panel.active");
+      if (!panel) return;
+      const maxY = panel.scrollHeight - window.innerHeight;
+      if (window.scrollY >= maxY - 20) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        window.scrollBy({ top: 2, behavior: "auto" });
+      }
+    }, 80);
+  }
+  function stopAutoscroll() {
+    if (autoscrollTimer) clearInterval(autoscrollTimer);
+    autoscrollTimer = null;
+  }
+
+  btn.addEventListener("click", toggle);
+  document.addEventListener("keydown", (e) => {
+    // Ignora atalhos se focado em input/textarea
+    const tag = document.activeElement?.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA") return;
+    if (e.key === "p" || e.key === "P") {
+      e.preventDefault();
+      toggle();
+    } else if (active && e.key === "Escape") {
+      toggle();
+    } else if (active && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
+      e.preventDefault();
+      const cur = document.querySelector(".tab.active")?.dataset.tab || "visao";
+      const idx = tabs.indexOf(cur);
+      const next = tabs[(idx + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
+      window.activateTab?.(next);
+    }
+  });
+}
+
+// ========================== Busca global ⌘K ==========================
+function attachGlobalSearch(data) {
+  const overlay = document.getElementById("cmdk-overlay");
+  const input = document.getElementById("cmdk-input");
+  const results = document.getElementById("cmdk-results");
+  const btn = document.getElementById("btn-search");
+  if (!overlay || !input || !results) return;
+
+  // Indexar fontes
+  const index = buildSearchIndex(data);
+  let selected = 0;
+  let current = [];
+
+  function open() {
+    overlay.hidden = false;
+    input.value = "";
+    render("");
+    setTimeout(() => input.focus(), 30);
+  }
+  function close() {
+    overlay.hidden = true;
+  }
+  function render(q) {
+    selected = 0;
+    current = searchIndex(index, q).slice(0, 30);
+    if (!current.length) {
+      results.innerHTML = q
+        ? `<li class="cmdk-empty">Nada encontrado para "${esc(q)}".</li>`
+        : `<li class="cmdk-hint">Digite para buscar em abas, KPIs, queries, URLs, issues, reuniões…</li>`;
+      return;
+    }
+    results.innerHTML = current.map((it, i) => `
+      <li class="cmdk-item ${i === 0 ? "active" : ""}" data-idx="${i}" role="option">
+        <span class="cmdk-kind">${esc(it.kind)}</span>
+        <span class="cmdk-title">${esc(it.title)}</span>
+        ${it.subtitle ? `<span class="cmdk-sub">${esc(it.subtitle)}</span>` : ""}
+      </li>
+    `).join("");
+  }
+  function activate(idx) {
+    const it = current[idx];
+    if (!it) return;
+    close();
+    if (it.action) it.action();
+  }
+  function moveSel(delta) {
+    if (!current.length) return;
+    selected = (selected + delta + current.length) % current.length;
+    results.querySelectorAll(".cmdk-item").forEach((el, i) => {
+      el.classList.toggle("active", i === selected);
+    });
+    const active = results.querySelector(".cmdk-item.active");
+    if (active) active.scrollIntoView({ block: "nearest" });
+  }
+
+  btn?.addEventListener("click", open);
+
+  document.addEventListener("keydown", (e) => {
+    const tag = document.activeElement?.tagName;
+    if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      open();
+      return;
+    }
+    if (!overlay.hidden) {
+      if (e.key === "Escape") { e.preventDefault(); close(); }
+      else if (e.key === "ArrowDown") { e.preventDefault(); moveSel(1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); moveSel(-1); }
+      else if (e.key === "Enter") { e.preventDefault(); activate(selected); }
+    }
+  });
+
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+  input.addEventListener("input", () => render(input.value.trim().toLowerCase()));
+  results.addEventListener("click", (e) => {
+    const li = e.target.closest(".cmdk-item");
+    if (!li) return;
+    activate(Number(li.dataset.idx));
+  });
+}
+
+function buildSearchIndex(data) {
+  const idx = [];
+  const tabs = [
+    ["visao", "Visão Semanal", "KPIs GSC, branded/non-branded, alertas da semana"],
+    ["northstar", "North Star Q2", "% cliques orgânicos absorvidos por aviva.com.br"],
+    ["migracao", "Migração 301", "Auditoria de redirects e incidentes"],
+    ["conteudo", "Conteúdo programático", "Pipeline, velocity, backlog, KW gaps"],
+    ["offpage", "Off-page", "Backlinks, âncoras, framework BL-021"],
+    ["tecnico", "Técnico", "CWV, Site Audit, crawler"],
+    ["sprint", "Sprint", "Capacity, tasks, briefings"],
+    ["okrs", "OKRs Q2", "O1 a O4 — KRs trimestrais"],
+    ["competidores", "Competidores", "Benchmarks diretos e indiretos"],
+    ["calendario", "Calendário", "Próximos eventos e gates"],
+    ["reunioes", "Reuniões", "Atas, compromissos, timeline"],
+    ["alertas", "Alertas", "Ações prioritárias desta sprint"],
+  ];
+  tabs.forEach(([id, title, sub]) => {
+    idx.push({ kind: "Aba", title, subtitle: sub, key: `${title} ${sub}`.toLowerCase(), action: () => window.activateTab?.(id) });
+  });
+
+  (data.kpis_gsc || []).forEach((k) => {
+    idx.push({ kind: "KPI", title: k.label, subtitle: `${k.value} (${k.delta || ""})`, key: `${k.label}`.toLowerCase(), action: () => window.activateTab?.("visao") });
+  });
+
+  [...(data.gsc_detail?.branded_top5 || []), ...(data.gsc_detail?.nonbranded_top5 || [])].forEach((q) => {
+    idx.push({
+      kind: "Query GSC", title: q.query || q.keyword,
+      subtitle: `${fmtNum(q.clicks)} cliques · pos ${q.position}`,
+      key: (q.query || q.keyword || "").toLowerCase(),
+      action: () => window.activateTab?.("visao"),
+    });
+  });
+
+  (data.tecnico?.site_audit_issues || []).forEach((iss) => {
+    const slug = slugifyIssue(iss.issue);
+    idx.push({
+      kind: "Issue técnica", title: iss.issue,
+      subtitle: `${fmtNum(iss.count)} ocorrências · ${iss.priority}`,
+      key: `${iss.issue}`.toLowerCase(),
+      action: () => { window.location.href = `/drill/?tipo=issue&id=${encodeURIComponent(slug)}&from=tecnico`; },
+    });
+  });
+
+  (data.conteudo?.kw_gaps_top || []).forEach((k) => {
+    idx.push({
+      kind: "KW gap", title: k.kw,
+      subtitle: `${fmtNum(k.impressions_week)} imp · pos ${k.position} · ${k.cluster || "-"}`,
+      key: `${k.kw} ${k.cluster}`.toLowerCase(),
+      action: () => window.activateTab?.("conteudo"),
+    });
+  });
+
+  (data.conteudo?.top_score_tasks || []).forEach((t) => {
+    idx.push({
+      kind: "Task backlog", title: t.titulo || t.id,
+      subtitle: `${t.kr} · sev ${t.sev} · score ${t.score}`,
+      key: `${t.titulo} ${t.id} ${t.kr}`.toLowerCase(),
+      action: () => window.activateTab?.("conteudo"),
+    });
+  });
+
+  (data.offpage?.top_domains || []).forEach((d) => {
+    idx.push({
+      kind: "Domínio BL", title: d.domain,
+      subtitle: `${fmtNum(d.backlinks)} links · DR ${d.dr} · ${d.tier || ""}`,
+      key: (d.domain || "").toLowerCase(),
+      action: () => window.activateTab?.("offpage"),
+    });
+  });
+
+  (data.alertas || []).forEach((a) => {
+    idx.push({
+      kind: "Alerta", title: a.texto,
+      subtitle: a.severidade,
+      key: `${a.texto}`.toLowerCase(),
+      action: () => window.activateTab?.("alertas"),
+    });
+  });
+
+  (data.meetings?.items || []).forEach((m) => {
+    idx.push({
+      kind: "Compromisso", title: m.title || m.titulo,
+      subtitle: `${m.owner || ""} · prazo ${m.due || "—"}`,
+      key: `${m.title} ${m.titulo} ${m.owner}`.toLowerCase(),
+      action: () => window.activateTab?.("reunioes"),
+    });
+  });
+
+  return idx;
+}
+
+function searchIndex(idx, q) {
+  if (!q) return idx.slice(0, 12);
+  const terms = q.split(/\s+/).filter(Boolean);
+  const scored = [];
+  for (const it of idx) {
+    let score = 0;
+    for (const t of terms) {
+      if (it.key.includes(t)) score += 2;
+      else if (it.title.toLowerCase().includes(t)) score += 1;
+    }
+    if (score > 0) scored.push({ score, it });
+  }
+  scored.sort((a, b) => b.score - a.score);
+  return scored.map((x) => x.it);
+}
+
+// ========================== Didática "O que é / Por que / Como" ==========================
+// Dicionário Aviva-specific: match exato no label do KPI.
+const DIDATIC = {
+  "Cliques": {
+    o_que_e: "Cliques orgânicos capturados pelo Google Search Console na janela de 7 dias (aviva + 2 legados consolidados).",
+    por_que: "É o resultado final do SEO. Baseline 2026-04-17: 7% no aviva.com.br. Meta 2026-06-30 (KR1.2): ≥70% dos cliques no canônico.",
+    como_usar: "Queda >15% WoW sem redeploy = investigar no drill-down da KPI, conferir alertas e incidentes de migração 301.",
+  },
+  "Impressões": {
+    o_que_e: "Quantas vezes URLs Aviva apareceram em resultados do Google (SERP) na janela semanal.",
+    por_que: "Impressões mostram alcance potencial. Crescem antes dos cliques em estratégias programáticas bem executadas (O3).",
+    como_usar: "Crescimento de impressões + CTR estável = expansão de visibilidade; crescimento sem cliques = verificar posição média ou cluster canibalizado.",
+  },
+  "CTR": {
+    o_que_e: "Click-through-rate médio ponderado: cliques ÷ impressões, GSC consolidado 7 dias.",
+    por_que: "CTR abaixo da mediana do cluster indica título/meta fracos ou snippet roubado por concorrente. Fix rápido.",
+    como_usar: "Abra o anexo Conteúdo · CTR-lift (drill-down Conteúdo) para a lista priorizada e briefing automático.",
+  },
+  "Posição": {
+    o_que_e: "Posição média ponderada por impressões. Valor menor = melhor (1,0 é topo).",
+    por_que: "Movimento 12→8 duplica cliques sem esforço de link; é o quick-win padrão das sprints Ivoire.",
+    como_usar: "Conferir anexo Striking-distance (posições 8–20 com volume) e priorizar no sprint ativo.",
+  },
+  "North Star": {
+    o_que_e: "% de cliques orgânicos que o aviva.com.br absorve vs o total (aviva + riohotquente + costadosauipe).",
+    por_que: "Indicador único da migração de autoridade Q2 2026. KR1.2 requer ≥70% até 2026-06-30.",
+    como_usar: "Ganhos virão de 301 limpos + canônico indexável + conteúdo programático. Ver abas Migração e Conteúdo.",
+  },
+  "aviva.com.br share": {
+    o_que_e: "Share de cliques no domínio canônico dentro do consolidado dos 3 properties GSC.",
+    por_que: "Proxy do North Star — meta KR1.2 ≥70% até 2026-06-30.",
+    como_usar: "Baseline 2026-04-17: 7%. Todo incremento vem de redirects OK + conteúdo novo no canônico.",
+  },
+  "Legados share": {
+    o_que_e: "% de cliques que ainda caem em riohotquente.com.br e costadosauipe.com.br.",
+    por_que: "Tem que cair — é o espelho inverso do North Star. 93% em 2026-04-17.",
+    como_usar: "Queda natural com 301 de qualidade. Monitor semanal na aba Migração 301.",
+  },
+  "Broken pendentes": {
+    o_que_e: "Redirects quebrados (loops, 404 em destino, chains longos) no mapa legado → aviva.",
+    por_que: "Cada broken redirect mata autoridade que o North Star precisa. Sev 5 — BL-001 é urgência dura.",
+    como_usar: "Abra o drill-down Migração 301 e priorize por inbound traffic GSC.",
+  },
+  "Redirects mapeados": {
+    o_que_e: "Total de URLs legadas com mapeamento 1:1 para aviva.com.br definido na migração.",
+    por_que: "Cobertura de mapeamento = cobertura da migração. Sem map, cai em 404 ou homepage — perda de equity.",
+    como_usar: "Gap de cobertura = pauta de sprint. Drill-down 301-audit mostra URLs sem mapeamento.",
+  },
+  "Backlinks totais": {
+    o_que_e: "Total de links externos ativos apontando para aviva.com.br (Ahrefs CSV manual semanal).",
+    por_que: "Estoque de autoridade. Zero consumo API Ahrefs — apenas ingestão de CSV (Regra 11).",
+    como_usar: "Abra drill-down Off-page backlinks para lista completa de backlinks ativos com DR e tier.",
+  },
+  "Ref. domains": {
+    o_que_e: "Quantidade de domínios únicos que linkam para aviva.com.br (importa mais que volume bruto).",
+    por_que: "Diversidade de fonte é sinal editorial para Google. 1 link de 100 domínios ≫ 100 links de 1 domínio.",
+    como_usar: "Cruze com anchor-profile no drill-down Off-page para avaliar risco de over-anchor.",
+  },
+  "Tier-1 (DR≥50)": {
+    o_que_e: "Backlinks de domínios com Domain Rating ≥50 (alta autoridade editorial).",
+    por_que: "Tier-1 carrega mais equity e resiste a atualizações de algoritmo.",
+    como_usar: "Perfil tier-1 < 15% do total = prioridade de outreach PR/Imprensa. Ver briefing Off-page.",
+  },
+  "LCP p75": {
+    o_que_e: "Largest Contentful Paint no percentil 75 — tempo até o maior elemento renderizar, mobile.",
+    por_que: "Core Web Vital direto no ranking. Meta Google: < 2,5s. Aviva referência: < 1,5s.",
+    como_usar: "LCP > 2,5s = investigar hero image, LCP resource, font-display. Abrir drill-down por issue técnica.",
+  },
+  "INP p75": {
+    o_que_e: "Interaction to Next Paint p75 — responsividade em ms, mobile.",
+    por_que: "Substituiu FID em 2024. Meta < 200ms; alvo Aviva < 150ms.",
+    como_usar: "INP alto = JS bloqueante no main thread. Ver aba Técnico e drill-down das issues.",
+  },
+  "CLS p75": {
+    o_que_e: "Cumulative Layout Shift — estabilidade visual (quanto o layout 'pula' durante o load).",
+    por_que: "Meta Google: < 0,1. Vital para engajamento e Core Web Vital.",
+    como_usar: "Lazy-load sem dimensão reservada é o vilão #1. Checar imagens e ads.",
+  },
+  "Site Audit issues": {
+    o_que_e: "Total de issues técnicas detectadas pelo Ahrefs Site Audit (erros + warnings).",
+    por_que: "Backlog técnico. Prioridade Alta (404/4xx/5xx/broken) impacta imediato.",
+    como_usar: "Clique em qualquer linha da tabela Top 15 Issues → abre drill-down com todas as URLs afetadas + recomendacao_ivoire numerada.",
+  },
+};
+
+function attachDidacticHelp() {
+  document.querySelectorAll(".ivoire-kpi-card").forEach((card) => {
+    const label = card.querySelector(".label");
+    if (!label) return;
+    const key = label.textContent.trim();
+    const help = DIDATIC[key];
+    if (!help) return;
+    if (card.querySelector(".kpi-help")) return; // idempotente
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "kpi-help";
+    btn.setAttribute("aria-label", `Ajuda sobre ${key}`);
+    btn.textContent = "ⓘ";
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      togglePopover(btn, key, help);
+    });
+    label.appendChild(btn);
+  });
+}
+
+function togglePopover(anchor, titleText, help) {
+  const existing = document.getElementById("kpi-popover");
+  if (existing && existing.dataset.owner === titleText) {
+    existing.remove();
+    return;
+  }
+  if (existing) existing.remove();
+  const pop = document.createElement("div");
+  pop.id = "kpi-popover";
+  pop.className = "kpi-popover";
+  pop.dataset.owner = titleText;
+  pop.innerHTML = `
+    <div class="kpi-pop-head">
+      <strong>${esc(titleText)}</strong>
+      <button type="button" class="kpi-pop-close" aria-label="Fechar">×</button>
+    </div>
+    <dl>
+      <dt>O que é</dt><dd>${esc(help.o_que_e)}</dd>
+      <dt>Por que importa</dt><dd>${esc(help.por_que)}</dd>
+      <dt>Como usar</dt><dd>${esc(help.como_usar)}</dd>
+    </dl>
+  `;
+  document.body.appendChild(pop);
+  const r = anchor.getBoundingClientRect();
+  const top = r.bottom + window.scrollY + 8;
+  const left = Math.min(r.left + window.scrollX, window.innerWidth - 340);
+  pop.style.top = `${top}px`;
+  pop.style.left = `${Math.max(8, left)}px`;
+  pop.querySelector(".kpi-pop-close").addEventListener("click", () => pop.remove());
+  // Clique fora fecha
+  setTimeout(() => {
+    document.addEventListener("click", function onOutside(ev) {
+      if (!pop.contains(ev.target) && ev.target !== anchor) {
+        pop.remove();
+        document.removeEventListener("click", onOutside);
+      }
+    });
+  }, 0);
+}
+
+// ========================== Intros didáticas nas tabelas ==========================
+const TABLE_INTROS = {
+  "tc-issues-tbody":
+    "Site Audit Ahrefs — issues agrupadas por tipo. Clique em qualquer linha para abrir o drill-down com todas as URLs afetadas, severidade Ivoire e passos numerados de correção.",
+  "op-top-tbody":
+    "Top 10 domínios que mais linkam para aviva.com.br. Tier-1 = DR ≥ 50 (alta autoridade editorial). Priorize relacionamento dos Tier-1 com PR/Imprensa.",
+  "op-anchors-tbody":
+    "Perfil de âncoras — risco de over-anchor quando uma âncora concentra >30% e é exata. Diversificar via outreach temático.",
+  "op-gains-tbody":
+    "Backlinks conquistados nos últimos 7 dias. Cruze com cronograma editorial e menções à marca na aba Reuniões.",
+  "kwgaps-tbody":
+    "KW gaps — queries com volume e posição subótima. Cada linha com cluster preenchido já vira pauta priorizada no briefing de conteúdo semanal.",
+  "bl-top-tbody":
+    "Top 5 tasks do backlog por score (severidade × log10(impressões+10) × peso do cluster). Score é transparente, sem ROI.",
+  "mig-incidents":
+    "Incidentes recentes da migração 301 — cada um impacta equity. Priorize pela severidade e confirme fechamento no mid-review D8.",
+  "mig-kws":
+    "Keywords estratégicas monitoradas (volume anual > 40k). Monitor semanal pela GSC das 3 properties.",
+};
+
+function attachTableIntros() {
+  Object.entries(TABLE_INTROS).forEach(([id, text]) => {
+    const tb = document.getElementById(id);
+    if (!tb) return;
+    const section = tb.closest(".ivoire-section");
+    if (!section) return;
+    if (section.querySelector(".table-intro")) return;
+    const h2 = section.querySelector("h2");
+    if (!h2) return;
+    const p = document.createElement("p");
+    p.className = "table-intro";
+    p.textContent = text;
+    h2.insertAdjacentElement("afterend", p);
+  });
+}
+
+// ========================== Drill-down CSV links ==========================
+// Adiciona um badge "Ver todos" nas 7 tabelas de anexo que têm CSV
+// completo publicado em /anexos/latest/*.csv.
+function attachDrillLinks() {
+  const links = [
+    { tbody: "tc-issues-tbody", tipo: "issue", idFromRow: true, from: "tecnico",
+      label: "Abrir drill-down por issue", slugCol: 0 },
+    { tbody: "kwgaps-tbody", href: "/drill/?tipo=conteudo&id=striking&from=conteudo",
+      label: "Ver todos striking-distance + CTR-lift" },
+    { tbody: "op-top-tbody", href: "/drill/?tipo=offpage&id=backlinks&from=offpage",
+      label: "Ver todos os backlinks ativos" },
+    { tbody: "op-anchors-tbody", href: "/drill/?tipo=offpage&id=anchors&from=offpage",
+      label: "Ver perfil completo de âncoras" },
+    { tbody: "op-gains-tbody", href: "/drill/?tipo=offpage&id=backlinks&from=offpage",
+      label: "Ver todos os backlinks ativos" },
+    { tbody: "mig-incidents", href: "/drill/?tipo=migracao&id=301&from=migracao",
+      label: "Ver auditoria completa 301" },
+    { tbody: "mig-kws", href: "/drill/?tipo=migracao&id=301&from=migracao",
+      label: "Ver auditoria completa 301" },
+  ];
+
+  links.forEach(cfg => {
+    const tb = document.getElementById(cfg.tbody);
+    if (!tb) return;
+    const section = tb.closest(".ivoire-section");
+    if (!section) return;
+    // Badge de atalho no header da seção
+    const h2 = section.querySelector("h2");
+    if (h2 && !h2.querySelector(".drill-link-badge")) {
+      const href = cfg.href || buildIssueDrillHref(tb);
+      if (href) {
+        const a = document.createElement("a");
+        a.className = "drill-link-badge";
+        a.href = href;
+        a.textContent = "Ver todos →";
+        a.title = cfg.label;
+        h2.appendChild(a);
+      }
+    }
+    // Linha clicável (apenas para tabela de issues, onde cada linha abre um slug diferente)
+    if (cfg.idFromRow && cfg.tipo === "issue") {
+      tb.classList.add("rows-clickable");
+      tb.addEventListener("click", (e) => {
+        const tr = e.target.closest("tr");
+        if (!tr || !tr.parentElement) return;
+        if (e.target.closest("a")) return;
+        const firstCell = tr.cells[0];
+        if (!firstCell) return;
+        const issueName = firstCell.textContent.trim();
+        const slug = slugifyIssue(issueName);
+        if (!slug) return;
+        const url = `/drill/?tipo=issue&id=${encodeURIComponent(slug)}&from=${cfg.from}`;
+        window.location.href = url;
+      });
+    }
+  });
+}
+
+function slugifyIssue(text) {
+  return String(text || "")
+    .toLowerCase()
+    .normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+}
+
+function buildIssueDrillHref(tbody) {
+  const first = tbody.querySelector("tr td");
+  if (!first) return "/drill/?tipo=issue&id=4xx-page&from=tecnico";
+  const slug = slugifyIssue(first.textContent);
+  return `/drill/?tipo=issue&id=${encodeURIComponent(slug)}&from=tecnico`;
+}
 
 function setupPrint() {
   const btn = document.getElementById("btn-print");
@@ -115,6 +618,54 @@ function setupTabLinks() {
 function renderHeader(data) {
   setText("hdr-sprint", data.meta?.sprint_id || "—");
   setText("hdr-updated", fmtDateTime(data.meta?.generated_at));
+  renderHeaderWidgets(data);
+}
+
+function renderHeaderWidgets(data) {
+  // North Star
+  const ns = data.north_star || {};
+  const cur = Number(ns.current_pct ?? 0);
+  const target = Number(ns.target_pct ?? 70);
+  setText("hdr-ns-cur", `${cur.toFixed(1).replace(".", ",")}%`);
+  setText("hdr-ns-meta", `≥${target}% até ${ns.target_date || "2026-06-30"}`);
+  const fill = byId("hdr-ns-fill");
+  if (fill) {
+    const pct = Math.max(0, Math.min(100, (cur / target) * 100));
+    fill.style.width = `${pct}%`;
+  }
+  const nsBtn = byId("hdr-northstar");
+  if (nsBtn) nsBtn.addEventListener("click", () => window.activateTab?.("northstar"));
+
+  // Health Score — prioriza snapshot.meta.health_score, senão deriva
+  const meta = data.meta || {};
+  const derived = deriveHealthScore(data);
+  const score = Number(meta.health_score ?? derived);
+  setText("hdr-health-val", Math.round(score));
+  const dot = byId("hdr-health-dot");
+  const healthBtn = byId("hdr-health");
+  if (dot) {
+    dot.className = "w-health-dot " + (score >= 80 ? "verde" : score >= 60 ? "amarelo" : "vermelho");
+  }
+  if (healthBtn) {
+    healthBtn.addEventListener("click", () => window.activateTab?.("okrs"));
+    healthBtn.title = `Health Score ${Math.round(score)}/100 — ` +
+      (score >= 80 ? "verde · projeto saudável" : score >= 60 ? "amarelo · monitorar" : "vermelho · ação imediata");
+  }
+}
+
+function deriveHealthScore(data) {
+  // Componentes simples: alertas vermelhos, sprint capacity, incidentes 301, CWV.
+  let s = 100;
+  const reds = (data.alertas || []).filter(a => a.severidade === "vermelho").length;
+  s -= reds * 6;
+  const cap = Number(data.sprint?.capacity_used_pct || 0);
+  if (cap > 100) s -= (cap - 100) * 0.5;
+  if ((data.migracao?.broken_pendentes || 0) > 0) s -= 5;
+  const lcp = Number(data.tecnico?.cwv?.lcp_p75_ms || 0);
+  if (lcp > 2500) s -= 8;
+  const issuesAlta = Number(data.tecnico?.site_audit_issues_alta || 0);
+  if (issuesAlta > 5) s -= 6;
+  return Math.max(0, Math.min(100, Math.round(s)));
 }
 
 // ========================== Visão Semanal ==========================
@@ -627,6 +1178,76 @@ function renderTecnico(data) {
 }
 
 // ========================== Sprint ==========================
+// ========================== Owners grid (Camada F) ==========================
+// Agrupa sprint_tasks[].responsavel nos 6 buckets canônicos.
+const OWNER_BUCKETS = [
+  { key: "dev-aviva", label: "Dev Aviva", icon: "🛠", match: /(dev|tech|técnico|tecnico).*aviva|aviva.*(dev|tech|técnico|tecnico)/i },
+  { key: "ivoire-seo", label: "Ivoire SEO / Análise", icon: "📊", match: /analista.*ivoire|ivoire.*(analista|seo|dados)|orchestrator/i },
+  { key: "ivoire-conteudo", label: "Ivoire Conteúdo", icon: "✍", match: /redator|redação|redacao|conte(ú|u)do.*ivoire|ivoire.*conte(ú|u)do/i },
+  { key: "ivoire-pr", label: "Ivoire PR / Imprensa", icon: "📣", match: /pr.*ivoire|ivoire.*pr|imprensa.*ivoire|ivoire.*imprensa|assessoria/i },
+  { key: "aviva-digital", label: "Aviva Digital / Criação", icon: "🎨", match: /cria(ç|c)ão.*aviva|aviva.*cria(ç|c)ão|aviva.*digital|digital.*aviva|imprensa.*aviva|social.*aviva/i },
+  { key: "compartilhado", label: "Compartilhado / Cliente", icon: "🤝", match: /beto|aviva.*\+|cliente|follow(\s|-)?up|aviva$/i },
+];
+
+function bucketizeOwner(resp) {
+  const s = String(resp || "").toLowerCase();
+  for (const b of OWNER_BUCKETS) {
+    if (b.match.test(s)) return b.key;
+  }
+  return "outros";
+}
+
+function renderOwnersGrid(tasks) {
+  const grid = byId("owners-grid");
+  if (!grid) return;
+  const groups = {};
+  OWNER_BUCKETS.forEach(b => groups[b.key] = []);
+  groups.outros = [];
+
+  tasks.forEach(t => {
+    const k = bucketizeOwner(t.responsavel);
+    (groups[k] || groups.outros).push(t);
+  });
+
+  const buckets = [...OWNER_BUCKETS];
+  if (groups.outros.length) buckets.push({ key: "outros", label: "Outros", icon: "·" });
+
+  grid.innerHTML = buckets.map(b => {
+    const items = groups[b.key] || [];
+    const lateCount = items.filter(t => isTaskLate(t)).length;
+    if (!items.length) return "";
+    const itemsHtml = items.slice(0, 6).map(t => {
+      const sevClass = t.sev >= 5 ? "sev-5" : t.sev === 4 ? "sev-4" : "sev-3";
+      const late = isTaskLate(t) ? ' <span class="owner-late-mark" title="SLA vencido">⏰</span>' : "";
+      const status = t.status ? ` · <em>${esc(t.status)}</em>` : "";
+      return `<li>
+        <span class="owner-task-sev ${sevClass}">${esc(t.sev)}</span>
+        <span class="owner-task-title">${esc(t.titulo)}${late}</span>
+        <span class="owner-task-meta">${esc(t.kr)} · SLA ${esc(t.sla)}${status}</span>
+      </li>`;
+    }).join("");
+    const more = items.length > 6 ? `<li class="owner-more">+${items.length - 6} outras tasks</li>` : "";
+    const lateBadge = lateCount ? `<span class="owner-late">${lateCount} atrasada(s)</span>` : "";
+    return `<div class="owner-card" data-bucket="${b.key}">
+      <div class="owner-head">
+        <span class="owner-icon">${b.icon}</span>
+        <strong class="owner-label">${esc(b.label)}</strong>
+        <span class="owner-count">${items.length}</span>
+        ${lateBadge}
+      </div>
+      <ul class="owner-tasks">${itemsHtml}${more}</ul>
+    </div>`;
+  }).join("");
+}
+
+function isTaskLate(t) {
+  if (!t.sla) return false;
+  const done = /concluíd|concluid|done|fechad|encerrad/i.test(t.status || "");
+  if (done) return false;
+  const d = new Date(t.sla + "T23:59:59");
+  return !Number.isNaN(d.getTime()) && d < new Date();
+}
+
 function renderSprint(data) {
   const s = data.sprint || {};
   setText("sp-id", s.id);
@@ -647,6 +1268,9 @@ function renderSprint(data) {
     tr.innerHTML = `<td>${esc(r.papel)}</td><td class="num">${r.capacity_pct}%</td><td><span class="badge ${cls}">${r.capacity_pct > 100 ? "sobrecarga" : r.capacity_pct >= 90 ? "atenção" : "ok"}</span></td>`;
     cap.appendChild(tr);
   });
+
+  // Tarefas por responsável (grupos canônicos)
+  renderOwnersGrid(data.sprint_tasks || []);
 
   // Tasks table (all tasks da sprint)
   const tb = byId("tasks-tbody");

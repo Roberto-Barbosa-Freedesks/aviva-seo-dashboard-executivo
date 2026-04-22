@@ -1,0 +1,262 @@
+/* Drill-down — estilos específicos. Herda tokens e layout do styles.css
+ * do dashboard principal. Paleta Ivoire (preto #282828, amarelo #FFFF02). */
+
+.drill-page {
+  background: #fafafa;
+}
+
+.drill-hero {
+  padding: 24px 0 8px;
+  border-bottom: 1px solid #ececec;
+  margin-bottom: 24px;
+}
+
+.drill-hero h1 {
+  margin: 4px 0 6px;
+  font-size: 1.9rem;
+  line-height: 1.2;
+  color: #282828;
+}
+
+.drill-hero .panel-sub {
+  color: #555;
+  font-size: 0.92rem;
+  margin-bottom: 14px;
+}
+
+.back-link {
+  color: #282828;
+  text-decoration: none;
+  border-bottom: 1px dotted #282828;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.back-link:hover {
+  background: #FFFF02;
+}
+
+.drill-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+#drill-search {
+  flex: 1 1 280px;
+  min-width: 200px;
+  padding: 9px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: #fff;
+}
+#drill-search:focus {
+  outline: 2px solid #FFFF02;
+  outline-offset: 1px;
+  border-color: #282828;
+}
+
+.btn-secondary {
+  padding: 8px 14px;
+  background: #fff;
+  border: 1px solid #282828;
+  color: #282828;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.12s ease;
+  font-family: inherit;
+}
+.btn-secondary:hover:not(:disabled) {
+  background: #FFFF02;
+}
+.btn-secondary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.drill-cols-panel {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px 16px;
+}
+
+.col-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.86rem;
+  color: #444;
+  cursor: pointer;
+  user-select: none;
+}
+.col-toggle input { cursor: pointer; }
+
+.drill-table-wrap {
+  overflow-x: auto;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.drill-table {
+  min-width: 100%;
+  width: max-content;
+}
+
+.drill-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 22px;
+  white-space: nowrap;
+  vertical-align: top;
+}
+.drill-table th.sortable::after {
+  content: "⇅";
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.35;
+  font-size: 0.8em;
+}
+.drill-table th.sortable.sort-asc::after { content: "▲"; opacity: 1; }
+.drill-table th.sortable.sort-desc::after { content: "▼"; opacity: 1; }
+.drill-table th.sortable:hover { background: #f5f5f5; }
+
+.drill-table th.col-ivoire {
+  background: #FFFBD1;
+  border-bottom: 2px solid #FFFF02;
+}
+.drill-table td {
+  vertical-align: top;
+  max-width: 520px;
+}
+.drill-table td a {
+  color: #282828;
+  text-decoration: underline;
+  text-decoration-color: #FFFF02;
+  text-decoration-thickness: 2px;
+  word-break: break-all;
+}
+.drill-table td a:hover {
+  background: #FFFF02;
+}
+
+.drill-table tr:nth-child(even) td { background: #fafafa; }
+.drill-table tr:hover td { background: #FFFBD1; }
+
+.drill-empty {
+  padding: 30px;
+  text-align: center;
+  color: #888;
+  background: #fff;
+  border: 1px dashed #ccc;
+  margin-top: -1px;
+  border-radius: 0 0 4px 4px;
+}
+
+.drill-footer-bar {
+  padding: 14px 0;
+}
+.drill-pager {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.drill-page-info {
+  font-variant-numeric: tabular-nums;
+  color: #444;
+  font-size: 0.9rem;
+  padding: 0 8px;
+}
+.page-size {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.page-size select {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-family: inherit;
+  background: #fff;
+}
+
+.drill-about {
+  background: #fff;
+  border-left: 3px solid #FFFF02;
+  padding: 16px 20px;
+}
+.drill-about h2 {
+  margin-top: 0;
+  font-size: 1.05rem;
+  color: #282828;
+}
+.drill-about p {
+  margin: 6px 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #333;
+}
+.drill-about code {
+  background: #f5f5f5;
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-size: 0.85rem;
+}
+
+.drill-toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #282828;
+  color: #FFFF02;
+  padding: 10px 18px;
+  border-radius: 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 9999;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+.drill-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* Mobile ≤ 600px */
+@media (max-width: 600px) {
+  .drill-hero h1 { font-size: 1.4rem; }
+  .drill-toolbar { flex-direction: column; align-items: stretch; }
+  .btn-secondary { width: 100%; }
+  .drill-pager { justify-content: center; }
+  .page-size { margin-left: 0; }
+  .drill-table td { max-width: 260px; }
+  .drill-about { padding: 14px; }
+}

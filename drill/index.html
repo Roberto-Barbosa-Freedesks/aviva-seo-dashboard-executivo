@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drill-down — Aviva SEO/GEO · Ivoire</title>
+  <meta name="description" content="Detalhamento linha-a-linha dos anexos CSV do dashboard executivo Aviva SEO/GEO operado pela Ivoire.">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="drill.css">
+  <link rel="icon" type="image/png" href="../assets/Logotipo-Ivoire.png">
+</head>
+<body class="drill-page">
+  <header class="ivoire-header" role="banner">
+    <div class="ivoire-container">
+      <div class="logos">
+        <img src="../assets/Logotipo-Ivoire.png" alt="Ivoire — a marketing growth company">
+        <span class="title">Aviva SEO/GEO · Drill-down</span>
+      </div>
+      <div class="header-meta">
+        <a href="../" class="back-link" id="back-link">← Voltar ao dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="ivoire-main" role="main">
+    <div class="ivoire-container">
+
+      <section class="drill-hero">
+        <p class="ivoire-kicker" id="drill-kicker">Anexo</p>
+        <h1 id="drill-title">Carregando detalhamento…</h1>
+        <p class="panel-sub" id="drill-meta">
+          <span id="drill-source">—</span> · <span id="drill-rows">0</span> linhas ·
+          <span id="drill-date">—</span>
+        </p>
+        <div class="drill-toolbar">
+          <input type="search" id="drill-search" placeholder="Buscar na tabela (↵ para filtrar)…" aria-label="Buscar" autocomplete="off">
+          <button type="button" class="btn-secondary" id="btn-download" title="Baixar CSV original">⬇ CSV</button>
+          <button type="button" class="btn-secondary" id="btn-copy" title="Copiar link compartilhável">🔗 Copiar URL</button>
+          <button type="button" class="btn-secondary" id="btn-cols" title="Mostrar/ocultar colunas">Colunas</button>
+        </div>
+        <div class="drill-cols-panel" id="drill-cols-panel" hidden></div>
+      </section>
+
+      <section class="ivoire-section" aria-labelledby="h-table">
+        <h2 id="h-table" class="sr-only">Dados detalhados</h2>
+        <div class="drill-table-wrap">
+          <table class="ivoire-table drill-table" id="drill-grid">
+            <thead id="drill-thead"></thead>
+            <tbody id="drill-tbody"></tbody>
+          </table>
+        </div>
+        <div class="drill-empty" id="drill-empty" hidden>
+          <p>Nenhum registro corresponde ao filtro atual.</p>
+        </div>
+      </section>
+
+      <section class="ivoire-section drill-footer-bar" aria-label="Paginação">
+        <div class="drill-pager">
+          <button type="button" class="btn-secondary" id="btn-prev" aria-label="Página anterior">← Anterior</button>
+          <span class="drill-page-info" id="drill-page-info">—</span>
+          <button type="button" class="btn-secondary" id="btn-next" aria-label="Próxima página">Próxima →</button>
+          <label class="page-size">
+            Linhas por página
+            <select id="drill-pagesize">
+              <option value="25">25</option>
+              <option value="50" selected>50</option>
+              <option value="100">100</option>
+              <option value="250">250</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="ivoire-section drill-about" id="drill-about" aria-label="Sobre este anexo">
+        <h2>Sobre este anexo</h2>
+        <div id="drill-explainer"></div>
+        <p class="data-source">
+          Hierarquia de fontes Aviva: GSC (1º) &gt; GA4 (2º) &gt; Ahrefs (3º) &gt; Crawler próprio (4º).
+          Dados atualizados toda segunda 13h BRT pela engine <code>aviva-seo-geo-engine</code>.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="ivoire-footer" role="contentinfo">
+    <div class="ivoire-container">
+      <div class="brand">Ivoire · a marketing growth company</div>
+      <div>
+        <a href="https://www.ivoire.ag">www.ivoire.ag</a> ·
+        Confidencial — Ivoire x Aviva ·
+        Fonte: GSC &gt; GA4 &gt; Ahrefs &gt; Crawler próprio
+      </div>
+    </div>
+  </footer>
+
+  <script src="drill.js"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
