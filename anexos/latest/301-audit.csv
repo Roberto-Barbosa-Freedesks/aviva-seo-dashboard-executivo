@@ -1,0 +1,19 @@
+URL origem (legado),URL destino (aviva.com.br),Status destino,Decisao,Regra nginx pronta
+https://rioquente.com.br/,https://www.aviva.com.br/rio-quente/,Verificar,Corrigir destino,rewrite ^/$ /rio-quente/ permanent;
+https://rioquente.com.br/hot-park,https://www.aviva.com.br/hot-park-rio-quente/,Verificar,Corrigir destino,rewrite ^/hot-park$ /hot-park-rio-quente/ permanent;
+https://rioquente.com.br/hoteis/cristal,https://www.aviva.com.br/rio-quente/hotel-cristal/,Verificar,Corrigir destino,rewrite ^/hoteis/cristal$ /rio-quente/hotel-cristal/ permanent;
+https://rioquente.com.br/hoteis/turismo,https://www.aviva.com.br/rio-quente/hotel-turismo/,Verificar,Corrigir destino,rewrite ^/hoteis/turismo$ /rio-quente/hotel-turismo/ permanent;
+https://rioquente.com.br/hoteis/pousada,https://www.aviva.com.br/rio-quente/hotel-pousada/,Verificar,Corrigir destino,rewrite ^/hoteis/pousada$ /rio-quente/hotel-pousada/ permanent;
+https://rioquente.com.br/hoteis/luupi,https://www.aviva.com.br/rio-quente/hotel-luupi/,Verificar,Corrigir destino,rewrite ^/hoteis/luupi$ /rio-quente/hotel-luupi/ permanent;
+https://rioquente.com.br/hoteis/giardino,https://www.aviva.com.br/rio-quente/hotel-giardino/,Verificar,Corrigir destino,rewrite ^/hoteis/giardino$ /rio-quente/hotel-giardino/ permanent;
+https://rioquente.com.br/hoteis/eco-chales,https://www.aviva.com.br/rio-quente/eco-chales/,Verificar,Corrigir destino,rewrite ^/hoteis/eco-chales$ /rio-quente/eco-chales/ permanent;
+https://rioquente.com.br/parque-das-fontes,https://www.aviva.com.br/rio-quente/parque-das-fontes/,Verificar,Corrigir destino,rewrite ^/parque-das-fontes$ /rio-quente/parque-das-fontes/ permanent;
+https://rioquente.com.br/clube-de-ferias,https://www.aviva.com.br/clube-de-ferias/,Verificar,Corrigir destino,rewrite ^/clube-de-ferias$ /clube-de-ferias/ permanent;
+https://costadosauipe.com.br/,https://www.aviva.com.br/costa-do-sauipe/,Verificar,Corrigir destino,rewrite ^/$ /costa-do-sauipe/ permanent;
+https://costadosauipe.com.br/hoteis/sol,https://www.aviva.com.br/costa-do-sauipe/sol-grand-premium/,Verificar,Corrigir destino,rewrite ^/hoteis/sol$ /costa-do-sauipe/sol-grand-premium/ permanent;
+https://costadosauipe.com.br/hoteis/brisa,https://www.aviva.com.br/costa-do-sauipe/brisa-grand-premium/,Verificar,Corrigir destino,rewrite ^/hoteis/brisa$ /costa-do-sauipe/brisa-grand-premium/ permanent;
+https://costadosauipe.com.br/hoteis/mar,https://www.aviva.com.br/costa-do-sauipe/mar-premium/,Verificar,Corrigir destino,rewrite ^/hoteis/mar$ /costa-do-sauipe/mar-premium/ permanent;
+https://costadosauipe.com.br/hoteis/terra,https://www.aviva.com.br/costa-do-sauipe/terra-resort/,Verificar,Corrigir destino,rewrite ^/hoteis/terra$ /costa-do-sauipe/terra-resort/ permanent;
+https://costadosauipe.com.br/hot-park,https://www.aviva.com.br/hot-park-costa-do-sauipe/,Verificar,Corrigir destino,rewrite ^/hot-park$ /hot-park-costa-do-sauipe/ permanent;
+
+Total: 16 redirects auditados | Fonte: _migration_map.REDIRECT_MAP + Ahrefs site-audit | Gerado: 2026-04-22T12:21:38
