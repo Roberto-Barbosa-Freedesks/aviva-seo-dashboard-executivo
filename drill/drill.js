@@ -259,7 +259,14 @@ async function fetchCsv(filename) {
   const url = `/anexos/latest/${filename}.csv`;
   const resp = await fetch(url, { cache: "default" });
   if (!resp.ok) {
-    throw new Error(`CSV não encontrado (HTTP ${resp.status}) em ${url}`);
+    const err = new Error(
+      resp.status === 404
+        ? `Anexo indisponível — slug "${filename}" não existe ou publicação semanal ainda não ocorreu. URL tentada: ${url}`
+        : `CSV não pôde ser carregado (HTTP ${resp.status}) em ${url}.`
+    );
+    err.status = resp.status;
+    err.url = url;
+    throw err;
   }
   return resp.text();
 }
@@ -316,7 +323,8 @@ function renderFatal(title, htmlMsg) {
   $("drill-title").textContent = title;
   $("drill-kicker").textContent = "Erro";
   const body = $("drill-tbody");
-  body.innerHTML = `<tr><td colspan="12" class="empty">${htmlMsg}</td></tr>`;
+  // colspan="999" cobre qualquer largura de tabela sem quebrar visualmente.
+  body.innerHTML = `<tr><td colspan="999" class="empty">${htmlMsg}</td></tr>`;
   $("drill-empty").hidden = true;
 }
 

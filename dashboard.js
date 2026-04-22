@@ -11,29 +11,39 @@
     return;
   }
 
-  setupTabs();
-  renderHeader(data);
-  renderVisao(data);
-  renderNorthStar(data);
-  renderMigracao(data);
-  renderConteudo(data);
-  renderOffpage(data);
-  renderTecnico(data);
-  renderSprint(data);
-  renderOkrs(data);
-  renderCompetidores(data);
-  renderCalendario(data);
-  renderReunioes(data);
-  renderAlertas(data);
-  setupDrillDown(data);
-  setupTabLinks();
-  setupPrint();
-  attachDrillLinks();
-  attachDidacticHelp();
-  attachTableIntros();
-  attachPresentationMode();
-  attachGlobalSearch(data);
-  await loadAnnotations();
+  // Cada renderX é isolado em try/catch: falha de um campo ausente no
+  // snapshot nunca pode impedir o restante do bootstrap (tabs, handlers
+  // globais de teclado, busca ⌘K, modo apresentação).
+  const steps = [
+    ["setupTabs", () => setupTabs()],
+    ["renderHeader", () => renderHeader(data)],
+    ["renderVisao", () => renderVisao(data)],
+    ["renderNorthStar", () => renderNorthStar(data)],
+    ["renderMigracao", () => renderMigracao(data)],
+    ["renderConteudo", () => renderConteudo(data)],
+    ["renderOffpage", () => renderOffpage(data)],
+    ["renderTecnico", () => renderTecnico(data)],
+    ["renderSprint", () => renderSprint(data)],
+    ["renderOkrs", () => renderOkrs(data)],
+    ["renderCompetidores", () => renderCompetidores(data)],
+    ["renderCalendario", () => renderCalendario(data)],
+    ["renderReunioes", () => renderReunioes(data)],
+    ["renderAlertas", () => renderAlertas(data)],
+    ["setupDrillDown", () => setupDrillDown(data)],
+    ["setupTabLinks", () => setupTabLinks()],
+    ["setupPrint", () => setupPrint()],
+    ["attachDrillLinks", () => attachDrillLinks()],
+    ["attachDidacticHelp", () => attachDidacticHelp()],
+    ["attachTableIntros", () => attachTableIntros()],
+    ["attachPresentationMode", () => attachPresentationMode()],
+    ["attachGlobalSearch", () => attachGlobalSearch(data)],
+  ];
+  for (const [name, fn] of steps) {
+    try { fn(); }
+    catch (err) { console.error(`[dashboard] falha em ${name}:`, err); }
+  }
+  try { await loadAnnotations(); }
+  catch (err) { console.error("[dashboard] falha em loadAnnotations:", err); }
 })();
 
 // ========================== Modo apresentação ==========================
@@ -72,9 +82,10 @@ function attachPresentationMode() {
 
   btn.addEventListener("click", toggle);
   document.addEventListener("keydown", (e) => {
-    // Ignora atalhos se focado em input/textarea
+    // Guardas: não dispara dentro de input/textarea nem com modal ⌘K aberto
     const tag = document.activeElement?.tagName;
-    if (tag === "INPUT" || tag === "TEXTAREA") return;
+    if (tag === "INPUT" || tag === "TEXTAREA" || document.activeElement?.isContentEditable) return;
+    if (CmdK.isOpen()) return;
     if (e.key === "p" || e.key === "P") {
       e.preventDefault();
       toggle();
@@ -91,6 +102,10 @@ function attachPresentationMode() {
 }
 
 // ========================== Busca global ⌘K ==========================
+// Estado compartilhado para que outros handlers globais possam consultar
+// (ex.: modo apresentação evita disparar enquanto a busca está aberta).
+const CmdK = { isOpen: () => !document.getElementById("cmdk-overlay")?.hidden };
+
 function attachGlobalSearch(data) {
   const overlay = document.getElementById("cmdk-overlay");
   const input = document.getElementById("cmdk-input");
@@ -98,19 +113,30 @@ function attachGlobalSearch(data) {
   const btn = document.getElementById("btn-search");
   if (!overlay || !input || !results) return;
 
-  // Indexar fontes
+  // Garantia defensiva: overlay DEVE começar fechado, mesmo se algum CSS
+  // futuro sobrepuser [hidden]. Não remove a regra global [hidden] do CSS,
+  // só imuniza contra regressão pontual.
+  overlay.hidden = true;
+
   const index = buildSearchIndex(data);
   let selected = 0;
   let current = [];
+  let triggerEl = null; // Para retornar foco ao elemento que abriu o modal
 
-  function open() {
+  function open(fromTrigger) {
+    triggerEl = fromTrigger || document.activeElement;
     overlay.hidden = false;
     input.value = "";
     render("");
-    setTimeout(() => input.focus(), 30);
+    // Pequeno delay para evitar que o próprio keypress dispare input
+    setTimeout(() => input.focus(), 20);
   }
   function close() {
     overlay.hidden = true;
+    // Devolve foco ao elemento que disparou a abertura (se ainda existir)
+    if (triggerEl && typeof triggerEl.focus === "function" && document.body.contains(triggerEl)) {
+      try { triggerEl.focus(); } catch (_) {}
+    }
   }
   function render(q) {
     selected = 0;
@@ -145,20 +171,31 @@ function attachGlobalSearch(data) {
     if (active) active.scrollIntoView({ block: "nearest" });
   }
 
-  btn?.addEventListener("click", open);
+  btn?.addEventListener("click", (e) => open(e.currentTarget));
 
   document.addEventListener("keydown", (e) => {
-    const tag = document.activeElement?.tagName;
+    // Cmd/Ctrl+K abre — funciona mesmo com foco em input (pra permitir o atalho ao sair de um input)
     if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
-      open();
+      if (overlay.hidden) open();
+      else close();
       return;
     }
-    if (!overlay.hidden) {
-      if (e.key === "Escape") { e.preventDefault(); close(); }
-      else if (e.key === "ArrowDown") { e.preventDefault(); moveSel(1); }
-      else if (e.key === "ArrowUp") { e.preventDefault(); moveSel(-1); }
-      else if (e.key === "Enter") { e.preventDefault(); activate(selected); }
+    if (overlay.hidden) return;
+    // Dentro do modal — Esc/Enter/Setas/Tab (focus trap)
+    if (e.key === "Escape") { e.preventDefault(); close(); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); moveSel(1); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); moveSel(-1); }
+    else if (e.key === "Enter") { e.preventDefault(); activate(selected); }
+    else if (e.key === "Tab") {
+      // Focus trap simples: ciclamos apenas input + primeiro item da lista
+      e.preventDefault();
+      if (document.activeElement === input && current.length) {
+        const firstItem = results.querySelector(".cmdk-item.active") || results.querySelector(".cmdk-item");
+        if (firstItem) firstItem.focus();
+      } else {
+        input.focus();
+      }
     }
   });
 
@@ -361,6 +398,46 @@ const DIDATIC = {
     por_que: "Backlog técnico. Prioridade Alta (404/4xx/5xx/broken) impacta imediato.",
     como_usar: "Clique em qualquer linha da tabela Top 15 Issues → abre drill-down com todas as URLs afetadas + recomendacao_ivoire numerada.",
   },
+  "Issues alta prio": {
+    o_que_e: "Subconjunto do Site Audit classificado como 'alta' pela matriz Ivoire (sev ≥ 4): 4xx, 5xx, broken redirects, conteúdo quebrado.",
+    por_que: "É a fila imediata de correção técnica. Cada item pode sangrar autoridade para o North Star.",
+    como_usar: "Abra o drill-down da linha correspondente — vem com recomendacao_ivoire numerada (plays específicos).",
+  },
+  "Novos 7d": {
+    o_que_e: "Backlinks conquistados nos últimos 7 dias segundo o CSV manual Ahrefs.",
+    por_que: "Velocity de link-building; confirma que pautas de PR/conteúdo estão gerando menções.",
+    como_usar: "Cruze com calendário de imprensa e pautas programáticas — se cair <5/sem, ativar briefing de outreach.",
+  },
+  "Páginas auditadas": {
+    o_que_e: "Número de URLs rastreadas pelo crawler próprio (Scrapy + Playwright) na rodada atual.",
+    por_que: "Cobertura do crawler valida que a tela de Técnico reflete o site inteiro, não amostra.",
+    como_usar: "Diferença grande vs rodada anterior = mudança de estrutura (sitemap, redirects em massa). Investigar.",
+  },
+  "Perf score avg": {
+    o_que_e: "Score médio do Lighthouse Performance das páginas auditadas (0–100).",
+    por_que: "≥ 90 é o alvo Aviva. Abaixo de 70 é bloqueante para Core Web Vitals.",
+    como_usar: "Queda súbita = deploy ruim. Cruze com status HTTP + LCP/INP/CLS na mesma aba.",
+  },
+  "Response p75": {
+    o_que_e: "Tempo de resposta do servidor (TTFB) no percentil 75, em ms.",
+    por_que: "TTFB alto mata LCP por definição. Meta Aviva < 500ms; crítico > 1500ms.",
+    como_usar: "Se > 1s persistente, escalar para Dev Aviva avaliar cache de edge / CDN / BFF.",
+  },
+  "Capacity usada": {
+    o_que_e: "% de capacity da sprint atual já alocada em tasks comprometidas.",
+    por_que: "> 100% = sobrecarga, risco de não entregar. 70–95% = saudável.",
+    como_usar: "Mid-review D8 reavalia; se >110%, orchestrator sugere desescopo ou swap de task.",
+  },
+  "Domínios legados": {
+    o_que_e: "Quantidade de domínios ainda migrando para aviva.com.br (riohotquente.com.br + costadosauipe.com.br).",
+    por_que: "2 em operação; meta é zerar (100% do tráfego no canônico) até 2026-06-30.",
+    como_usar: "Redirects 301 dos 2 legados monitorados na aba Migração 301.",
+  },
+  "% cumprimento": {
+    o_que_e: "Percentual de avanço de um KR específico versus sua meta trimestral.",
+    por_que: "Semáforo do OKR. <30% no meio do trimestre = amarelo; <20% no último terço = vermelho.",
+    como_usar: "Clique na linha do KR para ver tasks associadas + velocity necessária para fechar.",
+  },
 };
 
 function attachDidacticHelp() {
@@ -506,10 +583,13 @@ function attachDrillLinks() {
         const tr = e.target.closest("tr");
         if (!tr || !tr.parentElement) return;
         if (e.target.closest("a")) return;
-        const firstCell = tr.cells[0];
-        if (!firstCell) return;
-        const issueName = firstCell.textContent.trim();
-        const slug = slugifyIssue(issueName);
+        // Preferência: data-slug persistido no render; fallback: reconstruir do texto
+        let slug = tr.dataset.slug;
+        if (!slug) {
+          const firstCell = tr.cells[0];
+          if (!firstCell) return;
+          slug = slugifyIssue(firstCell.textContent);
+        }
         if (!slug) return;
         const url = `/drill/?tipo=issue&id=${encodeURIComponent(slug)}&from=${cfg.from}`;
         window.location.href = url;
@@ -519,19 +599,25 @@ function attachDrillLinks() {
 }
 
 function slugifyIssue(text) {
+  // Range unicode explícito (U+0300 a U+036F = combining diacritical marks).
+  // Normaliza espaços repetidos antes do slug para evitar hífens duplos.
   return String(text || "")
+    .replace(/\s+/g, " ")
+    .trim()
     .toLowerCase()
-    .normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 60);
 }
 
 function buildIssueDrillHref(tbody) {
-  const first = tbody.querySelector("tr td");
-  if (!first) return "/drill/?tipo=issue&id=4xx-page&from=tecnico";
-  const slug = slugifyIssue(first.textContent);
-  return `/drill/?tipo=issue&id=${encodeURIComponent(slug)}&from=tecnico`;
+  const firstRow = tbody.querySelector("tr");
+  if (!firstRow) return "/drill/?tipo=issue&id=4xx-page&from=tecnico";
+  const slug = firstRow.dataset.slug ||
+               slugifyIssue((firstRow.cells[0]?.textContent) || "");
+  return `/drill/?tipo=issue&id=${encodeURIComponent(slug || "4xx-page")}&from=tecnico`;
 }
 
 function setupPrint() {
@@ -654,17 +740,28 @@ function renderHeaderWidgets(data) {
 }
 
 function deriveHealthScore(data) {
-  // Componentes simples: alertas vermelhos, sprint capacity, incidentes 301, CWV.
+  // Componentes: alertas vermelhos, capacity da sprint, migracao (broken 301),
+  // Core Web Vitals (LCP/INP/CLS) e volume de issues Ahrefs alta prioridade.
+  // Campos mapeados contra dashboard/data/snapshot.json real (2026-04-22).
   let s = 100;
   const reds = (data.alertas || []).filter(a => a.severidade === "vermelho").length;
   s -= reds * 6;
   const cap = Number(data.sprint?.capacity_used_pct || 0);
-  if (cap > 100) s -= (cap - 100) * 0.5;
-  if ((data.migracao?.broken_pendentes || 0) > 0) s -= 5;
-  const lcp = Number(data.tecnico?.cwv?.lcp_p75_ms || 0);
-  if (lcp > 2500) s -= 8;
-  const issuesAlta = Number(data.tecnico?.site_audit_issues_alta || 0);
-  if (issuesAlta > 5) s -= 6;
+  if (cap > 100) s -= Math.min(10, (cap - 100) * 0.5);
+  const broken = Number(data.migracao?.broken_redirects || 0);
+  if (broken > 0) s -= Math.min(12, broken * 0.6);
+  const lcp = Number(data.tecnico?.lcp_p75 || 0);
+  if (lcp > 2500) s -= 10;
+  else if (lcp > 1500) s -= 4;
+  const inp = Number(data.tecnico?.inp_p75 || 0);
+  if (inp > 200) s -= 6;
+  const cls = Number(data.tecnico?.cls_p75 || 0);
+  if (cls > 0.1) s -= 6;
+  const issuesAlta = (data.tecnico?.site_audit_issues || [])
+    .filter(i => String(i.priority || "").toLowerCase() === "alta")
+    .reduce((sum, i) => sum + Number(i.count || 1), 0);
+  if (issuesAlta > 1000) s -= 12;
+  else if (issuesAlta > 100) s -= 6;
   return Math.max(0, Math.min(100, Math.round(s)));
 }
 
@@ -1160,16 +1257,22 @@ function renderTecnico(data) {
     });
   }
 
-  // Issues table
+  // Issues table — persistimos o slug no data-slug do <tr> para que o
+  // handler de clique não precise reconstruir a partir do textContent
+  // (evita erros por espaços/quebras extras).
   const tb = byId("tc-issues-tbody");
   if (tb) {
     tb.innerHTML = "";
     (t.site_audit_issues || []).forEach(iss => {
       const cls = iss.priority === "alta" ? "vermelho" : iss.priority === "media" ? "amarelo" : "verde";
+      const slug = slugifyIssue(iss.issue);
       tb.insertAdjacentHTML("beforeend",
-        `<tr><td>${esc(iss.issue)}</td><td class="num">${fmtNum(iss.count)}</td>
-         <td><span class="badge ${cls}">${esc(iss.priority)}</span></td>
-         <td><code>${esc(iss.file)}</code></td></tr>`);
+        `<tr data-slug="${esc(slug)}" data-issue="${esc(iss.issue)}">
+           <td>${esc(iss.issue)}</td>
+           <td class="num">${fmtNum(iss.count)}</td>
+           <td><span class="badge ${cls}">${esc(iss.priority)}</span></td>
+           <td><code>${esc(iss.file)}</code></td>
+         </tr>`);
     });
     if (!(t.site_audit_issues || []).length) {
       tb.innerHTML = `<tr><td colspan="4" class="empty">Nenhum issue crítico detectado.</td></tr>`;

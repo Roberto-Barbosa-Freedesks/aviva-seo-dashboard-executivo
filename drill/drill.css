@@ -1,6 +1,10 @@
 /* Drill-down — estilos específicos. Herda tokens e layout do styles.css
  * do dashboard principal. Paleta Ivoire (preto #282828, amarelo #FFFF02). */
 
+/* Guard global: respeita o atributo HTML [hidden] mesmo quando
+   a classe CSS define display: grid/flex. */
+[hidden] { display: none !important; }
+
 .drill-page {
   background: #fafafa;
 }

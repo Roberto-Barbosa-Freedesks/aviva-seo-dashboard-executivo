@@ -7,6 +7,12 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Arvo:wght@400;700&family=Bebas+Neue&display=swap");
 
+/* Guard global: garante que o atributo HTML [hidden] seja respeitado
+   mesmo quando classes CSS definem display: flex/grid/block. Sem isso,
+   o modal ⌘K, a badge do modo apresentação e painéis colapsáveis
+   aparecem por default no page load (CSS class > UA [hidden]). */
+[hidden] { display: none !important; }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { font-size: 16px; }
