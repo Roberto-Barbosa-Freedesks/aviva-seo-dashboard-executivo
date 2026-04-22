@@ -1445,3 +1445,18 @@ body.present-mode .ivoire-section {
     flex-wrap: wrap;
   }
 }
+
+/* ============ CWV sparkline (aba Indexação) ============ */
+.cwv-spark {
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 4px;
+  min-height: 56px;
+}
+.cwv-spark svg { display: block; width: 100%; }
+.cwv-caption {
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}

@@ -51,6 +51,7 @@
       <button class="tab" role="tab" data-tab="conteudo">Conteúdo</button>
       <button class="tab" role="tab" data-tab="offpage">Off-page</button>
       <button class="tab" role="tab" data-tab="tecnico">Técnico</button>
+      <button class="tab" role="tab" data-tab="indexacao">Indexação</button>
       <button class="tab" role="tab" data-tab="sprint">Sprint</button>
       <button class="tab" role="tab" data-tab="okrs">OKRs Q2</button>
       <button class="tab" role="tab" data-tab="competidores">Competidores</button>
@@ -458,6 +459,106 @@
             <tbody id="tc-issues-tbody"></tbody>
           </table>
           <p class="data-source">Arquivos em <code>/ahrefs-reports/aviva_all-issues/Error-*.csv</code>. URLs na blocklist (ex.: checkin.aviva.com.br) excluídas do PSI. Próxima rodada PSI real ao vivo na segunda-feira 13h BRT.</p>
+        </section>
+      </section>
+
+      <!-- ==================== ABA: INDEXAÇÃO ==================== -->
+      <section class="tab-panel" id="panel-indexacao" role="tabpanel">
+        <div class="panel-header">
+          <p class="ivoire-kicker">Google Search Console API · urlInspection + sitemaps</p>
+          <h1>Indexação — saúde URL-a-URL + Sitemaps</h1>
+          <p class="panel-sub">
+            Fonte primária GSC (hierarquia 1). Snapshot
+            <strong id="idx-date">—</strong> · Health de indexação
+            <strong id="idx-health">—</strong>%
+          </p>
+        </div>
+
+        <!-- KPIs topo -->
+        <div class="ivoire-grid-4">
+          <div class="ivoire-kpi-card"><span class="label">URLs inspecionadas</span><span class="value" id="idx-sampled">—</span><span class="delta flat">amostra prioritária</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Verdict PASS</span><span class="value" id="idx-pass">—</span><span class="delta up">indexadas OK</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Verdict FAIL</span><span class="value" id="idx-fail">—</span><span class="delta down">requerem ação</span></div>
+          <div class="ivoire-kpi-card"><span class="label">Canonical mismatch</span><span class="value" id="idx-mismatch">—</span><span class="delta flat" id="idx-mismatch-pct">—% do total</span></div>
+        </div>
+
+        <section class="ivoire-section">
+          <h2>Breakdown por verdict Google</h2>
+          <div id="idx-verdict-bars"></div>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Coverage state (top 5)</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Estado de cobertura</th><th class="num">URLs</th></tr></thead>
+            <tbody id="idx-coverage-tbody"></tbody>
+          </table>
+          <p class="data-source">Fonte: <code>urlInspection.index.inspect</code> — campo <code>coverageState</code>. Amostra inspecionada por rodada semanal.</p>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Page fetch state (top 5)</h2>
+          <table class="ivoire-table">
+            <thead><tr><th>Estado de fetch</th><th class="num">URLs</th></tr></thead>
+            <tbody id="idx-fetch-tbody"></tbody>
+          </table>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>URLs inspecionadas — amostra prioritária</h2>
+          <table class="ivoire-table">
+            <thead><tr>
+              <th>URL</th><th>Property</th><th>Verdict</th>
+              <th>Coverage</th><th>Canonical</th><th>Fetch</th><th>Last crawl</th>
+            </tr></thead>
+            <tbody id="idx-urls-tbody"></tbody>
+          </table>
+          <p class="data-source">Clique em qualquer URL para ver a inspeção completa no GSC. Lista completa no anexo CSV <code>gsc_indexacao_urls_&lt;data&gt;.csv</code>.</p>
+        </section>
+
+        <!-- Sitemaps -->
+        <div class="panel-header">
+          <h2>Sitemaps das 3 properties</h2>
+          <p class="panel-sub">
+            Total <strong id="sm-total">—</strong> sitemaps ·
+            <strong id="sm-submitted">—</strong> URLs submetidas ·
+            <strong id="sm-indexed">—</strong> indexadas (<strong id="sm-indexed-pct">—</strong>%) ·
+            <strong id="sm-errors">—</strong> erros
+          </p>
+        </div>
+
+        <section class="ivoire-section">
+          <h2>Indexação por property (sitemaps.list)</h2>
+          <table class="ivoire-table">
+            <thead><tr>
+              <th>Property</th><th class="num">Sitemaps</th><th class="num">URLs submetidas</th>
+              <th class="num">URLs indexadas</th><th class="num">%</th><th class="num">Erros</th><th class="num">Warnings</th>
+            </tr></thead>
+            <tbody id="sm-props-tbody"></tbody>
+          </table>
+          <p class="data-source">Fonte: <code>sitemaps.list</code>. Gap submetido vs indexado é proxy direto para saúde de canonical + conteúdo + crawl budget.</p>
+        </section>
+
+        <section class="ivoire-section">
+          <h2>Core Web Vitals — série 28 dias (CrUX API)</h2>
+          <div class="ivoire-grid-3">
+            <div class="kw-card">
+              <h3>LCP p75 · mobile</h3>
+              <div class="cwv-spark" id="cwv-lcp-spark"></div>
+              <p class="cwv-caption" id="cwv-lcp-caption">—</p>
+            </div>
+            <div class="kw-card">
+              <h3>INP p75 · mobile</h3>
+              <div class="cwv-spark" id="cwv-inp-spark"></div>
+              <p class="cwv-caption" id="cwv-inp-caption">—</p>
+            </div>
+            <div class="kw-card">
+              <h3>CLS p75 · mobile</h3>
+              <div class="cwv-spark" id="cwv-cls-spark"></div>
+              <p class="cwv-caption" id="cwv-cls-caption">—</p>
+            </div>
+          </div>
+          <p class="data-source">Fonte: <code>chromeuxreport.googleapis.com</code> (CrUX queryHistoryRecord). Série de ~25 pontos (4 dias cada). Substitui PSI pontual por histograma histórico real Chrome.</p>
         </section>
       </section>
 

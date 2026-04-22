@@ -23,6 +23,7 @@
     ["renderConteudo", () => renderConteudo(data)],
     ["renderOffpage", () => renderOffpage(data)],
     ["renderTecnico", () => renderTecnico(data)],
+    ["renderIndexacao", () => renderIndexacao(data)],
     ["renderSprint", () => renderSprint(data)],
     ["renderOkrs", () => renderOkrs(data)],
     ["renderCompetidores", () => renderCompetidores(data)],
@@ -53,7 +54,7 @@ function attachPresentationMode() {
   if (!btn) return;
   let active = false;
   let autoscrollTimer = null;
-  const tabs = ["visao", "northstar", "migracao", "conteudo", "offpage", "tecnico", "sprint", "okrs", "competidores", "calendario", "reunioes", "alertas"];
+  const tabs = ["visao", "northstar", "migracao", "conteudo", "offpage", "tecnico", "indexacao", "sprint", "okrs", "competidores", "calendario", "reunioes", "alertas"];
 
   function toggle() {
     active = !active;
@@ -217,6 +218,7 @@ function buildSearchIndex(data) {
     ["conteudo", "Conteúdo programático", "Pipeline, velocity, backlog, KW gaps"],
     ["offpage", "Off-page", "Backlinks, âncoras, framework BL-021"],
     ["tecnico", "Técnico", "CWV, Site Audit, crawler"],
+    ["indexacao", "Indexação", "GSC urlInspection + sitemaps + CrUX 28 dias"],
     ["sprint", "Sprint", "Capacity, tasks, briefings"],
     ["okrs", "OKRs Q2", "O1 a O4 — KRs trimestrais"],
     ["competidores", "Competidores", "Benchmarks diretos e indiretos"],
@@ -438,6 +440,26 @@ const DIDATIC = {
     por_que: "Semáforo do OKR. <30% no meio do trimestre = amarelo; <20% no último terço = vermelho.",
     como_usar: "Clique na linha do KR para ver tasks associadas + velocity necessária para fechar.",
   },
+  "URLs inspecionadas": {
+    o_que_e: "Amostra de URLs enviadas ao endpoint urlInspection.index.inspect do GSC nesta rodada.",
+    por_que: "GSC tem quota dura de 2.000 chamadas/dia por property. Amostra prioriza core pages + top-impressões + URLs de migração 301.",
+    como_usar: "Não é o site inteiro — é a amostra crítica. Ajustar `AVIVA_URL_INSPECT_BUDGET` no engine para aumentar (até 500 por property é seguro).",
+  },
+  "Verdict PASS": {
+    o_que_e: "URLs onde o Google diz que tudo OK: indexada, canonical batendo, fetch SUCCESSFUL.",
+    por_que: "É o estado desejado. Diferença para 100% = lista de correção técnica/conteúdo.",
+    como_usar: "Monitore a taxa de PASS sobre amostra semanal — queda súbita = deploy ruim, canonical quebrado ou robots.txt errado.",
+  },
+  "Verdict FAIL": {
+    o_que_e: "URLs onde o Google indica problema bloqueante: noindex, erro de fetch, canonical quebrado, 4xx/5xx.",
+    por_que: "Cada FAIL é uma página fora do índice. Em URLs com tráfego histórico, é perda de cliques imediata.",
+    como_usar: "Priorize pelo drill-down (CSV gsc_indexacao_urls_DATA.csv). Os links levam direto ao GSC para investigação.",
+  },
+  "Canonical mismatch": {
+    o_que_e: "URLs onde o canonical declarado pelo site difere do canonical escolhido pelo Google.",
+    por_que: "Mismatch significa que seu hint não está sendo respeitado — o Google escolheu outra URL. Comum em paginação, filtros e ambiguidade de hreflang.",
+    como_usar: "Top suspeitos: URLs com params (?utm=), filtros (?cidade=), versão mobile, hreflang incompleto. Corrigir via <link rel=canonical> consistente.",
+  },
 };
 
 function attachDidacticHelp() {
@@ -519,6 +541,14 @@ const TABLE_INTROS = {
     "Incidentes recentes da migração 301 — cada um impacta equity. Priorize pela severidade e confirme fechamento no mid-review D8.",
   "mig-kws":
     "Keywords estratégicas monitoradas (volume anual > 40k). Monitor semanal pela GSC das 3 properties.",
+  "idx-urls-tbody":
+    "Amostra prioritária de URLs inspecionadas via urlInspection.index.inspect. Verdict PASS = indexada OK; FAIL = bloqueador; NEUTRAL = não aplicável. Canonical mismatch = hint não respeitado pelo Google. Clique na URL para abrir a inspeção completa no GSC.",
+  "sm-props-tbody":
+    "sitemaps.list por property. Gap entre submetidas e indexadas é a fila de re-crawl + canonical + qualidade de conteúdo. Errors/warnings vêm direto do Google ao processar o XML.",
+  "idx-coverage-tbody":
+    "Estados oficiais do GSC (Enviada e indexada, Detectada mas não indexada, Excluída por noindex, etc.). Se 'Detectada mas não indexada' está alto = sinal de crawl budget ou canonical ambíguo.",
+  "idx-fetch-tbody":
+    "pageFetchState do Google ao tentar buscar a URL. SUCCESSFUL é o alvo. Tudo que não for SUCCESSFUL (SOFT_404, BLOCKED_ROBOTS_TXT, NOT_FOUND, SERVER_ERROR) é um bloqueador técnico imediato.",
 };
 
 function attachTableIntros() {
@@ -1277,6 +1307,176 @@ function renderTecnico(data) {
     if (!(t.site_audit_issues || []).length) {
       tb.innerHTML = `<tr><td colspan="4" class="empty">Nenhum issue crítico detectado.</td></tr>`;
     }
+  }
+}
+
+// ========================== Indexação (GSC urlInspection + sitemaps + CrUX) ==========================
+function renderIndexacao(data) {
+  const idx = data.gsc_indexacao || {};
+  const sum = idx.summary || {};
+  setText("idx-date", idx.data_date || "—");
+  setText("idx-health", (sum.health_indexacao_pct == null ? "—" : sum.health_indexacao_pct));
+  setText("idx-sampled", fmtNum(idx.sampled_urls));
+  setText("idx-pass", fmtNum((sum.verdicts || {}).PASS));
+  setText("idx-fail", fmtNum((sum.verdicts || {}).FAIL));
+  const canonical = sum.canonical || {};
+  setText("idx-mismatch", fmtNum(canonical.mismatch));
+  setText("idx-mismatch-pct", `${canonical.mismatch_pct ?? 0}% dos com canonical`);
+
+  // Verdict bars
+  const vbars = byId("idx-verdict-bars");
+  if (vbars) {
+    const verdicts = sum.verdicts || {};
+    const total = Math.max(1, Object.values(verdicts).reduce((s, v) => s + (v || 0), 0));
+    const colors = { PASS: "#4CAF50", PARTIAL: "#FFC107", FAIL: "#E53935", NEUTRAL: "#9E9E9E", unknown: "#BDBDBD" };
+    vbars.innerHTML = "";
+    ["PASS", "PARTIAL", "FAIL", "NEUTRAL", "unknown"].forEach(k => {
+      const c = verdicts[k] || 0;
+      if (!c) return;
+      const w = (c / total) * 100;
+      vbars.insertAdjacentHTML("beforeend", `
+        <div class="bar-row">
+          <span class="bar-label">${esc(k)}</span>
+          <span class="bar-track"><span class="bar-fill" style="width:${w}%;background:${colors[k]}"></span></span>
+          <span class="bar-count">${fmtNum(c)} (${w.toFixed(1)}%)</span>
+        </div>
+      `);
+    });
+  }
+
+  // Coverage top
+  const ct = byId("idx-coverage-tbody");
+  if (ct) {
+    ct.innerHTML = "";
+    (sum.coverage_state_top || []).forEach(([state, count]) => {
+      ct.insertAdjacentHTML("beforeend",
+        `<tr><td>${esc(state) || "(vazio)"}</td><td class="num">${fmtNum(count)}</td></tr>`);
+    });
+    if (!(sum.coverage_state_top || []).length) {
+      ct.innerHTML = `<tr><td colspan="2" class="empty">Sem dados. Aguardando próxima rodada semanal.</td></tr>`;
+    }
+  }
+
+  // Fetch top
+  const ft = byId("idx-fetch-tbody");
+  if (ft) {
+    ft.innerHTML = "";
+    (sum.page_fetch_state_top || []).forEach(([state, count]) => {
+      ft.insertAdjacentHTML("beforeend",
+        `<tr><td>${esc(state) || "(vazio)"}</td><td class="num">${fmtNum(count)}</td></tr>`);
+    });
+    if (!(sum.page_fetch_state_top || []).length) {
+      ft.innerHTML = `<tr><td colspan="2" class="empty">—</td></tr>`;
+    }
+  }
+
+  // URLs sample
+  const ut = byId("idx-urls-tbody");
+  if (ut) {
+    ut.innerHTML = "";
+    (idx.rows_head || []).forEach(r => {
+      if (r.error) {
+        ut.insertAdjacentHTML("beforeend",
+          `<tr><td colspan="7" class="empty">Erro ao inspecionar ${esc(r.url)}: ${esc(r.error)}</td></tr>`);
+        return;
+      }
+      const verdict = r.verdict || "—";
+      const vclass = verdict === "PASS" ? "verde" : verdict === "FAIL" ? "vermelho" : "amarelo";
+      const lastCrawl = (r.last_crawl_time || "").split("T")[0] || "—";
+      const prop = (r.property || "").replace("sc-domain:", "");
+      const cm = r.canonical_match || "unknown";
+      const cmBadge = cm === "match" ? "verde" : cm === "mismatch" ? "vermelho" : "amarelo";
+      ut.insertAdjacentHTML("beforeend", `
+        <tr>
+          <td><a href="${esc(r.inspection_link || r.url)}" target="_blank" rel="noopener">${esc(r.url)}</a></td>
+          <td><code>${esc(prop)}</code></td>
+          <td><span class="badge ${vclass}">${esc(verdict)}</span></td>
+          <td>${esc(r.coverage_state || "—")}</td>
+          <td><span class="badge ${cmBadge}">${esc(cm)}</span></td>
+          <td>${esc(r.page_fetch_state || "—")}</td>
+          <td><small>${esc(lastCrawl)}</small></td>
+        </tr>
+      `);
+    });
+    if (!(idx.rows_head || []).length) {
+      ut.innerHTML = `<tr><td colspan="7" class="empty">Rodar o engine semanal (seg 13h BRT) para popular.</td></tr>`;
+    }
+  }
+
+  // Sitemaps
+  const sm = data.gsc_sitemaps || {};
+  const smSum = sm.summary || {};
+  setText("sm-total", fmtNum(smSum.total_sitemaps));
+  setText("sm-submitted", fmtNum(smSum.urls_submitted_total));
+  setText("sm-indexed", fmtNum(smSum.urls_indexed_total));
+  setText("sm-indexed-pct", (smSum.indexed_pct == null ? "—" : smSum.indexed_pct));
+  setText("sm-errors", fmtNum(smSum.total_errors));
+
+  const spt = byId("sm-props-tbody");
+  if (spt) {
+    spt.innerHTML = "";
+    const byProp = smSum.by_property || {};
+    Object.entries(byProp).forEach(([tag, p]) => {
+      const pct = p.submitted ? (100 * p.indexed / p.submitted).toFixed(2) : "0.00";
+      const pctCls = pct >= 50 ? "verde" : pct >= 10 ? "amarelo" : "vermelho";
+      spt.insertAdjacentHTML("beforeend", `
+        <tr>
+          <td>${esc(tag)}</td>
+          <td class="num">${fmtNum(p.count)}</td>
+          <td class="num">${fmtNum(p.submitted)}</td>
+          <td class="num">${fmtNum(p.indexed)}</td>
+          <td class="num"><span class="badge ${pctCls}">${pct}%</span></td>
+          <td class="num">${fmtNum(p.errors)}</td>
+          <td class="num">${fmtNum(p.warnings)}</td>
+        </tr>
+      `);
+    });
+    if (!Object.keys(byProp).length) {
+      spt.innerHTML = `<tr><td colspan="7" class="empty">Aguardando próxima rodada semanal.</td></tr>`;
+    }
+  }
+
+  // CrUX series 28 dias
+  const crux = data.crux || {};
+  const ts = crux.timeseries_phone || {};
+  renderCwvSpark("cwv-lcp-spark", "cwv-lcp-caption", ts.lcp_p75_ms, "ms", [1500, 2500]);
+  renderCwvSpark("cwv-inp-spark", "cwv-inp-caption", ts.inp_p75_ms, "ms", [150, 200]);
+  renderCwvSpark("cwv-cls-spark", "cwv-cls-caption", ts.cls_p75, "", [0.1, 0.25]);
+}
+
+function renderCwvSpark(containerId, captionId, series, unit, thresholds) {
+  const cont = byId(containerId);
+  const cap = byId(captionId);
+  if (!cont) return;
+  const pts = (series || []).filter(v => v != null).map(v => Number(v));
+  if (!pts.length) {
+    cont.innerHTML = '<span class="empty">Sem dados CrUX (aguardando próxima rodada).</span>';
+    if (cap) cap.textContent = "—";
+    return;
+  }
+  const w = 220, h = 48, pad = 4;
+  const vmin = Math.min(...pts, thresholds?.[0] || 0);
+  const vmax = Math.max(...pts, thresholds?.[1] || 1);
+  const range = Math.max(vmax - vmin, 1);
+  const step = (w - pad * 2) / Math.max(1, pts.length - 1);
+  const coords = pts.map((v, i) => {
+    const x = pad + i * step;
+    const y = pad + (h - pad * 2) * (1 - (v - vmin) / range);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(" ");
+  const last = pts[pts.length - 1];
+  const [good, poor] = thresholds || [0, 0];
+  const color = last <= good ? "#4CAF50" : last <= poor ? "#FFC107" : "#E53935";
+  cont.innerHTML = `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" aria-label="CWV spark">
+    <polyline fill="none" stroke="${color}" stroke-width="2" points="${coords}"/>
+    <circle cx="${pad + (pts.length - 1) * step}" cy="${(pad + (h - pad * 2) * (1 - (last - vmin) / range)).toFixed(1)}" r="3" fill="${color}"/>
+  </svg>`;
+  if (cap) {
+    const lastTxt = unit === "" ? last.toFixed(3) : `${Math.round(last)}${unit}`;
+    const trend = pts.length >= 2
+      ? (last < pts[0] ? "↓ melhorando" : last > pts[0] ? "↑ piorando" : "estável")
+      : "";
+    cap.textContent = `atual ${lastTxt} · ${pts.length} pts · ${trend}`;
   }
 }
 
