@@ -276,6 +276,7 @@ async function fetchHistoryDate() {
     const resp = await fetch("/data/_dates.json", { cache: "no-cache" });
     if (!resp.ok) return null;
     const data = await resp.json();
+    if (Array.isArray(data)) return data[0] || null;
     return (data.dates || [])[0] || data.latest || null;
   } catch (_) { return null; }
 }
