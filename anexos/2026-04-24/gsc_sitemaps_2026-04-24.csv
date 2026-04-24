@@ -1,0 +1,16 @@
+origin_tag,property,path,last_submitted,last_downloaded,is_pending,is_sitemaps_index,type,warnings,errors,urls_submitted_total,urls_indexed_total
+aviva,sc-domain:aviva.com.br,https://prd-site.aviva.com.br/sitemap.xml,2026-04-13T14:35:43.133Z,2026-04-20T04:12:01.169Z,False,False,sitemap,0,1,104,0
+aviva,sc-domain:aviva.com.br,http://aviva.com.br/sitemap.xml,2026-04-13T12:59:42.476Z,2026-04-21T11:29:07.661Z,False,False,sitemap,1,0,104,0
+rioquente_legacy,sc-domain:rioquente.com.br,https://www.rioquente.com.br/sitemap.xml,2025-01-03T12:17:52.341Z,2026-04-20T05:52:30.519Z,False,False,sitemap,2,0,930,247
+rioquente_legacy,sc-domain:rioquente.com.br,https://www.rioquente.com.br/slot-demo/sitemap.xml,2023-03-14T06:30:21.742Z,2026-04-14T05:27:25.271Z,False,False,,3,1,0,0
+rioquente_legacy,sc-domain:rioquente.com.br,http://black-friday.rioquente.com.br/sitemap.xml,2020-07-18T17:52:41.476Z,2020-08-16T18:20:35.759Z,False,True,,0,1,87049,0
+rioquente_legacy,sc-domain:rioquente.com.br,https://www.rioquente.com.br/sitemap_pt.xml,2018-10-31T14:47:15.698Z,2026-04-20T11:27:48.701Z,False,False,sitemap,2,0,930,247
+rioquente_legacy,sc-domain:rioquente.com.br,http://www.rioquente.com.br/Sitemap.xml,2013-07-19T18:32:51.641Z,2026-04-21T06:10:40.468Z,False,False,,0,1,0,0
+sauipe_legacy,sc-domain:costadosauipe.com.br,https://www.costadosauipe.com.br/sitemap-geral.xml,2025-09-26T00:39:20.014Z,2026-04-16T03:01:37.345Z,False,False,sitemap,1,0,21,0
+sauipe_legacy,sc-domain:costadosauipe.com.br,https://www.costadosauipe.com.br/sitemap-pacotes.xml,2025-04-08T06:52:25.485Z,2026-04-16T06:32:49.673Z,False,False,sitemap,4,0,44,0
+sauipe_legacy,sc-domain:costadosauipe.com.br,https://www.costadosauipe.com.br/sitemap-blog.xml,2025-01-25T20:29:23.665Z,2026-04-17T15:53:36.396Z,False,False,sitemap,0,0,516,0
+sauipe_legacy,sc-domain:costadosauipe.com.br,https://www.costadosauipe.com.br/sitemap-lp.xml,2023-10-26T19:39:55.753Z,2026-04-19T04:33:53.379Z,False,False,sitemap,0,1,0,0
+sauipe_legacy,sc-domain:costadosauipe.com.br,http://black-friday.costadosauipe.com.br/sitemap.xml,2020-07-18T17:53:13.787Z,2020-08-16T20:00:30.271Z,False,True,,0,1,87049,0
+sauipe_legacy,sc-domain:costadosauipe.com.br,https://promociones.costadosauipe.com.br/sitemap.xml,2019-03-29T16:21:43.625Z,2021-04-05T08:28:47.521Z,False,False,sitemap,6,1,3,1
+sauipe_legacy,sc-domain:costadosauipe.com.br,https://novidades.costadosauipe.com.br/sitemap.xml,2019-03-21T16:08:42.109Z,2019-03-28T16:09:53.315Z,False,False,sitemap,3,1,1,0
+sauipe_legacy,sc-domain:costadosauipe.com.br,http://promociones.costadosauipe.com.br/sitemap.xml,2019-03-20T13:21:27.167Z,2020-06-06T15:53:41.432Z,False,False,sitemap,3,0,3,1
