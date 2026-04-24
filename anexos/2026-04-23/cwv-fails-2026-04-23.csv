@@ -1,0 +1,5 @@
+URL,LCP (s),CLS,INP (ms),Falhas,Oportunidade PSI,Acao recomendada
+https://www.aviva.com.br/fale-conosco,2.31,9,351,CLS 9.000 (meta <0.1) | INP 351ms (meta <200),Reduce initial server response time,Reservar espaco visual para imagens/embeds
+https://services.aviva.com.br/,0.81,21,42,CLS 21.000 (meta <0.1),Avoid multiple page redirects,Reservar espaco visual para imagens/embeds
+
+Total: 2 URLs com CWV em FAIL | Fonte: PageSpeed Insights API | Gerado: 2026-04-23T23:20:44
