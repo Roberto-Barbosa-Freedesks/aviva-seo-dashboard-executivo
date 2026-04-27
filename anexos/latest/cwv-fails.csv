@@ -1,9 +1,9 @@
 URL,LCP (s),CLS,INP (ms),Falhas,Oportunidade PSI,Acao recomendada
 https://www.aviva.com.br/agenda,2.16,10,423,CLS 10.000 (meta <0.1) | INP 423ms (meta <200),Reduce unused JavaScript,Reservar espaco visual para imagens/embeds
-https://aviva.com.br/hot-park-rio-quente,3.08,0.002,251,LCP 3.08s (meta <2.5) | INP 251ms (meta <200),Reduce initial server response time,Comprimir imagens hero + pre-carregar fonte web
-https://www.aviva.com.br/experiencias/projeto-ares,2.16,10,423,CLS 10.000 (meta <0.1) | INP 423ms (meta <200),Reduce unused JavaScript,Reservar espaco visual para imagens/embeds
+https://aviva.com.br/hot-park-rio-quente,3.08,0.002,251,LCP 3.08s (meta <2.5) | INP 251ms (meta <200),Reduce unused JavaScript,Comprimir imagens hero + pre-carregar fonte web
 https://aviva.com.br/experiencias/benditos-frutos,2.64,1,554,LCP 2.64s (meta <2.5) | CLS 1.000 (meta <0.1) | INP 554ms (meta <200),Reduce initial server response time,Comprimir imagens hero + pre-carregar fonte web
 https://tse.aviva.com.br/,4.48,24,51,LCP 4.48s (meta <2.5) | CLS 24.000 (meta <0.1),Avoid multiple page redirects,Comprimir imagens hero + pre-carregar fonte web
-https://webcheckout.aviva.com.br/account/forgot-password,2.72,0.003,-,LCP 2.72s (meta <2.5),Reduce unused JavaScript,Comprimir imagens hero + pre-carregar fonte web
+https://aviva.com.br/blog/abril-na-costa-do-sauipe,2.64,1,554,LCP 2.64s (meta <2.5) | CLS 1.000 (meta <0.1) | INP 554ms (meta <200),Reduce initial server response time,Comprimir imagens hero + pre-carregar fonte web
+https://aviva.com.br/blog/tour-virtual-costa-do-sauipe,2.64,1,554,LCP 2.64s (meta <2.5) | CLS 1.000 (meta <0.1) | INP 554ms (meta <200),Reduce unused JavaScript,Comprimir imagens hero + pre-carregar fonte web
 
-Total: 6 URLs com CWV em FAIL | Fonte: PageSpeed Insights API | Gerado: 2026-04-27T14:36:51
+Total: 6 URLs com CWV em FAIL | Fonte: PageSpeed Insights API | Gerado: 2026-04-27T15:53:55
