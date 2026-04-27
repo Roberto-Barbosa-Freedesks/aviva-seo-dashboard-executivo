@@ -16,4 +16,4 @@ https://costadosauipe.com.br/hoteis/mar,https://www.aviva.com.br/costa-do-sauipe
 https://costadosauipe.com.br/hoteis/terra,https://www.aviva.com.br/costa-do-sauipe/terra-resort/,Verificar,Corrigir destino,rewrite ^/hoteis/terra$ /costa-do-sauipe/terra-resort/ permanent;
 https://costadosauipe.com.br/hot-park,https://www.aviva.com.br/hot-park-costa-do-sauipe/,Verificar,Corrigir destino,rewrite ^/hot-park$ /hot-park-costa-do-sauipe/ permanent;
 
-Total: 16 redirects auditados | Fonte: _migration_map.REDIRECT_MAP + Ahrefs site-audit | Gerado: 2026-04-27T15:57:07
+Total: 16 redirects auditados | Fonte: _migration_map.REDIRECT_MAP + Ahrefs site-audit | Gerado: 2026-04-27T16:06:20
