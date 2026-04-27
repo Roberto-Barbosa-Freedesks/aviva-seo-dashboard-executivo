@@ -13,7 +13,7 @@
       "start": "2026-04-04",
       "end": "2026-04-10"
     },
-    "last_gsc_indexacao_date": "2026-04-24"
+    "last_gsc_indexacao_date": "2026-04-27"
   },
   "north_star": {
     "label": "% clicks orgânicos absorvidos por aviva.com.br",
@@ -1776,23 +1776,23 @@
     ]
   },
   "gsc_indexacao": {
-    "data_date": "2026-04-24",
+    "data_date": "2026-04-27",
     "summary": {
       "urls_sampled": 360,
       "urls_with_response": 360,
       "urls_with_error": 0,
       "health_indexacao_pct": 100.0,
       "verdicts": {
-        "PASS": 315,
+        "PASS": 314,
         "PARTIAL": 0,
         "FAIL": 0,
-        "NEUTRAL": 45,
+        "NEUTRAL": 46,
         "unknown": 0
       },
       "coverage_state_top": [
         [
           "Enviada e indexada",
-          315
+          314
         ],
         [
           "O Google não reconhece o URL",
@@ -1800,25 +1800,25 @@
         ],
         [
           "Não encontrado (404)",
-          11
+          9
         ],
         [
           "Cópia, o Google e o usuário selecionaram uma página canônica diferente",
-          10
+          8
         ],
         [
-          "Página com redirecionamento",
-          4
+          "Rastreada, mas não indexada no momento",
+          7
         ]
       ],
       "indexing_state_top": [
         [
           "INDEXING_ALLOWED",
-          334
+          331
         ],
         [
           "INDEXING_STATE_UNSPECIFIED",
-          26
+          29
         ]
       ],
       "robots_txt_state": {
@@ -1828,7 +1828,7 @@
       "page_fetch_state_top": [
         [
           "SUCCESSFUL",
-          335
+          338
         ],
         [
           "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -1836,28 +1836,24 @@
         ],
         [
           "NOT_FOUND",
-          11
+          9
         ],
         [
           "ACCESS_FORBIDDEN",
           1
-        ],
-        [
-          "SERVER_ERROR",
-          1
         ]
       ],
       "canonical": {
-        "match": 295,
-        "mismatch": 23,
-        "unknown": 42,
-        "mismatch_pct": 7.2
+        "match": 293,
+        "mismatch": 21,
+        "unknown": 46,
+        "mismatch_pct": 6.7
       },
-      "rich_results_detected_count": 261,
+      "rich_results_detected_count": 265,
       "mobile_issues_count": 0
     },
     "sampled_urls": 360,
-    "csv_anexo": "gsc_indexacao_urls_2026-04-24.csv",
+    "csv_anexo": "gsc_indexacao_urls_2026-04-27.csv",
     "rows_head": [
       {
         "url": "https://www.aviva.com.br/",
@@ -1868,7 +1864,7 @@
         "robots_txt_state": "ALLOWED",
         "page_fetch_state": "SUCCESSFUL",
         "crawled_as": "MOBILE",
-        "last_crawl_time": "2026-04-24T02:03:09Z",
+        "last_crawl_time": "2026-04-27T09:46:01Z",
         "google_canonical": "https://www.aviva.com.br/",
         "user_canonical": "https://www.aviva.com.br/",
         "canonical_match": "match",
@@ -1880,7 +1876,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=LWFhOgh07xYP1jOpLUpMug&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=Ho7zgUkOA_H9Sq2JQ_DOig&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://www.aviva.com.br/rio-quente/",
@@ -1903,7 +1899,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=N_pF0zo9LEbwCep1uzzY_g&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=hY_44-_Yr-_XglW4NwPCSw&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://www.aviva.com.br/rio-quente/hotel-cristal/",
@@ -1926,7 +1922,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=eawzYCUomSqC6kUVy9lN9g&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=uCQrYiQFUtW5GX4ZRnMqgw&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://www.aviva.com.br/rio-quente/hotel-luupi/",
@@ -1949,7 +1945,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=dESjQ9eZBUxR81pwSYusBw&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=UYuB9S57bs5LSdhAQu89Ug&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://www.aviva.com.br/rio-quente/hotel-turismo/",
@@ -1972,7 +1968,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=FWi34hKG9Nrer3eSMqgY1g&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=b3j10Qo8q6sHgk0e-A9fJA&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://www.aviva.com.br/rio-quente/hotel-giardino/",
@@ -1995,7 +1991,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=GkcA_bKciuss_8yNwndV_Q&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=6PoRjB8SH2RriITCPR1Cnw&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://www.aviva.com.br/hot-park/",
@@ -2018,7 +2014,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=i-VZ14S3tvq__IXzBoUwdw&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=XCK4t0OhUu021XHTlzeQdA&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://www.aviva.com.br/costa-do-sauipe/",
@@ -2041,7 +2037,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=EiwrtmbLRBM3l_oKM_7Q8w&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=Zn9MpH8M6b68rph2udB7Hg&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://www.aviva.com.br/aviva-experiences/",
@@ -2064,7 +2060,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=pSXZAk_QUkDT_FAbGvo8Dw&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=AHF1ek42krk-bzlqC7QNvw&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://www.aviva.com.br/lojinha/",
@@ -2087,7 +2083,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=8Oas4w-gZowVWPfvJXEjYQ&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=qFv8KmutLePXMdxPT_XtPw&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://reservas.aviva.com.br/",
@@ -2098,7 +2094,7 @@
         "robots_txt_state": "ALLOWED",
         "page_fetch_state": "SUCCESSFUL",
         "crawled_as": "MOBILE",
-        "last_crawl_time": "2026-04-24T00:49:21Z",
+        "last_crawl_time": "2026-04-26T00:12:18Z",
         "google_canonical": "https://reservas.aviva.com.br/",
         "user_canonical": "",
         "canonical_match": "unknown",
@@ -2110,7 +2106,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=c3N2RKqYie30hCE6B30ygw&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=hDNX1O-HcHhWe9dLmrGV2Q&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://clubedeferias.aviva.com.br/",
@@ -2121,7 +2117,7 @@
         "robots_txt_state": "ALLOWED",
         "page_fetch_state": "SUCCESSFUL",
         "crawled_as": "MOBILE",
-        "last_crawl_time": "2026-04-22T16:31:22Z",
+        "last_crawl_time": "2026-04-25T10:53:49Z",
         "google_canonical": "https://clubedeferias.aviva.com.br/",
         "user_canonical": "",
         "canonical_match": "unknown",
@@ -2133,7 +2129,30 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=FsmLyJ2GXuJ2KEwJMV5eaA&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=abxhM-lnxzpdEsmjZMIp9g&utm_medium=link&utm_source=api"
+      },
+      {
+        "url": "https://services.aviva.com.br/",
+        "property": "sc-domain:aviva.com.br",
+        "verdict": "PASS",
+        "coverage_state": "Enviada e indexada",
+        "indexing_state": "INDEXING_ALLOWED",
+        "robots_txt_state": "ALLOWED",
+        "page_fetch_state": "SUCCESSFUL",
+        "crawled_as": "MOBILE",
+        "last_crawl_time": "2026-04-26T18:59:19Z",
+        "google_canonical": "https://services.aviva.com.br/",
+        "user_canonical": "https://services.aviva.com.br/",
+        "canonical_match": "match",
+        "referring_urls_count": 3,
+        "sitemaps_listed": [],
+        "amp_verdict": "",
+        "amp_indexing_state": "",
+        "mobile_verdict": "VERDICT_UNSPECIFIED",
+        "mobile_issues": [],
+        "rich_results_verdict": "",
+        "rich_results_types": [],
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=QlhKas-Gj9hn2DSNCSUhoQ&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://checkin.aviva.com.br/",
@@ -2156,30 +2175,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=El5ua2_Pw7AeFMDarPAisQ&utm_medium=link&utm_source=api"
-      },
-      {
-        "url": "https://services.aviva.com.br/",
-        "property": "sc-domain:aviva.com.br",
-        "verdict": "PASS",
-        "coverage_state": "Enviada e indexada",
-        "indexing_state": "INDEXING_ALLOWED",
-        "robots_txt_state": "ALLOWED",
-        "page_fetch_state": "SUCCESSFUL",
-        "crawled_as": "MOBILE",
-        "last_crawl_time": "2026-04-23T18:53:40Z",
-        "google_canonical": "https://services.aviva.com.br/",
-        "user_canonical": "https://services.aviva.com.br/",
-        "canonical_match": "match",
-        "referring_urls_count": 3,
-        "sitemaps_listed": [],
-        "amp_verdict": "",
-        "amp_indexing_state": "",
-        "mobile_verdict": "VERDICT_UNSPECIFIED",
-        "mobile_issues": [],
-        "rich_results_verdict": "",
-        "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=j7IxSuA9KHMn_B7AhwzMng&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=TAdBsl5itdKp-UyfvPYftQ&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://fornecedores.aviva.com.br/",
@@ -2190,7 +2186,7 @@
         "robots_txt_state": "ALLOWED",
         "page_fetch_state": "SUCCESSFUL",
         "crawled_as": "MOBILE",
-        "last_crawl_time": "2026-04-24T07:48:24Z",
+        "last_crawl_time": "2026-04-27T00:38:40Z",
         "google_canonical": "https://fornecedores.aviva.com.br/",
         "user_canonical": "",
         "canonical_match": "unknown",
@@ -2202,7 +2198,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=3v54DzvsXt2uHGHCwLtV9Q&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=kLI35hB3FHoYR0AtedjAGg&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://tse.aviva.com.br/",
@@ -2213,7 +2209,7 @@
         "robots_txt_state": "ALLOWED",
         "page_fetch_state": "SUCCESSFUL",
         "crawled_as": "MOBILE",
-        "last_crawl_time": "2026-04-16T00:12:01Z",
+        "last_crawl_time": "2026-04-26T09:28:09Z",
         "google_canonical": "https://tse.aviva.com.br/",
         "user_canonical": "",
         "canonical_match": "unknown",
@@ -2225,7 +2221,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=zSKPvsaOL6hvveNYbqnfUg&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=_lTMHHgpmnz6ugHEYthL_w&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://webcheckout.aviva.com.br/",
@@ -2248,30 +2244,7 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=6Ht8tTTuW8l7-3m6iOcCxQ&utm_medium=link&utm_source=api"
-      },
-      {
-        "url": "https://www.aviva.com.br/politica-de-privacidade.php",
-        "property": "sc-domain:aviva.com.br",
-        "verdict": "NEUTRAL",
-        "coverage_state": "Não encontrado (404)",
-        "indexing_state": "INDEXING_STATE_UNSPECIFIED",
-        "robots_txt_state": "ALLOWED",
-        "page_fetch_state": "NOT_FOUND",
-        "crawled_as": "MOBILE",
-        "last_crawl_time": "2026-04-24T01:23:53Z",
-        "google_canonical": "",
-        "user_canonical": "",
-        "canonical_match": "unknown",
-        "referring_urls_count": 2,
-        "sitemaps_listed": [],
-        "amp_verdict": "",
-        "amp_indexing_state": "",
-        "mobile_verdict": "VERDICT_UNSPECIFIED",
-        "mobile_issues": [],
-        "rich_results_verdict": "",
-        "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=M9LDODfwbVWlDApdcgLOQQ&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=0eTNCdWY0-sg_1TFNAkDOQ&utm_medium=link&utm_source=api"
       },
       {
         "url": "http://www.aviva.com.br/",
@@ -2282,7 +2255,7 @@
         "robots_txt_state": "ALLOWED",
         "page_fetch_state": "SUCCESSFUL",
         "crawled_as": "MOBILE",
-        "last_crawl_time": "2026-04-23T23:53:47Z",
+        "last_crawl_time": "2026-04-26T22:51:38Z",
         "google_canonical": "https://www.aviva.com.br/",
         "user_canonical": "https://www.aviva.com.br/",
         "canonical_match": "match",
@@ -2294,7 +2267,30 @@
         "mobile_issues": [],
         "rich_results_verdict": "",
         "rich_results_types": [],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=RTHiVHDlLcyHx1QTBUluog&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=6qbjWLjhHBCb_5zdsaHmLw&utm_medium=link&utm_source=api"
+      },
+      {
+        "url": "https://www.aviva.com.br/politica-de-privacidade.php",
+        "property": "sc-domain:aviva.com.br",
+        "verdict": "NEUTRAL",
+        "coverage_state": "Não encontrado (404)",
+        "indexing_state": "INDEXING_STATE_UNSPECIFIED",
+        "robots_txt_state": "ALLOWED",
+        "page_fetch_state": "NOT_FOUND",
+        "crawled_as": "MOBILE",
+        "last_crawl_time": "2026-04-26T22:10:54Z",
+        "google_canonical": "",
+        "user_canonical": "",
+        "canonical_match": "unknown",
+        "referring_urls_count": 2,
+        "sitemaps_listed": [],
+        "amp_verdict": "",
+        "amp_indexing_state": "",
+        "mobile_verdict": "VERDICT_UNSPECIFIED",
+        "mobile_issues": [],
+        "rich_results_verdict": "",
+        "rich_results_types": [],
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=slwtcAO5Q9TS40pVA7MV-A&utm_medium=link&utm_source=api"
       },
       {
         "url": "https://aviva.com.br/pacotes",
@@ -2305,7 +2301,7 @@
         "robots_txt_state": "ALLOWED",
         "page_fetch_state": "SUCCESSFUL",
         "crawled_as": "MOBILE",
-        "last_crawl_time": "2026-04-24T04:12:44Z",
+        "last_crawl_time": "2026-04-27T13:28:03Z",
         "google_canonical": "https://aviva.com.br/pacotes",
         "user_canonical": "https://aviva.com.br/pacotes",
         "canonical_match": "match",
@@ -2319,23 +2315,23 @@
         "rich_results_types": [
           "Os dados estruturados não podem ser analisados"
         ],
-        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=PGahxbJK3htFsMvWD0nJhQ&utm_medium=link&utm_source=api"
+        "inspection_link": "https://search.google.com/search-console/inspect?resource_id=sc-domain:aviva.com.br&id=qtexgrKeZCeFD2lnkOer8g&utm_medium=link&utm_source=api"
       }
     ]
   },
   "gsc_sitemaps": {
-    "data_date": "2026-04-24",
+    "data_date": "2026-04-27",
     "summary": {
       "total_sitemaps": 15,
       "total_errors": 8,
       "total_warnings": 25,
-      "urls_submitted_total": 176754,
+      "urls_submitted_total": 177543,
       "urls_indexed_total": 496,
       "indexed_pct": 0.3,
       "by_property": {
         "aviva": {
           "count": 2,
-          "submitted": 208,
+          "submitted": 997,
           "indexed": 0,
           "errors": 1,
           "warnings": 1
@@ -2381,7 +2377,7 @@
           "property": "sc-domain:aviva.com.br",
           "path": "http://aviva.com.br/sitemap.xml",
           "last_submitted": "2026-04-13T12:59:42.476Z",
-          "last_downloaded": "2026-04-21T11:29:07.661Z",
+          "last_downloaded": "2026-04-25T08:38:10.441Z",
           "is_pending": false,
           "is_sitemaps_index": false,
           "type": "sitemap",
@@ -2390,11 +2386,11 @@
           "contents_summary": [
             {
               "type": "web",
-              "submitted": 104,
+              "submitted": 893,
               "indexed": 0
             }
           ],
-          "urls_submitted_total": 104,
+          "urls_submitted_total": 893,
           "urls_indexed_total": 0,
           "origin_tag": "aviva"
         },
@@ -2402,7 +2398,7 @@
           "property": "sc-domain:rioquente.com.br",
           "path": "https://www.rioquente.com.br/sitemap.xml",
           "last_submitted": "2025-01-03T12:17:52.341Z",
-          "last_downloaded": "2026-04-20T05:52:30.519Z",
+          "last_downloaded": "2026-04-26T19:42:07.540Z",
           "is_pending": false,
           "is_sitemaps_index": false,
           "type": "sitemap",
@@ -2423,7 +2419,7 @@
           "property": "sc-domain:rioquente.com.br",
           "path": "https://www.rioquente.com.br/slot-demo/sitemap.xml",
           "last_submitted": "2023-03-14T06:30:21.742Z",
-          "last_downloaded": "2026-04-14T05:27:25.271Z",
+          "last_downloaded": "2026-04-24T23:09:14.243Z",
           "is_pending": false,
           "is_sitemaps_index": false,
           "type": "",
@@ -2459,7 +2455,7 @@
           "property": "sc-domain:rioquente.com.br",
           "path": "https://www.rioquente.com.br/sitemap_pt.xml",
           "last_submitted": "2018-10-31T14:47:15.698Z",
-          "last_downloaded": "2026-04-20T11:27:48.701Z",
+          "last_downloaded": "2026-04-26T00:12:47.410Z",
           "is_pending": false,
           "is_sitemaps_index": false,
           "type": "sitemap",
@@ -2495,7 +2491,7 @@
           "property": "sc-domain:costadosauipe.com.br",
           "path": "https://www.costadosauipe.com.br/sitemap-geral.xml",
           "last_submitted": "2025-09-26T00:39:20.014Z",
-          "last_downloaded": "2026-04-16T03:01:37.345Z",
+          "last_downloaded": "2026-04-25T08:17:04.846Z",
           "is_pending": false,
           "is_sitemaps_index": false,
           "type": "sitemap",
@@ -2516,7 +2512,7 @@
           "property": "sc-domain:costadosauipe.com.br",
           "path": "https://www.costadosauipe.com.br/sitemap-pacotes.xml",
           "last_submitted": "2025-04-08T06:52:25.485Z",
-          "last_downloaded": "2026-04-16T06:32:49.673Z",
+          "last_downloaded": "2026-04-26T06:17:22.654Z",
           "is_pending": false,
           "is_sitemaps_index": false,
           "type": "sitemap",
@@ -2536,7 +2532,7 @@
         {
           "property": "sc-domain:costadosauipe.com.br",
           "path": "https://www.costadosauipe.com.br/sitemap-blog.xml",
-          "last_submitted": "2025-01-25T20:29:23.665Z",
+          "last_submitted": "2025-01-02T11:25:38.165Z",
           "last_downloaded": "2026-04-17T15:53:36.396Z",
           "is_pending": false,
           "is_sitemaps_index": false,
@@ -2655,10 +2651,10 @@
         }
       ]
     },
-    "csv_anexo": "gsc_sitemaps_2026-04-24.csv"
+    "csv_anexo": "gsc_sitemaps_2026-04-27.csv"
   },
   "crux": {
-    "data_date": "2026-04-24",
+    "data_date": "2026-04-27",
     "has_error": true,
     "summary": {},
     "timeseries_phone": {
