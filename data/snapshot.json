@@ -1849,7 +1849,7 @@
         "unknown": 46,
         "mismatch_pct": 6.7
       },
-      "rich_results_detected_count": 265,
+      "rich_results_detected_count": 266,
       "mobile_issues_count": 0
     },
     "sampled_urls": 360,
@@ -2533,7 +2533,7 @@
           "property": "sc-domain:costadosauipe.com.br",
           "path": "https://www.costadosauipe.com.br/sitemap-blog.xml",
           "last_submitted": "2025-01-02T11:25:38.165Z",
-          "last_downloaded": "2026-04-17T15:53:36.396Z",
+          "last_downloaded": "2026-04-27T18:43:36.415Z",
           "is_pending": false,
           "is_sitemaps_index": false,
           "type": "sitemap",
