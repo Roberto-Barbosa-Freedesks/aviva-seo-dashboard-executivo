@@ -1,0 +1,4 @@
+URL,LCP (s),CLS,INP (ms),Falhas,Oportunidade PSI,Acao recomendada
+https://www.aviva.com.br/blog/web-check-in-praticidade-e-comodidade-no-rio-quente,2.07,8,461,CLS 8.000 (meta <0.1) | INP 461ms (meta <200),Reduce unused JavaScript,Reservar espaco visual para imagens/embeds
+
+Total: 1 URLs com CWV em FAIL | Fonte: PageSpeed Insights API | Gerado: 2026-04-29T09:50:32
